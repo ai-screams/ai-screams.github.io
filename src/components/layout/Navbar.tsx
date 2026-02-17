@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { useColorScheme } from "../../hooks/useColorScheme";
+import { useScheme } from "../../contexts/SchemeContext";
 import { type ColorScheme, schemeConfig } from "../../styles/tokens";
 
 const navItems = [
@@ -12,7 +12,7 @@ const navItems = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
-  const { scheme, setScheme } = useColorScheme();
+  const { scheme, setScheme } = useScheme();
 
   return (
     <header className="glass fixed top-0 z-50 w-full">

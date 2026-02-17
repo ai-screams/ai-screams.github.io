@@ -1,7 +1,13 @@
-export default function Colors() {
-  const brandSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
-  const accentSteps = [300, 400, 500];
+const brandSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+const accentSteps = [300, 400, 500];
+const semanticColors = [
+  { color: "var(--color-success)", label: "success" },
+  { color: "var(--color-warning)", label: "warning" },
+  { color: "var(--color-error)", label: "error" },
+  { color: "var(--color-info)", label: "info" },
+] as const;
 
+export default function Colors() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-24">
       <h1 className="font-display text-4xl font-bold tracking-tight">
@@ -54,14 +60,7 @@ export default function Colors() {
           스킴과 무관하게 고정된 상태 색상입니다.
         </p>
         <div className="mt-4 flex gap-3">
-          {(
-            [
-              { color: "oklch(0.75 0.14 152)", label: "success" },
-              { color: "oklch(0.80 0.12 85)", label: "warning" },
-              { color: "oklch(0.72 0.14 25)", label: "error" },
-              { color: "oklch(0.72 0.10 240)", label: "info" },
-            ] as const
-          ).map(({ color, label }) => (
+          {semanticColors.map(({ color, label }) => (
             <div className="flex-1" key={label}>
               <div
                 className="aspect-[3/1] rounded-lg"
