@@ -5,6 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Screams</title>
+    <!-- Color scheme init (prevents flash on reload) -->
+    <script>
+      (function () {
+        var s = localStorage.getItem("ai-scream-scheme");
+        if (s && /^(aurora|peach|cotton)$/.test(s)) {
+          document.documentElement.setAttribute("data-scheme", s);
+        }
+      })();
+    </script>
     <!-- GitHub Pages SPA redirect handler -->
     <script>
       (function () {

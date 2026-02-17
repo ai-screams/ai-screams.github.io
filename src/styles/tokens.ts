@@ -5,21 +5,47 @@
  * (e.g., PixiJS canvas rendering, Motion animation configs).
  *
  * These MUST stay in sync with tokens.css.
- * Brand colors are PLACEHOLDER - update when finalized.
  */
+
+/* -- Color Scheme -------------------------------------------------------- */
+
+export type ColorScheme = "aurora" | "cotton" | "peach";
+
+export const schemeConfig: Record<
+  ColorScheme,
+  { accent: string; label: string; preview: string }
+> = {
+  aurora: {
+    accent: "oklch(0.73 0.11 170)",
+    label: "Aurora Dream",
+    preview: "oklch(0.70 0.13 290)",
+  },
+  cotton: {
+    accent: "oklch(0.73 0.10 230)",
+    label: "Cotton Sky",
+    preview: "oklch(0.71 0.13 350)",
+  },
+  peach: {
+    accent: "oklch(0.75 0.10 85)",
+    label: "Peach Blossom",
+    preview: "oklch(0.72 0.13 45)",
+  },
+};
+
+/* -- Color Primitives (Aurora Dream default) ----------------------------- */
 
 export const colors = {
   brand: {
-    50: "oklch(0.97 0.02 200)",
-    100: "oklch(0.93 0.04 200)",
-    200: "oklch(0.87 0.07 200)",
-    300: "oklch(0.78 0.1 200)",
-    400: "oklch(0.68 0.14 200)",
-    500: "oklch(0.6 0.16 200)",
-    600: "oklch(0.52 0.14 200)",
-    700: "oklch(0.44 0.12 200)",
-    800: "oklch(0.36 0.1 200)",
-    900: "oklch(0.28 0.08 200)",
+    50: "oklch(0.96 0.03 290)",
+    100: "oklch(0.92 0.05 290)",
+    200: "oklch(0.86 0.08 290)",
+    300: "oklch(0.78 0.11 290)",
+    400: "oklch(0.70 0.13 290)",
+    500: "oklch(0.62 0.15 290)",
+    600: "oklch(0.54 0.13 290)",
+    700: "oklch(0.44 0.11 290)",
+    800: "oklch(0.36 0.09 290)",
+    900: "oklch(0.28 0.07 290)",
   },
   neutral: {
     50: "oklch(0.98 0 0)",
@@ -36,22 +62,22 @@ export const colors = {
     950: "oklch(0.07 0 0)",
   },
   semantic: {
-    error: "oklch(0.65 0.2 25)",
-    info: "oklch(0.7 0.12 240)",
-    success: "oklch(0.72 0.17 152)",
-    warning: "oklch(0.8 0.15 75)",
+    error: "oklch(0.72 0.14 25)",
+    info: "oklch(0.72 0.10 240)",
+    success: "oklch(0.75 0.14 152)",
+    warning: "oklch(0.80 0.12 85)",
   },
 } as const;
 
 /**
  * Hex fallbacks for PixiJS (which doesn't support oklch).
- * Approximate conversions - update when brand colors are finalized.
+ * Aurora Dream scheme values.
  */
 export const pixiColors = {
   brand: {
-    400: 0x4db8c7,
-    500: 0x2d8fa0,
-    600: 0x1d6e7d,
+    400: 0x9b7ecf,
+    500: 0x7c5db8,
+    600: 0x624a96,
   },
   neutral: {
     50: 0xf5f5f5,
@@ -61,12 +87,14 @@ export const pixiColors = {
     950: 0x0d0d0d,
   },
   semantic: {
-    error: 0xd94040,
-    info: 0x5c8fcc,
-    success: 0x40b87a,
-    warning: 0xccaa40,
+    error: 0xd98070,
+    info: 0x7aa0d0,
+    success: 0x6bc490,
+    warning: 0xccb860,
   },
 } as const;
+
+/* -- Motion -------------------------------------------------------------- */
 
 export const easing = {
   apple: [0.42, 0, 0.58, 1] as const,

@@ -4,18 +4,18 @@
  * ============================================================================
  *
  * Figma-style centralized token system.
- * Architecture: Primitives (@theme) -> Semantics (:root) -> Components
+ * Architecture: Primitives (@theme) -> Schemes -> Semantics -> Components
  *
- * - @theme: Generates Tailwind utility classes (e.g., bg-neutral-900)
- * - :root:  Semantic aliases consumed via var() (e.g., var(--surface))
+ * - @theme:         Scheme-independent Tailwind utility classes
+ * - [data-scheme]:  Brand & accent palette per scheme (aurora | peach | cotton)
+ * - :root / .light: Semantic aliases consumed via var()
  *
- * Brand colors are PLACEHOLDER - will be replaced when finalized.
  * ============================================================================
  */
 
 /* -------------------------------------------------------------------------
  * 1. PRIMITIVE TOKENS (@theme)
- *    Raw palette values. These generate Tailwind utility classes.
+ *    Scheme-independent values. These generate Tailwind utility classes.
  * ------------------------------------------------------------------------- */
 
 @theme {
@@ -33,23 +33,11 @@
   --color-neutral-900: oklch(0.13 0 0);
   --color-neutral-950: oklch(0.07 0 0);
 
-  /* -- Colors: Brand (PLACEHOLDER - swap when brand colors finalized) ---- */
-  --color-brand-50: oklch(0.97 0.02 200);
-  --color-brand-100: oklch(0.93 0.04 200);
-  --color-brand-200: oklch(0.87 0.07 200);
-  --color-brand-300: oklch(0.78 0.1 200);
-  --color-brand-400: oklch(0.68 0.14 200);
-  --color-brand-500: oklch(0.6 0.16 200);
-  --color-brand-600: oklch(0.52 0.14 200);
-  --color-brand-700: oklch(0.44 0.12 200);
-  --color-brand-800: oklch(0.36 0.1 200);
-  --color-brand-900: oklch(0.28 0.08 200);
-
-  /* -- Colors: Semantic status ------------------------------------------- */
-  --color-success: oklch(0.72 0.17 152);
-  --color-warning: oklch(0.8 0.15 75);
-  --color-error: oklch(0.65 0.2 25);
-  --color-info: oklch(0.7 0.12 240);
+  /* -- Colors: Semantic status (pastel-toned) ----------------------------- */
+  --color-success: oklch(0.75 0.14 152);
+  --color-warning: oklch(0.8 0.12 85);
+  --color-error: oklch(0.72 0.14 25);
+  --color-info: oklch(0.72 0.1 240);
 
   /* -- Typography: Font families ----------------------------------------- */
   --font-display:
@@ -76,7 +64,6 @@
   --shadow-md: 0 4px 12px oklch(0 0 0 / 0.15);
   --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.2);
   --shadow-xl: 0 16px 48px oklch(0 0 0 / 0.25);
-  --shadow-glow: 0 0 20px oklch(0.6 0.16 200 / 0.3);
 
   /* -- Easing curves ----------------------------------------------------- */
   --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -122,7 +109,73 @@
 }
 
 /* -------------------------------------------------------------------------
- * 2. SEMANTIC TOKENS (:root)
+ * 2. COLOR SCHEMES
+ *    Brand & accent palettes. Default = Aurora Dream (Lavender + Mint).
+ *    Switch via data-scheme attribute on <html>.
+ * ------------------------------------------------------------------------- */
+
+/* -- Aurora Dream (default): Lavender brand + Mint accent ---------------- */
+:root {
+  --color-brand-50: oklch(0.96 0.03 290);
+  --color-brand-100: oklch(0.92 0.05 290);
+  --color-brand-200: oklch(0.86 0.08 290);
+  --color-brand-300: oklch(0.78 0.11 290);
+  --color-brand-400: oklch(0.7 0.13 290);
+  --color-brand-500: oklch(0.62 0.15 290);
+  --color-brand-600: oklch(0.54 0.13 290);
+  --color-brand-700: oklch(0.44 0.11 290);
+  --color-brand-800: oklch(0.36 0.09 290);
+  --color-brand-900: oklch(0.28 0.07 290);
+
+  --color-accent-300: oklch(0.82 0.09 170);
+  --color-accent-400: oklch(0.73 0.11 170);
+  --color-accent-500: oklch(0.65 0.13 170);
+
+  --shadow-glow: 0 0 20px oklch(0.62 0.15 290 / 0.3);
+}
+
+/* -- Peach Blossom: Peach brand + Gold accent ----------------------------- */
+[data-scheme="peach"] {
+  --color-brand-50: oklch(0.97 0.02 45);
+  --color-brand-100: oklch(0.93 0.04 45);
+  --color-brand-200: oklch(0.88 0.07 45);
+  --color-brand-300: oklch(0.8 0.1 45);
+  --color-brand-400: oklch(0.72 0.13 45);
+  --color-brand-500: oklch(0.64 0.15 45);
+  --color-brand-600: oklch(0.55 0.13 45);
+  --color-brand-700: oklch(0.46 0.11 45);
+  --color-brand-800: oklch(0.37 0.09 45);
+  --color-brand-900: oklch(0.29 0.07 45);
+
+  --color-accent-300: oklch(0.84 0.08 85);
+  --color-accent-400: oklch(0.75 0.1 85);
+  --color-accent-500: oklch(0.68 0.12 85);
+
+  --shadow-glow: 0 0 20px oklch(0.64 0.15 45 / 0.3);
+}
+
+/* -- Cotton Sky: Rose brand + Sky Blue accent ----------------------------- */
+[data-scheme="cotton"] {
+  --color-brand-50: oklch(0.97 0.02 350);
+  --color-brand-100: oklch(0.93 0.04 350);
+  --color-brand-200: oklch(0.87 0.07 350);
+  --color-brand-300: oklch(0.79 0.1 350);
+  --color-brand-400: oklch(0.71 0.13 350);
+  --color-brand-500: oklch(0.63 0.15 350);
+  --color-brand-600: oklch(0.54 0.13 350);
+  --color-brand-700: oklch(0.45 0.11 350);
+  --color-brand-800: oklch(0.36 0.09 350);
+  --color-brand-900: oklch(0.28 0.07 350);
+
+  --color-accent-300: oklch(0.82 0.08 230);
+  --color-accent-400: oklch(0.73 0.1 230);
+  --color-accent-500: oklch(0.65 0.12 230);
+
+  --shadow-glow: 0 0 20px oklch(0.63 0.15 350 / 0.3);
+}
+
+/* -------------------------------------------------------------------------
+ * 3. SEMANTIC TOKENS
  *    Role-based aliases. Dark-first (default = dark).
  *    Consumed via var(--surface), var(--text-primary), etc.
  * ------------------------------------------------------------------------- */
@@ -139,6 +192,7 @@
   --text-secondary: var(--color-neutral-400);
   --text-tertiary: var(--color-neutral-500);
   --text-brand: var(--color-brand-400);
+  --text-accent: var(--color-accent-400);
 
   /* -- Borders ----------------------------------------------------------- */
   --border-default: oklch(1 0 0 / 0.1);
@@ -157,7 +211,7 @@
 }
 
 /* -------------------------------------------------------------------------
- * 3. LIGHT MODE OVERRIDE (opt-in via .light class)
+ * 4. LIGHT MODE OVERRIDE (opt-in via .light class)
  * ------------------------------------------------------------------------- */
 
 .light {
@@ -170,6 +224,7 @@
   --text-secondary: var(--color-neutral-600);
   --text-tertiary: var(--color-neutral-500);
   --text-brand: var(--color-brand-600);
+  --text-accent: var(--color-accent-500);
 
   --border-default: oklch(0 0 0 / 0.1);
   --border-subtle: oklch(0 0 0 / 0.06);
