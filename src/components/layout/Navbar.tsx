@@ -11,13 +11,13 @@ export default function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <header className="fixed top-0 z-50 w-full">
+    <header className="glass fixed top-0 z-50 w-full">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link
-          className="text-lg font-semibold tracking-tight text-white"
+          className="font-display text-lg font-semibold tracking-tight text-[var(--text-primary)]"
           to="/"
         >
-          AI Screams
+          AI Scream
         </Link>
 
         <ul className="flex items-center gap-1">
@@ -30,8 +30,8 @@ export default function Navbar() {
                 <Link
                   className={`rounded-full px-4 py-2 text-sm transition-colors ${
                     isActive
-                      ? "bg-white/10 text-white"
-                      : "text-white/60 hover:text-white"
+                      ? "bg-[var(--interactive-active)] text-[var(--text-primary)]"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                   }`}
                   to={path}
                 >
