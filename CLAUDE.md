@@ -59,6 +59,25 @@ Pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write`
 - **Brand name**: "AI Scream" (singular), repo name is "AI Screams" (plural)
 - **Path alias**: `@/*` maps to `./src/*`
 
+## CI/CD
+
+**CI Pipeline** (`.github/workflows/ci.yml`) — runs on pull requests to main:
+
+- 5 parallel jobs: lint (`npm run lint`), typecheck (`npx tsc -b`), build (`npm run build`), format-check (`npm run format:check`), security (npm audit + gitleaks)
+- All GitHub Actions pinned to commit SHAs for supply chain security
+- Least-privilege permissions (`contents: read` only)
+
+**Deploy Pipeline** (`.github/workflows/deploy.yml`) — runs on push to main:
+
+- Builds dist artifact and deploys to GitHub Pages
+- Triggered on push to `main` or manual `workflow_dispatch`
+
+**Dependabot** (`.github/dependabot.yml`):
+
+- npm: weekly updates (Mondays), minor/patch grouped into single PR
+- GitHub Actions: monthly updates
+- Commit prefixes: `chore(deps):` / `chore(ci):`
+
 ## Lint Rules
 
 ESLint v9 flat config with `eslint-plugin-perfectionist`:

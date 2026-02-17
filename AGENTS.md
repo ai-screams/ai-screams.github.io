@@ -1,4 +1,4 @@
-<!-- Generated: 2026-02-17 | Updated: 2026-02-17 -->
+<!-- Generated: 2026-02-17 | Updated: 2026-02-17 (CI/CD docs added) -->
 
 # ai-screams.github.io
 
@@ -20,13 +20,14 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 
 ## Subdirectories
 
-| Directory            | Purpose                                                  |
-| -------------------- | -------------------------------------------------------- |
-| `src/`               | Application source code (see `src/AGENTS.md`)            |
-| `public/`            | Static assets (`404.html` SPA fallback, `vite.svg` icon) |
-| `.github/workflows/` | GitHub Actions deploy pipeline                           |
-| `.husky/`            | Git hooks (pre-commit runs lint-staged)                  |
-| `.docs/ideas/`       | Brainstorming and planning documents                     |
+| Directory            | Purpose                                                                                       |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| `src/`               | Application source code (see `src/AGENTS.md`)                                                 |
+| `public/`            | Static assets (`404.html` SPA fallback, `vite.svg` icon)                                      |
+| `.github/workflows/` | CI (`ci.yml`: lint, typecheck, build, format, security) + Deploy (`deploy.yml`: GitHub Pages) |
+| `.github/`           | `dependabot.yml` — automated npm weekly + GitHub Actions monthly updates                      |
+| `.husky/`            | Git hooks (pre-commit runs lint-staged)                                                       |
+| `.docs/ideas/`       | Brainstorming and planning documents                                                          |
 
 ## For AI Agents
 
