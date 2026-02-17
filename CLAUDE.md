@@ -63,7 +63,7 @@ Pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write`
 
 **CI Pipeline** (`.github/workflows/ci.yml`) — runs on pull requests to main:
 
-- 5 parallel jobs: lint (`npm run lint`), typecheck (`npx tsc -b`), build (`npm run build`), format-check (`npm run format:check`), security (npm audit + gitleaks)
+- 5 parallel jobs: lint (`npm run lint`), typecheck (`npx tsc -b`), build (`npm run build`), format-check (`npm run format:check`), security (npm audit + gitleaks CLI v8.30.0)
 - All GitHub Actions pinned to commit SHAs for supply chain security
 - Least-privilege permissions (`contents: read` only)
 
