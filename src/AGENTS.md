@@ -9,12 +9,12 @@ Application source code. Entry point is `main.tsx` which renders `App.tsx` into 
 
 ## Key Files
 
-| File            | Description                                                                     |
-| --------------- | ------------------------------------------------------------------------------- |
-| `main.tsx`      | Entry point — `createRoot` + `StrictMode`                                       |
-| `App.tsx`       | Router setup with `SchemeProvider` → `BrowserRouter` → `Suspense` → lazy routes |
-| `index.css`     | Tailwind v4 import, base styles, `@utility glass` definition                    |
-| `vite-env.d.ts` | Vite client type declarations                                                   |
+| File            | Description                                                                          |
+| --------------- | ------------------------------------------------------------------------------------ |
+| `main.tsx`      | Entry point — `createRoot` + `StrictMode`                                            |
+| `App.tsx`       | Router setup with `SchemeProvider` → `BrowserRouter` → `Suspense` → lazy routes      |
+| `index.css`     | Tailwind v4 import, base styles, pixel `@utility` patterns (card, btn, dialog, etc.) |
+| `vite-env.d.ts` | Vite client type declarations                                                        |
 
 ## Subdirectories
 

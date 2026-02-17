@@ -9,11 +9,11 @@ App shell components that wrap every page. Provides the persistent Navbar, page 
 
 ## Key Files
 
-| File         | Description                                                                                                            |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `Layout.tsx` | Root layout — renders Navbar, `AnimatePresence` page transition (Motion), Footer. Uses `<Outlet />` from React Router. |
-| `Navbar.tsx` | Fixed glass-morphism header with nav links + 3-dot color scheme switcher. Consumes `useScheme()` context.              |
-| `Footer.tsx` | Simple footer with copyright text                                                                                      |
+| File         | Description                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `Layout.tsx` | Root layout — renders Navbar, `AnimatePresence` page transition (Motion), Footer. Uses `<Outlet />` from React Router.         |
+| `Navbar.tsx` | Fixed header with solid border+bg, nav links + 3-dot color scheme switcher. Consumes `useScheme()` context. Uses `font-pixel`. |
+| `Footer.tsx` | Simple footer with copyright text                                                                                              |
 
 ## For AI Agents
 
@@ -21,7 +21,8 @@ App shell components that wrap every page. Provides the persistent Navbar, page 
 
 - `Layout.tsx` is the route parent — it receives child pages via `<Outlet />`
 - Page transitions use Motion's `AnimatePresence` with `mode="wait"` and `key={pathname}`
-- Navbar uses `glass` utility class (defined in `index.css`) for glassmorphism
+- Navbar uses solid `border-b border-[var(--border-default)] bg-[var(--surface)]` (no glassmorphism)
+- Navbar uses `font-pixel` for brand name, not `font-display`
 - Scheme switcher dots iterate `schemeConfig` from `styles/tokens.ts`
 - Navigation items are defined in `navItems` array — add new nav links there
 

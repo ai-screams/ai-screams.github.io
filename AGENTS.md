@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features an Apple-like dark-first design with a switchable 3-scheme pastel color system and a planned pixel-art travel map.
+Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 3-scheme pastel color system and a pixel-art travel prototype.
 
 ## Key Files
 
@@ -48,10 +48,11 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 
 ### Common Patterns
 
-- Dark-first design with `.light` class for opt-in light mode
+- White-first pixel design (no dark mode)
 - Route-level code splitting with `React.lazy()` + `Suspense`
 - Shared state via Context Provider (React 19 `use()` API)
-- Figma-style 3-layer token architecture: Primitives → Schemes → Semantics
+- 4-layer token architecture: Primitives → Schemes → Semantics → Pixel System
+- Font tokens: `--font-pixel` (headings) and `--font-pixel-body` (body text)
 
 ## Dependencies
 

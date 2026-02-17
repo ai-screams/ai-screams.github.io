@@ -9,14 +9,15 @@ Route-level page components. Each file corresponds to a URL path, lazy-loaded in
 
 ## Key Files
 
-| File           | Description                                                              |
-| -------------- | ------------------------------------------------------------------------ |
-| `Home.tsx`     | `/` — Landing page (placeholder)                                         |
-| `About.tsx`    | `/about` — About page (placeholder)                                      |
-| `Projects.tsx` | `/projects` — Projects showcase (placeholder)                            |
-| `Travel.tsx`   | `/travel` — Pixel travel map (placeholder, will use PixiJS)              |
-| `Colors.tsx`   | `/colors` — Design token visual showcase with all scales, buttons, cards |
-| `NotFound.tsx` | `/*` — 404 page with "Go home" link                                      |
+| File               | Description                                                                      |
+| ------------------ | -------------------------------------------------------------------------------- |
+| `Home.tsx`         | `/` — Landing page (placeholder)                                                 |
+| `About.tsx`        | `/about` — About page (placeholder)                                              |
+| `Projects.tsx`     | `/projects` — Projects showcase (placeholder)                                    |
+| `Travel.tsx`       | `/travel` — Pixel travel map (placeholder)                                       |
+| `Colors.tsx`       | `/colors` — Design token visual showcase with all scales, buttons, cards         |
+| `TestCssPixel.tsx` | `/test-css-pixel` — 514-line pixel design prototype with DotHero canvas + RPG UI |
+| `NotFound.tsx`     | `/*` — 404 page with "Go home" link                                              |
 
 ## For AI Agents
 
@@ -33,7 +34,7 @@ Route-level page components. Each file corresponds to a URL path, lazy-loaded in
 ### Common Patterns
 
 - Pages use `<section className="mx-auto max-w-5xl px-6 py-24">` as container
-- Headings use `font-display text-4xl font-bold tracking-tight`
+- Headings use `font-pixel text-4xl font-bold tracking-tight`
 - Secondary text uses `text-[var(--text-secondary)]`
 
 <!-- MANUAL: -->

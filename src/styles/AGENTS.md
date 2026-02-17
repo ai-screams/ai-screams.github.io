@@ -5,26 +5,28 @@
 
 ## Purpose
 
-Centralized design token system following Figma-style architecture. Single source of truth for colors, typography, spacing, and animations.
+Centralized design token system for white-first pixel design. Single source of truth for colors, typography, spacing, animations, and pixel effects.
 
 ## Key Files
 
-| File         | Description                                                                                                            |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `tokens.css` | Master token file — primitives (`@theme`), color schemes (`[data-scheme]`), semantics (`:root`), light mode (`.light`) |
-| `tokens.ts`  | TypeScript exports for JS contexts (PixiJS, Motion) — must stay in sync with `tokens.css`                              |
+| File         | Description                                                                                                                            |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `tokens.css` | Master token file — 4 sections: primitives (`@theme`), color schemes (`[data-scheme]`), semantics (`:root`), pixel system (`:root`)    |
+| `tokens.ts`  | TypeScript exports for JS contexts (PixiJS, Motion) — `pixelFonts`, `pixelShadows`, `pixiColors`, `schemeConfig`, `easing`, `duration` |
 
 ## For AI Agents
 
 ### Working In This Directory
 
-**tokens.css 3-layer architecture:**
+**tokens.css 4-layer architecture:**
 
-1. **Primitives** (`@theme` block): Neutral palette, semantic status colors, fonts, radius, shadows, easing, animations. These generate Tailwind utility classes. Scheme-independent.
+1. **Primitives** (`@theme` block): Neutral palette, semantic status colors, fonts (`--font-pixel`, `--font-pixel-body`), radius, shadows, easing, animations. These generate Tailwind utility classes. Scheme-independent.
 
 2. **Color Schemes** (`[data-scheme]` selectors): Brand (`--color-brand-50..900`) and accent (`--color-accent-300..500`) palettes per scheme. Default Aurora Dream values in `:root`, overrides in `[data-scheme="peach"]` and `[data-scheme="cotton"]`.
 
-3. **Semantic Tokens** (second `:root` block): Role-based aliases like `--surface`, `--text-primary`, `--text-brand`. These reference brand/accent variables and auto-switch with schemes.
+3. **Semantic Tokens** (second `:root` block): Role-based aliases like `--surface`, `--text-primary`, `--text-brand`. These reference brand/accent variables and auto-switch with schemes. White-first (light is the only mode).
+
+4. **Pixel Design System** (third `:root` block): Hard-edge borders, stepped shadows (`--pixel-shadow-sm/md/lg`), pixelated rendering, stepped animation timing, dot grid backgrounds.
 
 **When adding a new color scheme:**
 
@@ -38,6 +40,7 @@ Centralized design token system following Figma-style architecture. Single sourc
 
 - Keep `colors` object values in sync with Aurora Dream values from `tokens.css`
 - `pixiColors` hex values are approximate conversions for PixiJS (doesn't support oklch)
+- Exports: `pixelFonts`, `pixelShadows`, `pixiColors`, `schemeConfig`, `easing`, `duration`
 - Object keys must be alphabetically sorted (perfectionist)
 
 ### Color Space
