@@ -15,10 +15,10 @@ export default function Navbar() {
   const { scheme, setScheme } = useScheme();
 
   return (
-    <header className="glass fixed top-0 z-50 w-full">
+    <header className="fixed top-0 z-50 w-full border-b border-[var(--border-default)] bg-[var(--surface)]">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link
-          className="font-display text-lg font-semibold tracking-tight text-[var(--text-primary)]"
+          className="font-pixel text-lg font-semibold tracking-tight text-[var(--text-primary)]"
           to="/"
         >
           AI Scream

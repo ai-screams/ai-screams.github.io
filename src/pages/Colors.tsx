@@ -10,7 +10,7 @@ const semanticColors = [
 export default function Colors() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-24">
-      <h1 className="font-display text-4xl font-bold tracking-tight">
+      <h1 className="font-pixel text-4xl font-bold tracking-tight">
         Color Scheme Test
       </h1>
       <p className="mt-2 text-lg text-[var(--text-secondary)]">
@@ -19,7 +19,7 @@ export default function Colors() {
 
       {/* Brand Colors */}
       <div className="mt-12">
-        <h2 className="font-display text-2xl font-semibold">Brand Scale</h2>
+        <h2 className="font-pixel text-2xl font-semibold">Brand Scale</h2>
         <div className="mt-4 flex gap-2">
           {brandSteps.map((step) => (
             <div className="flex-1" key={step}>
@@ -37,7 +37,7 @@ export default function Colors() {
 
       {/* Accent Colors */}
       <div className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Accent Scale</h2>
+        <h2 className="font-pixel text-2xl font-semibold">Accent Scale</h2>
         <div className="mt-4 flex gap-2">
           {accentSteps.map((step) => (
             <div className="w-20" key={step}>
@@ -55,7 +55,7 @@ export default function Colors() {
 
       {/* Semantic Colors (scheme-independent) */}
       <div className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Semantic Status</h2>
+        <h2 className="font-pixel text-2xl font-semibold">Semantic Status</h2>
         <p className="mt-1 text-sm text-[var(--text-tertiary)]">
           스킴과 무관하게 고정된 상태 색상입니다.
         </p>
@@ -79,7 +79,7 @@ export default function Colors() {
 
       {/* Text Styles */}
       <div className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Text Styles</h2>
+        <h2 className="font-pixel text-2xl font-semibold">Text Styles</h2>
         <div className="mt-4 space-y-2">
           <p className="text-[var(--text-primary)]">
             text-primary — 기본 텍스트
@@ -101,7 +101,7 @@ export default function Colors() {
 
       {/* Buttons & Interactive */}
       <div className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">
+        <h2 className="font-pixel text-2xl font-semibold">
           Interactive Elements
         </h2>
         <div className="mt-4 flex flex-wrap gap-3">
@@ -140,15 +140,15 @@ export default function Colors() {
 
       {/* Cards with Glass & Glow */}
       <div className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Cards & Effects</h2>
+        <h2 className="font-pixel text-2xl font-semibold">Cards & Effects</h2>
         <div className="mt-4 grid grid-cols-3 gap-4">
-          {/* Glass Card */}
-          <div className="glass rounded-xl p-6">
-            <h3 className="font-display text-lg font-semibold text-[var(--text-brand)]">
-              Glass Card
+          {/* Elevated Card */}
+          <div className="rounded-xl border border-[var(--border-default)] bg-[var(--surface-overlay)] p-6">
+            <h3 className="font-pixel text-lg font-semibold text-[var(--text-brand)]">
+              Elevated Card
             </h3>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
-              Glassmorphism 효과가 적용된 카드입니다.
+              밝은 배경의 카드입니다.
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export default function Colors() {
             className="rounded-xl border border-[var(--border-brand)] bg-[var(--surface-elevated)] p-6"
             style={{ boxShadow: "var(--shadow-glow)" }}
           >
-            <h3 className="font-display text-lg font-semibold text-[var(--text-brand)]">
+            <h3 className="font-pixel text-lg font-semibold text-[var(--text-brand)]">
               Glow Card
             </h3>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
@@ -167,7 +167,7 @@ export default function Colors() {
 
           {/* Elevated Card */}
           <div className="rounded-xl bg-[var(--surface-elevated)] p-6">
-            <h3 className="font-display text-lg font-semibold text-[var(--text-accent)]">
+            <h3 className="font-pixel text-lg font-semibold text-[var(--text-accent)]">
               Elevated Card
             </h3>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
@@ -179,7 +179,7 @@ export default function Colors() {
 
       {/* Borders */}
       <div className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Borders</h2>
+        <h2 className="font-pixel text-2xl font-semibold">Borders</h2>
         <div className="mt-4 flex gap-4">
           <div className="flex-1 rounded-lg border border-[var(--border-default)] p-4 text-center text-sm text-[var(--text-secondary)]">
             border-default

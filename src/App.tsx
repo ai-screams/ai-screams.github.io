@@ -8,6 +8,7 @@ const Colors = lazy(() => import("./pages/Colors"));
 const Home = lazy(() => import("./pages/Home"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Projects = lazy(() => import("./pages/Projects"));
+const TestCssPixel = lazy(() => import("./pages/TestCssPixel"));
 const Travel = lazy(() => import("./pages/Travel"));
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
               <Route element={<Projects />} path="projects" />
               <Route element={<Travel />} path="travel" />
               <Route element={<Colors />} path="colors" />
+              <Route element={<TestCssPixel />} path="test-css-pixel" />
               <Route element={<NotFound />} path="*" />
             </Route>
           </Routes>

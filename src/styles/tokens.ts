@@ -5,6 +5,7 @@
  * (e.g., PixiJS canvas rendering, Motion animation configs).
  *
  * These MUST stay in sync with tokens.css.
+ * Architecture: White-first semantics + 3 scheme-aware brand palettes.
  */
 
 /* -- Color Scheme -------------------------------------------------------- */
@@ -94,6 +95,13 @@ export const pixiColors = {
   },
 } as const;
 
+/* -- Typography: Pixel Fonts ------------------------------------------------ */
+
+export const pixelFonts = {
+  body: '"NeoDunggeunmo", monospace',
+  heading: '"Press Start 2P", monospace',
+} as const;
+
 /* -- Motion -------------------------------------------------------------- */
 
 export const easing = {
@@ -108,3 +116,12 @@ export const duration = {
   normal: 0.25,
   slow: 0.4,
 };
+
+/* -- Pixel Shadows ------------------------------------------------------ */
+
+export const pixelShadows = {
+  lg: "6px 6px 0 0 oklch(0 0 0 / 0.12)",
+  md: "4px 4px 0 0 oklch(0 0 0 / 0.12)",
+  pressed: "2px 2px 0 0 oklch(0 0 0 / 0.12)",
+  sm: "3px 3px 0 0 oklch(0 0 0 / 0.12)",
+} as const;

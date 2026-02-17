@@ -1,17 +1,31 @@
 @import "tailwindcss";
 @import "./styles/tokens.css";
 
+/* =========================================================================
+ * AI Scream - Global Styles & Pixel Utilities
+ * =========================================================================
+ * Tailwind v4 Preflight handles: box-sizing, margin resets, border resets,
+ * img/video display:block, list-style removal. We only add what's missing.
+ * ========================================================================= */
+
 /* -------------------------------------------------------------------------
- * Base Styles
+ * 1. ROOT & BODY
  * ------------------------------------------------------------------------- */
 
 :root {
-  font-family: var(--font-body);
+  font-family: var(--font-pixel-body);
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: dark;
+  color-scheme: light;
+
+  /* Prevent subpixel antialiasing — keeps pixel fonts sharp */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Mobile-first base: 14px */
+  font-size: 14px;
+
+  scroll-behavior: smooth;
 }
 
 body {
@@ -22,12 +36,167 @@ body {
 }
 
 /* -------------------------------------------------------------------------
- * Utility: Glassmorphism
+ * 2. ACCESSIBILITY
  * ------------------------------------------------------------------------- */
 
-@utility glass {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Pixel-style focus ring — only on keyboard navigation */
+:focus-visible {
+  outline: var(--pixel-border-width) solid var(--interactive-focus);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. SELECTION & SCROLLBAR
+ * ------------------------------------------------------------------------- */
+
+::selection {
+  background-color: var(--color-brand-200);
+  color: var(--color-brand-900);
+}
+
+/* Standard scrollbar (Firefox, modern Chrome) */
+* {
+  scrollbar-color: var(--color-neutral-300) transparent;
+  scrollbar-width: thin;
+}
+
+/* WebKit scrollbar fallback */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-300);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-400);
+}
+
+/* -------------------------------------------------------------------------
+ * 4. PIXEL IMAGE RENDERING
+ *    Scoped to utility class — avoids pixelating photos/logos unintentionally.
+ *    Usage: <img class="pixel-image" /> or <canvas class="pixel-image" />
+ * ------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------
+ * 5. MOBILE TOUCH ENHANCEMENTS
+ * ------------------------------------------------------------------------- */
+
+/* Remove iOS tap highlight */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Eliminate 300ms tap delay on interactive elements */
+a,
+button,
+input,
+select,
+textarea,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* -------------------------------------------------------------------------
+ * 6. RESPONSIVE TYPOGRAPHY
+ *    Mobile-first: 14px base, scales up at 768px
+ * ------------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * 7. PIXEL UTILITY PATTERNS (@utility)
+ *    Use as Tailwind classes: class="pixel-card", class="pixel-btn", etc.
+ * ------------------------------------------------------------------------- */
+
+@utility pixel-card {
+  border: var(--pixel-border-width) solid var(--border-strong);
+  border-radius: var(--pixel-border-radius);
+  background-color: var(--surface-elevated);
+  box-shadow: var(--pixel-shadow-md);
+}
+
+@utility pixel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--pixel-border-width) solid var(--border-strong);
+  border-radius: var(--pixel-border-radius);
+  background-color: var(--surface-elevated);
+  box-shadow: var(--pixel-shadow-sm);
+  font-family: var(--font-pixel-body);
+  cursor: pointer;
+  user-select: none;
+  /* 44px minimum touch target for WCAG 2.1 AA */
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 1rem;
+}
+
+@utility pixel-btn-hover {
+  box-shadow: var(--pixel-shadow-md);
+  transform: translate(-1px, -1px);
+}
+
+@utility pixel-btn-active {
+  box-shadow: var(--pixel-shadow-pressed);
+  transform: translate(1px, 1px);
+}
+
+@utility pixel-dialog {
+  border: var(--pixel-border-width-heavy) solid var(--border-strong);
+  border-radius: var(--pixel-border-radius);
+  background-color: var(--surface-elevated);
+  box-shadow: var(--pixel-shadow-inset);
+  padding: 1.5rem;
+}
+
+@utility pixel-divider {
+  border: none;
+  border-top: var(--pixel-border-width) solid var(--border-default);
+}
+
+@utility pixel-image {
+  image-rendering: pixelated;
+}
+
+@utility pixel-dot-bg {
+  background-image: radial-gradient(
+    circle,
+    var(--color-neutral-200) var(--pixel-dot-size),
+    transparent var(--pixel-dot-size)
+  );
+  background-size: var(--pixel-dot-gap) var(--pixel-dot-gap);
 }
