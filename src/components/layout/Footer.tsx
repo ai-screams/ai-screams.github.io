@@ -51,7 +51,7 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <hr className="pixel-divider my-4" />
+          <hr className="my-4 pixel-divider" />
 
           {/* Copyright + GitHub */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
