@@ -35,15 +35,15 @@ export default function Home() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [displayedText, setDisplayedText] = useState<string>("");
-  const [typingDone, setTypingDone] = useState<boolean>(false);
+  const hasKeyNavigated = useRef<boolean>(false);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const typingDone: boolean = displayedText.length >= INTRO_TEXT.length;
 
   const toggleDialog = useCallback(() => {
     setDialogOpen((prev) => {
       if (!prev) {
         setDisplayedText("");
-        setTypingDone(false);
       }
       return !prev;
     });
@@ -57,7 +57,6 @@ export default function Home() {
       setDisplayedText(INTRO_TEXT.slice(0, index));
       if (index >= INTRO_TEXT.length) {
         clearInterval(interval);
-        setTypingDone(true);
       }
     }, 50);
     return () => clearInterval(interval);
@@ -67,9 +66,11 @@ export default function Home() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") {
         e.preventDefault();
+        hasKeyNavigated.current = true;
         setSelectedIndex((prev) => (prev + 1) % MENU_ITEMS.length);
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
+        hasKeyNavigated.current = true;
         setSelectedIndex(
           (prev) => (prev - 1 + MENU_ITEMS.length) % MENU_ITEMS.length,
         );
@@ -86,7 +87,9 @@ export default function Home() {
   }, [toggleDialog]);
 
   useEffect(() => {
-    linkRefs.current[selectedIndex]?.focus();
+    if (hasKeyNavigated.current) {
+      linkRefs.current[selectedIndex]?.focus();
+    }
   }, [selectedIndex]);
 
   return (
