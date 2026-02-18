@@ -94,14 +94,12 @@ export default function Home() {
 
   return (
     <section className="flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center gap-8 pixel-dot-bg px-6 py-12">
+      {/* ★ Title with glow pulse */}
       <motion.h1
         animate={{ y: 0 }}
-        className="font-pixel text-lg leading-tight tracking-tight sm:text-2xl md:text-4xl"
+        className="pixel-glow-pulse font-pixel text-lg leading-tight tracking-tight sm:text-2xl md:text-4xl"
         initial={{ y: -12 }}
-        style={{
-          color: "var(--text-brand)",
-          textShadow: "var(--shadow-glow)",
-        }}
+        style={{ color: "var(--text-brand)" }}
         transition={{ duration: duration.slow, ease: easing.snappy }}
       >
         ★ AI SCREAM ★
@@ -121,6 +119,7 @@ export default function Home() {
         Developer. Traveler. Creator.
       </motion.p>
 
+      {/* ★ RPG-style menu with selection highlight */}
       <motion.ul
         animate="visible"
         className="flex flex-col items-center gap-2"
@@ -128,55 +127,84 @@ export default function Home() {
         role="menu"
         variants={menuVariants}
       >
-        {MENU_ITEMS.map((item, i) => (
-          <motion.li
-            key={item.path}
-            role="menuitem"
-            variants={menuItemVariants}
-          >
-            <Link
-              aria-label={`${item.label} — ${item.desc}`}
-              className="group flex min-h-[44px] flex-col items-center justify-center gap-0.5 px-4 py-2 transition-transform focus:outline-none"
-              onClick={() => setSelectedIndex(i)}
-              ref={(el) => {
-                linkRefs.current[i] = el;
-              }}
-              to={item.path}
+        {MENU_ITEMS.map((item, i) => {
+          const isSelected = selectedIndex === i;
+          return (
+            <motion.li
+              key={item.path}
+              role="menuitem"
+              variants={menuItemVariants}
             >
-              <span
-                className="font-pixel text-xs sm:text-sm"
-                style={{
-                  alignItems: "center",
-                  color:
-                    selectedIndex === i
-                      ? "var(--text-brand)"
-                      : "var(--text-primary)",
-                  display: "flex",
-                  gap: "0.5rem",
-                  transition: "color 0.15s",
+              <Link
+                aria-label={`${item.label} — ${item.desc}`}
+                className="group flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-sm px-4 py-2 transition-all duration-150 focus:outline-none"
+                onClick={() => setSelectedIndex(i)}
+                ref={(el) => {
+                  linkRefs.current[i] = el;
                 }}
+                style={{
+                  backgroundColor: isSelected
+                    ? "var(--color-brand-50)"
+                    : "transparent",
+                  boxShadow: isSelected
+                    ? "inset 0 0 0 2px var(--color-brand-200)"
+                    : "none",
+                }}
+                to={item.path}
               >
                 <span
+                  className="flex items-center gap-2 font-pixel text-xs transition-colors duration-150 sm:text-sm"
                   style={{
-                    opacity: selectedIndex === i ? 1 : 0,
-                    transition: "opacity 0.15s",
+                    color: isSelected
+                      ? "var(--text-brand)"
+                      : "var(--text-primary)",
                   }}
                 >
-                  ▸
+                  <span
+                    className={isSelected ? "pixel-arrow-bounce" : ""}
+                    style={{
+                      opacity: isSelected ? 1 : 0,
+                      transition: "opacity 0.15s",
+                    }}
+                  >
+                    ▸
+                  </span>
+                  {item.label}
                 </span>
-                {item.label}
-              </span>
-              <span
-                className="font-pixel-body text-xs"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {item.desc}
-              </span>
-            </Link>
-          </motion.li>
-        ))}
+                <span
+                  className="font-pixel-body text-xs"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {item.desc}
+                </span>
+              </Link>
+            </motion.li>
+          );
+        })}
       </motion.ul>
 
+      {/* ★ Decorative RPG divider */}
+      <motion.div
+        animate={{ y: 0 }}
+        className="flex w-full max-w-xs items-center gap-3"
+        initial={{ y: 4 }}
+        transition={{
+          delay: 0.3,
+          duration: duration.slow,
+          ease: easing.snappy,
+        }}
+      >
+        <hr className="flex-1 pixel-divider" />
+        <span
+          className="font-pixel text-xs"
+          style={{ color: "var(--color-brand-300)" }}
+        >
+          ✦
+        </span>
+        <hr className="flex-1 pixel-divider" />
+      </motion.div>
+
+      {/* ★ Dialog box with speaker badge */}
       <motion.div
         animate={{ y: 0 }}
         className="w-full max-w-lg"
@@ -202,11 +230,23 @@ export default function Home() {
           role="button"
           tabIndex={0}
         >
-          <div
-            className="mb-3 font-pixel text-xs"
-            style={{ color: "var(--text-brand)" }}
-          >
-            ♦ AI Scream
+          <div className="mb-3 flex items-center gap-2">
+            <span
+              className="inline-flex h-6 w-6 items-center justify-center font-pixel text-[10px]"
+              style={{
+                backgroundColor: "var(--color-brand-500)",
+                borderRadius: "var(--pixel-border-radius)",
+                color: "white",
+              }}
+            >
+              ♦
+            </span>
+            <span
+              className="font-pixel text-xs"
+              style={{ color: "var(--text-brand)" }}
+            >
+              AI Scream
+            </span>
           </div>
 
           <AnimatePresence mode="wait">
