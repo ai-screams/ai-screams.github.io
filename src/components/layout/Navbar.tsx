@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useScheme } from "../../contexts/SchemeContext";
 import { type ColorScheme, schemeConfig } from "../../styles/tokens";
+import { type NavItem, isActivePath } from "../../utils/routing";
 
-const navItems: { label: string; path: string }[] = [
+const navItems: NavItem[] = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Projects", path: "/projects" },
@@ -13,11 +14,6 @@ const navItems: { label: string; path: string }[] = [
 ];
 
 const schemeKeys = Object.keys(schemeConfig) as ColorScheme[];
-
-/** Check if a nav path matches the current pathname */
-function isActivePath(path: string, pathname: string): boolean {
-  return path === "/" ? pathname === "/" : pathname.startsWith(path);
-}
 
 /** Shared nav link classes (DRY: desktop uses px-4 py-2, mobile uses px-6 py-3) */
 function getNavLinkClass(isActive: boolean, padding: string): string {
