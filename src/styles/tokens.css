@@ -109,6 +109,7 @@
  * 2. COLOR SCHEMES
  *    Brand & accent palettes. Default = Aurora Dream (Lavender + Mint).
  *    Switch via data-scheme attribute on <html>.
+ *    Schemes: aurora (default) | peach | cotton | matcha
  * ------------------------------------------------------------------------- */
 
 /* -- Aurora Dream (default): Lavender brand + Mint accent ---------------- */
@@ -169,6 +170,26 @@
   --color-accent-500: oklch(0.65 0.12 230);
 
   --shadow-glow: 0 0 20px oklch(0.63 0.15 350 / 0.3);
+}
+
+/* -- Matcha Garden: Green brand + Yellow-Green accent --------------------- */
+[data-scheme="matcha"] {
+  --color-brand-50: oklch(0.97 0.02 130);
+  --color-brand-100: oklch(0.93 0.04 130);
+  --color-brand-200: oklch(0.87 0.07 130);
+  --color-brand-300: oklch(0.79 0.1 130);
+  --color-brand-400: oklch(0.71 0.13 130);
+  --color-brand-500: oklch(0.63 0.15 130);
+  --color-brand-600: oklch(0.54 0.13 130);
+  --color-brand-700: oklch(0.45 0.11 130);
+  --color-brand-800: oklch(0.36 0.09 130);
+  --color-brand-900: oklch(0.28 0.07 130);
+
+  --color-accent-300: oklch(0.84 0.1 105);
+  --color-accent-400: oklch(0.75 0.12 105);
+  --color-accent-500: oklch(0.67 0.14 105);
+
+  --shadow-glow: 0 0 20px oklch(0.63 0.15 130 / 0.3);
 }
 
 /* -------------------------------------------------------------------------

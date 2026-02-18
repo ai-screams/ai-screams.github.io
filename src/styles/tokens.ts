@@ -10,7 +10,7 @@
 
 /* -- Color Scheme -------------------------------------------------------- */
 
-export type ColorScheme = "aurora" | "cotton" | "peach";
+export type ColorScheme = "aurora" | "cotton" | "matcha" | "peach";
 
 export const schemeConfig: Record<
   ColorScheme,
@@ -25,6 +25,11 @@ export const schemeConfig: Record<
     accent: "oklch(0.73 0.10 230)",
     label: "Cotton Sky",
     preview: "oklch(0.71 0.13 350)",
+  },
+  matcha: {
+    accent: "oklch(0.75 0.12 105)",
+    label: "Matcha Garden",
+    preview: "oklch(0.63 0.15 130)",
   },
   peach: {
     accent: "oklch(0.75 0.10 85)",
