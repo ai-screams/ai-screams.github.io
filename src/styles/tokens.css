@@ -1,14 +1,14 @@
 /*
  * ============================================================================
- * AI Scream - Design Tokens
+ * AI Scream - Design Tokens (White Pixel Edition)
  * ============================================================================
  *
- * Figma-style centralized token system.
- * Architecture: Primitives (@theme) -> Schemes -> Semantics -> Components
+ * Centralized token system for a pixel-art portfolio site.
+ * Architecture: Primitives (@theme) -> Schemes -> Semantics -> Pixel System
  *
- * - @theme:         Scheme-independent Tailwind utility classes
- * - [data-scheme]:  Brand & accent palette per scheme (aurora | peach | cotton)
- * - :root / .light: Semantic aliases consumed via var()
+ * - @theme:        Scheme-independent Tailwind utility classes
+ * - [data-scheme]: Brand & accent palette per scheme (aurora | peach | cotton)
+ * - :root:         White-first semantic aliases consumed via var()
  *
  * ============================================================================
  */
@@ -19,7 +19,7 @@
  * ------------------------------------------------------------------------- */
 
 @theme {
-  /* -- Colors: Neutral (Apple-inspired dark-first gray scale) ------------ */
+  /* -- Colors: Neutral (light-first gray scale) ----------------------------- */
   --color-neutral-50: oklch(0.98 0 0);
   --color-neutral-100: oklch(0.93 0 0);
   --color-neutral-200: oklch(0.87 0 0);
@@ -33,23 +33,20 @@
   --color-neutral-900: oklch(0.13 0 0);
   --color-neutral-950: oklch(0.07 0 0);
 
-  /* -- Colors: Semantic status (pastel-toned) ----------------------------- */
+  /* -- Colors: Semantic status (pastel-toned) ------------------------------- */
   --color-success: oklch(0.75 0.14 152);
   --color-warning: oklch(0.8 0.12 85);
   --color-error: oklch(0.72 0.14 25);
   --color-info: oklch(0.72 0.1 240);
 
-  /* -- Typography: Font families ----------------------------------------- */
-  --font-display:
-    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  --font-body:
-    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  /* -- Typography: Font families ------------------------------------------- */
+  --font-pixel: "Press Start 2P", "NeoDunggeunmo", monospace;
+  --font-pixel-body: "NeoDunggeunmo", monospace;
   --font-mono:
     "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", monospace;
 
-  /* -- Border radius ----------------------------------------------------- */
+  /* -- Border radius ------------------------------------------------------- */
+  --radius-none: 0px;
   --radius-xs: 0.25rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -58,20 +55,20 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* -- Shadows (subtle, Apple-like) -------------------------------------- */
+  /* -- Shadows (soft, utility) --------------------------------------------- */
   --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.08);
   --shadow-sm: 0 2px 4px oklch(0 0 0 / 0.1);
   --shadow-md: 0 4px 12px oklch(0 0 0 / 0.15);
   --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.2);
   --shadow-xl: 0 16px 48px oklch(0 0 0 / 0.25);
 
-  /* -- Easing curves ----------------------------------------------------- */
+  /* -- Easing curves ------------------------------------------------------- */
   --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-apple: cubic-bezier(0.42, 0, 0.58, 1);
 
-  /* -- Animations -------------------------------------------------------- */
+  /* -- Animations ---------------------------------------------------------- */
   --animate-fade-in: fade-in 0.3s var(--ease-smooth);
   --animate-fade-up: fade-up 0.4s var(--ease-snappy);
   --animate-scale-in: scale-in 0.25s var(--ease-bounce);
@@ -112,6 +109,7 @@
  * 2. COLOR SCHEMES
  *    Brand & accent palettes. Default = Aurora Dream (Lavender + Mint).
  *    Switch via data-scheme attribute on <html>.
+ *    Schemes: aurora (default) | peach | cotton | matcha
  * ------------------------------------------------------------------------- */
 
 /* -- Aurora Dream (default): Lavender brand + Mint accent ---------------- */
@@ -174,66 +172,92 @@
   --shadow-glow: 0 0 20px oklch(0.63 0.15 350 / 0.3);
 }
 
+/* -- Matcha Garden: Green brand + Yellow-Green accent --------------------- */
+[data-scheme="matcha"] {
+  --color-brand-50: oklch(0.97 0.02 130);
+  --color-brand-100: oklch(0.93 0.04 130);
+  --color-brand-200: oklch(0.87 0.07 130);
+  --color-brand-300: oklch(0.79 0.1 130);
+  --color-brand-400: oklch(0.71 0.13 130);
+  --color-brand-500: oklch(0.63 0.15 130);
+  --color-brand-600: oklch(0.54 0.13 130);
+  --color-brand-700: oklch(0.45 0.11 130);
+  --color-brand-800: oklch(0.36 0.09 130);
+  --color-brand-900: oklch(0.28 0.07 130);
+
+  --color-accent-300: oklch(0.84 0.1 105);
+  --color-accent-400: oklch(0.75 0.12 105);
+  --color-accent-500: oklch(0.67 0.14 105);
+
+  --shadow-glow: 0 0 20px oklch(0.63 0.15 130 / 0.3);
+}
+
 /* -------------------------------------------------------------------------
  * 3. SEMANTIC TOKENS
- *    Role-based aliases. Dark-first (default = dark).
+ *    Role-based aliases. White-first (light is the only mode).
  *    Consumed via var(--surface), var(--text-primary), etc.
  * ------------------------------------------------------------------------- */
 
 :root {
   /* -- Surfaces ---------------------------------------------------------- */
-  --surface: var(--color-neutral-950);
-  --surface-elevated: var(--color-neutral-900);
-  --surface-overlay: var(--color-neutral-850);
-  --surface-glass: oklch(0.13 0 0 / 0.6);
-
-  /* -- Text -------------------------------------------------------------- */
-  --text-primary: var(--color-neutral-50);
-  --text-secondary: var(--color-neutral-400);
-  --text-tertiary: var(--color-neutral-500);
-  --text-brand: var(--color-brand-400);
-  --text-accent: var(--color-accent-400);
-
-  /* -- Borders ----------------------------------------------------------- */
-  --border-default: oklch(1 0 0 / 0.1);
-  --border-subtle: oklch(1 0 0 / 0.06);
-  --border-brand: var(--color-brand-500);
-
-  /* -- Interactive states ------------------------------------------------ */
-  --interactive-hover: oklch(1 0 0 / 0.08);
-  --interactive-active: oklch(1 0 0 / 0.12);
-  --interactive-focus: var(--color-brand-500);
-
-  /* -- Glassmorphism ----------------------------------------------------- */
-  --glass-bg: oklch(0.13 0 0 / 0.6);
-  --glass-border: oklch(1 0 0 / 0.08);
-  --glass-blur: 16px;
-}
-
-/* -------------------------------------------------------------------------
- * 4. LIGHT MODE OVERRIDE (opt-in via .light class)
- * ------------------------------------------------------------------------- */
-
-.light {
   --surface: var(--color-neutral-50);
-  --surface-elevated: white;
+  --surface-elevated: oklch(1 0 0);
   --surface-overlay: var(--color-neutral-100);
-  --surface-glass: oklch(1 0 0 / 0.7);
 
-  --text-primary: var(--color-neutral-950);
-  --text-secondary: var(--color-neutral-600);
-  --text-tertiary: var(--color-neutral-500);
+  /* -- Text (warm dark tones for ink-on-paper feel) ---------------------- */
+  --text-primary: oklch(0.18 0.01 75);
+  --text-secondary: oklch(0.44 0.01 55);
+  --text-tertiary: var(--color-neutral-400);
   --text-brand: var(--color-brand-600);
   --text-accent: var(--color-accent-500);
 
-  --border-default: oklch(0 0 0 / 0.1);
-  --border-subtle: oklch(0 0 0 / 0.06);
+  /* -- Borders ----------------------------------------------------------- */
+  --border-default: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-100);
+  --border-strong: oklch(0.35 0 0);
   --border-brand: var(--color-brand-500);
 
+  /* -- Interactive states ------------------------------------------------ */
   --interactive-hover: oklch(0 0 0 / 0.05);
   --interactive-active: oklch(0 0 0 / 0.08);
   --interactive-focus: var(--color-brand-500);
+}
 
-  --glass-bg: oklch(1 0 0 / 0.7);
-  --glass-border: oklch(0 0 0 / 0.08);
+/* -------------------------------------------------------------------------
+ * 4. PIXEL DESIGN SYSTEM
+ *    Hard-edge borders, stepped shadows, pixelated rendering.
+ *    Consumed via var(--pixel-*) in pixel components.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  /* -- Pixel borders ----------------------------------------------------- */
+  --pixel-border-width: 3px;
+  --pixel-border-width-heavy: 4px;
+  --pixel-border-radius: 0px;
+
+  /* -- Pixel shadows (hard-edge, no blur) -------------------------------- */
+  --pixel-shadow-color: oklch(0 0 0 / 0.12);
+  --pixel-shadow-color-strong: oklch(0 0 0 / 0.25);
+
+  --pixel-shadow-sm: 3px 3px 0 0 var(--pixel-shadow-color);
+  --pixel-shadow-md: 4px 4px 0 0 var(--pixel-shadow-color);
+  --pixel-shadow-lg: 6px 6px 0 0 var(--pixel-shadow-color);
+  --pixel-shadow-pressed: 2px 2px 0 0 var(--pixel-shadow-color);
+
+  /* RPG dialog inset: beveled 3D pixel border effect */
+  --pixel-shadow-inset:
+    inset -4px -4px 0 0 var(--pixel-shadow-color),
+    inset 4px 4px 0 0 oklch(1 0 0 / 0.6), 6px 6px 0 0 var(--pixel-shadow-color);
+
+  /* -- Pixel rendering --------------------------------------------------- */
+  --pixel-image-rendering: pixelated;
+
+  /* -- Pixel animation timing -------------------------------------------- */
+  --pixel-timing-fast: steps(2);
+  --pixel-timing-normal: steps(3);
+  --pixel-timing-smooth: steps(10);
+
+  /* -- Pixel dot grid background ----------------------------------------- */
+  --pixel-dot-size: 1px;
+  --pixel-dot-gap: 16px;
 }

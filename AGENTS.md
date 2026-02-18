@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features an Apple-like dark-first design with a switchable 3-scheme pastel color system and a planned pixel-art travel map.
+Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 4-scheme pastel color system and a pixel-art travel prototype.
 
 ## Key Files
 
@@ -44,23 +44,78 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 
 - `npm run build` (TypeScript check + Vite build) must pass
 - `npm run lint` must pass with 0 errors
-- Verify color scheme switching works across all 3 schemes
+- Verify color scheme switching works across all 4 schemes
 
 ### Common Patterns
 
-- Dark-first design with `.light` class for opt-in light mode
+- White-first pixel design (no dark mode)
 - Route-level code splitting with `React.lazy()` + `Suspense`
 - Shared state via Context Provider (React 19 `use()` API)
-- Figma-style 3-layer token architecture: Primitives → Schemes → Semantics
+- 4-layer token architecture: Primitives → Schemes → Semantics → Pixel System
+- Font tokens: `--font-pixel` (headings) and `--font-pixel-body` (body text)
 
 ## Dependencies
 
 ### External
 
-- React 19 — UI framework (with React 19 APIs: `use()`)
-- Vite 6 — Build tool with SWC
-- Tailwind CSS v4 — Utility-first CSS (`@theme` directive)
-- Motion v12 — Page transition animations
-- React Router v7 — Client-side routing
+- React 19.0.0 — UI framework (with React 19 APIs: `use()`)
+- Vite 6.1.0 — Build tool with SWC (`@vitejs/plugin-react-swc` v4.0.0)
+- Tailwind CSS v4.0.0 — Utility-first CSS (`@theme` directive, `@tailwindcss/vite` v4.0.0)
+- Motion v12.4.0 — Page transition animations
+- React Router v7.2.0 — Client-side routing
+- TypeScript 5.7.0 — Static type checking
+
+### Dev Dependencies (Key)
+
+| Package                       | Version | Purpose                                                |
+| ----------------------------- | ------- | ------------------------------------------------------ |
+| `eslint`                      | 9.20.0  | Linter (flat config, v9+)                              |
+| `@eslint/js`                  | 9.20.0  | ESLint recommended config for JS                       |
+| `typescript-eslint`           | 8.24.0  | TypeScript support for ESLint                          |
+| `eslint-plugin-react-hooks`   | 7.0.1   | Rules for React Hooks (memoization, dependencies)      |
+| `eslint-plugin-react-refresh` | 0.5.0   | ESM named export: `import { reactRefresh } from "..."` |
+| `eslint-plugin-perfectionist` | 5.5.0   | Import/prop/object sorting (natural, case-insensitive) |
+| `eslint-config-prettier`      | 10.0.0  | Disables ESLint rules that conflict with Prettier      |
+| `prettier`                    | 3.5.0   | Code formatter with tailwindcss plugin                 |
+| `husky`                       | 9.0.0   | Git hooks (pre-commit)                                 |
+| `lint-staged`                 | 16.2.7  | Run linters on staged files                            |
+
+### ESLint Config (v9 Flat Config)
+
+File: `eslint.config.js`
+
+```javascript
+// Plugins object (alphabetical order):
+plugins: {
+  js,                    // @eslint/js
+  perfectionist,         // sort rules
+  "react-hooks",         // React Hooks rules
+  "react-refresh",       // ESM export validation
+},
+
+// Rules:
+- sort-imports: natural asc, newlinesBetween: 0 (no blank lines between groups)
+- sort-jsx-props: natural asc, case-insensitive
+- sort-objects: natural asc, case-insensitive
+- react-refresh/only-export-components: warn + allowExportNames: ["useScheme"]
+- @typescript-eslint/no-unused-vars: error (ignorePattern: ^_)
+```
+
+### GitHub Actions (CI/CD)
+
+| Workflow | Trigger      | Jobs                                           |
+| -------- | ------------ | ---------------------------------------------- |
+| `ci.yml` | Pull request | lint, typecheck, build, format-check, security |
+| `deploy` | Push to main | build + GitHub Pages deploy                    |
+
+All actions SHA-pinned:
+
+- `actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683` (v4.2.2)
+- `actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af` (v4.1.0)
+
+Security checks:
+
+- `npm audit --audit-level=high`
+- `gitleaks` v8.30.0 (CLI, installed via curl from releases)
 
 <!-- MANUAL: -->

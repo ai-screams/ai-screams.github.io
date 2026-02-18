@@ -5,11 +5,12 @@
  * (e.g., PixiJS canvas rendering, Motion animation configs).
  *
  * These MUST stay in sync with tokens.css.
+ * Architecture: White-first semantics + 3 scheme-aware brand palettes.
  */
 
 /* -- Color Scheme -------------------------------------------------------- */
 
-export type ColorScheme = "aurora" | "cotton" | "peach";
+export type ColorScheme = "aurora" | "cotton" | "matcha" | "peach";
 
 export const schemeConfig: Record<
   ColorScheme,
@@ -24,6 +25,11 @@ export const schemeConfig: Record<
     accent: "oklch(0.73 0.10 230)",
     label: "Cotton Sky",
     preview: "oklch(0.71 0.13 350)",
+  },
+  matcha: {
+    accent: "oklch(0.75 0.12 105)",
+    label: "Matcha Garden",
+    preview: "oklch(0.63 0.15 130)",
   },
   peach: {
     accent: "oklch(0.75 0.10 85)",
@@ -94,6 +100,13 @@ export const pixiColors = {
   },
 } as const;
 
+/* -- Typography: Pixel Fonts ------------------------------------------------ */
+
+export const pixelFonts = {
+  body: '"NeoDunggeunmo", monospace',
+  heading: '"Press Start 2P", monospace',
+} as const;
+
 /* -- Motion -------------------------------------------------------------- */
 
 export const easing = {
@@ -108,3 +121,12 @@ export const duration = {
   normal: 0.25,
   slow: 0.4,
 };
+
+/* -- Pixel Shadows ------------------------------------------------------ */
+
+export const pixelShadows = {
+  lg: "6px 6px 0 0 oklch(0 0 0 / 0.12)",
+  md: "4px 4px 0 0 oklch(0 0 0 / 0.12)",
+  pressed: "2px 2px 0 0 oklch(0 0 0 / 0.12)",
+  sm: "3px 3px 0 0 oklch(0 0 0 / 0.12)",
+} as const;

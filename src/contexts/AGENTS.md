@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-17 | Updated: 2026-02-17 -->
+<!-- Generated: 2026-02-17 | Updated: 2026-02-18 (matcha scheme added) -->
 
 # contexts
 
@@ -22,6 +22,8 @@ React context providers for shared application state. Providers are wrapped arou
 - `useScheme()` is allowlisted in ESLint `react-refresh/only-export-components`
 - New context hooks must be added to `allowExportNames` in `eslint.config.js`
 - Provider wrapping order in `App.tsx`: `SchemeProvider` → `BrowserRouter` → `Suspense`
+- `VALID_SCHEMES` in `SchemeContext.tsx` contains all 4 schemes: `"aurora"`, `"cotton"`, `"matcha"`, `"peach"`
+- When adding a new scheme, add it to `VALID_SCHEMES` here AND to `schemeConfig`/`ColorScheme` in `tokens.ts` AND to the regex in `index.html`
 
 ### Common Patterns
 

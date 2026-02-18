@@ -30,9 +30,9 @@ Pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write`
 
 **Design Token System** (`src/styles/tokens.css` + `src/styles/tokens.ts`):
 
-- 3-layer architecture: Primitives (`@theme`) → Schemes (`[data-scheme]`) → Semantics (`:root`)
+- 4-layer architecture: Primitives (`@theme`) → Schemes (`[data-scheme]`) → Semantics (`:root`) → Pixel System (`:root`)
 - oklch color space throughout
-- 3 switchable color schemes: Aurora Dream (default, lavender+mint), Peach Blossom (peach+gold), Cotton Sky (rose+skyblue)
+- 4 switchable color schemes: Aurora Dream (default, lavender+mint), Cotton Sky (rose+skyblue), Matcha Garden (green+yellow-green), Peach Blossom (peach+gold)
 - CSS variables consumed via `var(--token-name)` — never hardcode color values
 - `tokens.ts` exports JS-accessible values for PixiJS/Motion (must stay in sync with CSS)
 
@@ -50,11 +50,12 @@ Pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write`
 **Layout** (`src/components/layout/`):
 
 - `Layout.tsx` — Navbar + AnimatePresence page transition + Footer
-- `Navbar.tsx` — glass morphism header with nav links + scheme switcher dots
+- `Navbar.tsx` — pixel-style fixed header with hard-edge border, nav links, 4-dot scheme switcher, and mobile hamburger menu
+- `routing.ts` — shared `NavItem` type and `isActivePath()` helper used by Navbar and Footer
 
 ### Conventions
 
-- **Dark-first**: Default is dark mode. Light mode via `.light` class (opt-in)
+- **White-first**: Single light theme only — no dark mode
 - **Korean**: UI text and comments may be in Korean; `<html lang="ko">`
 - **Brand name**: "AI Scream" (singular), repo name is "AI Screams" (plural)
 - **Path alias**: `@/*` maps to `./src/*`
