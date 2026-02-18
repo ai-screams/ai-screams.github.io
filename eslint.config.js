@@ -14,9 +14,9 @@ export default defineConfig([
     files: ["**/*.{ts,tsx}"],
     plugins: {
       js,
+      perfectionist,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh.plugin,
-      perfectionist,
     },
     extends: [
       "js/recommended",
