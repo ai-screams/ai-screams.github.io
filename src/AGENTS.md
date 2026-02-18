@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-17 | Updated: 2026-02-17 -->
+<!-- Generated: 2026-02-17 | Updated: 2026-02-19 (routing + suspense ownership sync) -->
 
 # src
 
@@ -12,7 +12,7 @@ Application source code. Entry point is `main.tsx` which renders `App.tsx` into 
 | File            | Description                                                                          |
 | --------------- | ------------------------------------------------------------------------------------ |
 | `main.tsx`      | Entry point — `createRoot` + `StrictMode`                                            |
-| `App.tsx`       | Router setup with `SchemeProvider` → `BrowserRouter` → `Suspense` → lazy routes      |
+| `App.tsx`       | Router setup with `SchemeProvider` → `BrowserRouter` → lazy route registration       |
 | `index.css`     | Tailwind v4 import, base styles, pixel `@utility` patterns (card, btn, dialog, etc.) |
 | `vite-env.d.ts` | Vite client type declarations                                                        |
 
@@ -30,15 +30,15 @@ Application source code. Entry point is `main.tsx` which renders `App.tsx` into 
 
 ### Working In This Directory
 
-- `App.tsx` wraps everything in: `SchemeProvider` → `BrowserRouter` → `Suspense`
+- `App.tsx` wraps everything in: `SchemeProvider` → `BrowserRouter` → `Routes`
 - New pages must be lazy-loaded: `const Page = lazy(() => import("./pages/Page"))`
 - New routes go inside the `<Route element={<Layout />}>` parent
 - Path alias `@/*` maps to `./src/*` (defined in tsconfig)
 
 ### Common Patterns
 
-- All page imports use `React.lazy()` for code splitting
-- Routes are alphabetically ordered by path in `App.tsx`
+- All route pages are registered with `React.lazy()` for code splitting
+- Route `Suspense` fallback is implemented in `components/layout/Layout.tsx`
 
 ## Dependencies
 
