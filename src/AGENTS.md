@@ -24,6 +24,7 @@ Application source code. Entry point is `main.tsx` which renders `App.tsx` into 
 | `contexts/`   | React context providers (see `contexts/AGENTS.md`)           |
 | `pages/`      | Route-level page components (see `pages/AGENTS.md`)          |
 | `styles/`     | Design tokens and theme definitions (see `styles/AGENTS.md`) |
+| `utils/`      | Shared utility functions and types (see `utils/AGENTS.md`)   |
 
 ## For AI Agents
 

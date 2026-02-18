@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 3-scheme pastel color system and a pixel-art travel prototype.
+Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 4-scheme pastel color system and a pixel-art travel prototype.
 
 ## Key Files
 
@@ -44,7 +44,7 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 
 - `npm run build` (TypeScript check + Vite build) must pass
 - `npm run lint` must pass with 0 errors
-- Verify color scheme switching works across all 3 schemes
+- Verify color scheme switching works across all 4 schemes
 
 ### Common Patterns
 

@@ -16,7 +16,7 @@ Route-level page components. Each file corresponds to a URL path, lazy-loaded in
 | `Projects.tsx`     | `/projects` — Projects showcase (placeholder)                                    |
 | `Travel.tsx`       | `/travel` — Pixel travel map (placeholder)                                       |
 | `Colors.tsx`       | `/colors` — Design token visual showcase with all scales, buttons, cards         |
-| `TestCssPixel.tsx` | `/test-css-pixel` — 514-line pixel design prototype with DotHero canvas + RPG UI |
+| `TestCssPixel.tsx` | `/test-css-pixel` — 568-line pixel design prototype with DotHero canvas + RPG UI |
 | `NotFound.tsx`     | `/*` — 404 page with "Go home" link                                              |
 
 ## For AI Agents
