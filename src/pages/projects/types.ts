@@ -16,6 +16,12 @@ export interface ProjectMetaBadge {
   value: string;
 }
 
+export interface ProjectThumbnail {
+  alt: string;
+  caption: string;
+  src?: string;
+}
+
 export const PROJECT_SLUGS = [
   "campfire-retrospective-log",
   "dungeon-party-planner",
@@ -51,6 +57,7 @@ export interface ProjectSummary {
   status: ProjectStatus;
   subtitle: string;
   summary: string;
+  thumbnail: ProjectThumbnail;
   title: string;
 }
 

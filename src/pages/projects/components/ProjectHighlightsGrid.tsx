@@ -15,21 +15,21 @@ export function ProjectHighlightsGrid({
   }
 
   return (
-    <ul className="mt-3 grid gap-3 sm:grid-cols-2" role="list">
+    <dl className="mt-3 grid gap-3 sm:grid-cols-2">
       {highlights.map((highlight) => (
-        <li className="pixel-card p-4" key={`${slug}-${highlight.id}`}>
-          <p
+        <div className="pixel-card p-4" key={`${slug}-${highlight.id}`}>
+          <dt
             className="font-pixel-body text-[11px]"
             style={{ color: "var(--text-tertiary)" }}
           >
             {highlight.label}
-          </p>
-          <p
+          </dt>
+          <dd
             className="mt-1 font-pixel text-sm"
             style={{ color: "var(--text-brand)" }}
           >
             {highlight.value}
-          </p>
+          </dd>
           {highlight.description ? (
             <p
               className="mt-2 font-pixel-body text-xs leading-relaxed"
@@ -38,8 +38,8 @@ export function ProjectHighlightsGrid({
               {highlight.description}
             </p>
           ) : null}
-        </li>
+        </div>
       ))}
-    </ul>
+    </dl>
   );
 }

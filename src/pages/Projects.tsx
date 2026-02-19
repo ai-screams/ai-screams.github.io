@@ -1,15 +1,21 @@
 import { type ReactElement } from "react";
 import SparkDivider from "../components/ui/SparkDivider";
 import {
+  MainQuestHeroCard,
   MainQuestProjectCard,
   SideQuestProjectCard,
 } from "./projects/components/ProjectCard";
 import {
+  MAIN_QUEST_HERO_SUMMARY,
   MAIN_QUEST_SUMMARIES,
   SIDE_QUEST_SUMMARIES,
 } from "./projects/summary-data";
 
 export default function Projects(): ReactElement {
+  const regularMainQuestSummaries = MAIN_QUEST_SUMMARIES.filter(
+    (projectSummary) => projectSummary.slug !== MAIN_QUEST_HERO_SUMMARY?.slug,
+  );
+
   return (
     <section
       aria-labelledby="projects-page-title"
@@ -48,13 +54,22 @@ export default function Projects(): ReactElement {
         >
           포트폴리오 정체성을 대표하는 핵심 프로젝트 기록입니다.
         </p>
-        <ul className="mt-4 grid gap-4 md:grid-cols-2" role="list">
-          {MAIN_QUEST_SUMMARIES.map((project) => (
-            <li className="h-full" key={project.slug}>
-              <MainQuestProjectCard project={project} />
-            </li>
-          ))}
-        </ul>
+
+        {MAIN_QUEST_HERO_SUMMARY ? (
+          <div className="mt-4">
+            <MainQuestHeroCard project={MAIN_QUEST_HERO_SUMMARY} />
+          </div>
+        ) : null}
+
+        {regularMainQuestSummaries.length > 0 ? (
+          <ul className="mt-4 grid gap-4 md:grid-cols-2" role="list">
+            {regularMainQuestSummaries.map((project) => (
+              <li className="h-full" key={project.slug}>
+                <MainQuestProjectCard project={project} />
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </section>
 
       <section aria-labelledby="projects-side-quest-title" className="mt-10">

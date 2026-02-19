@@ -7,8 +7,8 @@ import { ProjectHighlightsGrid } from "./projects/components/ProjectHighlightsGr
 import { ProjectLinkActions } from "./projects/components/ProjectLinkActions";
 import { ProjectMetaBadgeStrip } from "./projects/components/ProjectMetaBadgeStrip";
 import { ProjectStackList } from "./projects/components/ProjectStackList";
+import { ProjectStatusBadge } from "./projects/components/ProjectStatusBadge";
 import { getProjectBySlug } from "./projects/detail-data";
-import { getProjectStatusLabel } from "./projects/summary-data";
 import { isProjectSlug, type ProjectMetaBadge } from "./projects/types";
 
 export default function ProjectDetail(): ReactElement {
@@ -58,10 +58,6 @@ export default function ProjectDetail(): ReactElement {
       label: "역할",
       value: project.role,
     },
-    {
-      label: "상태",
-      value: getProjectStatusLabel(project.status),
-    },
   ];
 
   return (
@@ -93,6 +89,11 @@ export default function ProjectDetail(): ReactElement {
         >
           {project.summary}
         </p>
+
+        <div className="mt-3">
+          <ProjectStatusBadge status={project.status} />
+        </div>
+
         <ProjectMetaBadgeStrip badges={metaBadges} />
       </header>
 
