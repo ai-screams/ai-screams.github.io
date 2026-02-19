@@ -16,9 +16,15 @@ export function StarRating({ label, stars }: StarRatingProps): ReactElement {
     <span
       aria-label={`${label} 숙련도 ${safeStars}점 / ${MAX_STARS}점`}
       className="font-pixel text-[10px]"
+      role="img"
     >
-      <span style={{ color: "var(--color-brand-400)" }}>{filled}</span>
-      <span style={{ color: "var(--text-tertiary)", opacity: 0.4 }}>
+      <span aria-hidden="true" style={{ color: "var(--color-brand-400)" }}>
+        {filled}
+      </span>
+      <span
+        aria-hidden="true"
+        style={{ color: "var(--text-tertiary)", opacity: 0.4 }}
+      >
         {empty}
       </span>
     </span>

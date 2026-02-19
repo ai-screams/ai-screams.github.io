@@ -52,6 +52,7 @@ export function JobTreeMobile({ viewModel }: JobTreeMobileProps): ReactElement {
                 >
                   {nodeIndex > 0 ? (
                     <span
+                      aria-hidden="true"
                       className="font-pixel text-[10px]"
                       style={{ color: "var(--text-tertiary)" }}
                     >

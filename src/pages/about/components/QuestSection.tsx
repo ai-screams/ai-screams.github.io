@@ -6,13 +6,15 @@ import { ScrollReveal } from "./ScrollReveal";
 
 export function QuestSection(): ReactElement {
   return (
-    <>
+    <section aria-labelledby="about-quest-heading">
       <ScrollReveal className="mt-12">
         <h2
           className="mb-8 font-pixel text-xs sm:text-sm"
+          id="about-quest-heading"
           style={{ color: "var(--text-brand)" }}
         >
-          ▶ QUEST LOG
+          <span aria-hidden="true">▶ </span>
+          QUEST LOG
         </h2>
       </ScrollReveal>
       <ScrollReveal variants={staggerContainer}>
@@ -65,7 +67,8 @@ export function QuestSection(): ReactElement {
                       className="mb-1 font-pixel text-[10px] sm:text-xs"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      ✦ {entry.title}
+                      <span aria-hidden="true">✦ </span>
+                      {entry.title}
                     </h3>
                     <p
                       className="font-pixel-body text-xs leading-relaxed sm:text-sm"
@@ -80,6 +83,6 @@ export function QuestSection(): ReactElement {
           </div>
         </div>
       </ScrollReveal>
-    </>
+    </section>
   );
 }

@@ -28,7 +28,7 @@ export const CHARACTER_INFO: Readonly<CharacterInfo> = {
 };
 
 export const CHARACTER_BIO: string =
-  "AI Scream 왕국의 PignuAnte입니다.\n코드라는 마법을 다루며, 새로운 던전(프로젝트)을 탐험하고\n버그라는 몬스터를 처치하는 것이 일상입니다.\n가끔은 월드맵(세계 여행)을 떠나기도 합니다. ★";
+  "AI Scream 왕국의 PignuAnte입니다.\n코드라는 마법을 다루며, 새로운 던전(프로젝트)을 탐험하고\n버그라는 몬스터를 처치하는 것이 일상입니다.\n가끔은 월드맵(세계 여행)을 떠나기도 합니다.";
 
 export const CHARACTER_STATS: readonly CharacterStat[] = [
   { id: "race", label: "RACE", value: CHARACTER_INFO.race },

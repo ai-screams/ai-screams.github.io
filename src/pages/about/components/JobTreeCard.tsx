@@ -1,6 +1,14 @@
 import { type ReactElement } from "react";
 import { type JobNode, type JobStatusStyle } from "../types";
 
+const JOB_STATUS_SCREEN_READER_LABELS: Readonly<
+  Record<JobNode["status"], string>
+> = {
+  COMPLETED: "완료",
+  CURRENT: "현재 진행 중",
+  LOCKED: "잠김",
+};
+
 interface JobTreeCardProps {
   node: JobNode;
   styles: JobStatusStyle;
@@ -27,8 +35,12 @@ export function JobTreeCard({ node, styles }: JobTreeCardProps): ReactElement {
       >
         {node.real}
       </span>
+      <span className="sr-only">
+        상태: {JOB_STATUS_SCREEN_READER_LABELS[node.status]}
+      </span>
       {node.status === "CURRENT" ? (
         <span
+          aria-hidden="true"
           className="font-pixel text-[6px]"
           style={{ color: "var(--color-brand-500)" }}
         >
@@ -37,6 +49,7 @@ export function JobTreeCard({ node, styles }: JobTreeCardProps): ReactElement {
       ) : null}
       {node.status === "LOCKED" ? (
         <span
+          aria-hidden="true"
           className="font-pixel text-[8px]"
           style={{ color: "var(--text-tertiary)" }}
         >

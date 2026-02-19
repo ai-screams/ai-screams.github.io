@@ -7,13 +7,15 @@ import { StarRating } from "./StarRating";
 
 export function EquipmentSection(): ReactElement {
   return (
-    <>
+    <section aria-labelledby="about-equipment-heading">
       <ScrollReveal className="mt-12">
         <h2
           className="mb-6 font-pixel text-xs sm:text-sm"
+          id="about-equipment-heading"
           style={{ color: "var(--text-brand)" }}
         >
-          ▶ EQUIPMENT & INVENTORY
+          <span aria-hidden="true">▶ </span>
+          EQUIPMENT & INVENTORY
         </h2>
       </ScrollReveal>
       {SKILL_CATEGORIES.map((category) => (
@@ -26,7 +28,8 @@ export function EquipmentSection(): ReactElement {
             className="mb-3 font-pixel text-[8px] sm:text-[10px]"
             style={{ color: "var(--text-secondary)" }}
           >
-            {category.icon} {category.key}
+            <span aria-hidden="true">{category.icon} </span>
+            {category.key}
           </h3>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SKILLS_BY_CATEGORY[category.key].map((skill) => (
@@ -54,7 +57,8 @@ export function EquipmentSection(): ReactElement {
           className="mb-3 font-pixel text-[8px] sm:text-[10px]"
           style={{ color: "var(--text-secondary)" }}
         >
-          🎒 INVENTORY
+          <span aria-hidden="true">🎒 </span>
+          INVENTORY
         </h3>
         <div className="flex flex-wrap gap-2">
           {INVENTORY_ITEMS.map((item) => (
@@ -69,6 +73,6 @@ export function EquipmentSection(): ReactElement {
           ))}
         </div>
       </ScrollReveal>
-    </>
+    </section>
   );
 }

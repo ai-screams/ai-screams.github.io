@@ -25,7 +25,8 @@ export function JobTree(): ReactElement {
         className="mb-4 font-pixel text-[8px] sm:text-[10px]"
         style={{ color: "var(--text-secondary)" }}
       >
-        ⚡ JOB TREE
+        <span aria-hidden="true">⚡ </span>
+        JOB TREE
       </h3>
       <JobTreeMobile viewModel={viewModel} />
       <JobTreeDesktop viewModel={viewModel} />

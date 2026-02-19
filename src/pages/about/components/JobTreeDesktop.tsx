@@ -31,6 +31,7 @@ export function JobTreeDesktop({
       {viewModel.branches.map((branchView, branchIndex) => (
         <div className="contents" key={branchView.branch.id}>
           <span
+            aria-hidden="true"
             className="px-1 font-pixel text-sm leading-none sm:px-2"
             style={{
               color: branchView.isBrand
@@ -59,6 +60,7 @@ export function JobTreeDesktop({
               >
                 {nodeIndex > 0 ? (
                   <span
+                    aria-hidden="true"
                     className="flex-shrink-0 font-pixel text-[10px]"
                     style={{ color: "var(--text-tertiary)" }}
                   >

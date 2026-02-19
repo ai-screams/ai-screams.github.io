@@ -7,13 +7,18 @@ import { SectionDivider } from "./about/components/SectionDivider";
 
 export default function About(): ReactElement {
   return (
-    <section className="mx-auto max-w-5xl pixel-dot-bg px-6 py-24">
+    <section
+      aria-labelledby="about-page-title"
+      className="mx-auto max-w-5xl pixel-dot-bg px-6 py-24"
+    >
       <ScrollReveal>
         <h1
           className="pixel-glow-pulse font-pixel text-base sm:text-lg md:text-2xl"
+          id="about-page-title"
           style={{ color: "var(--text-brand)" }}
         >
-          ★ ABOUT
+          <span aria-hidden="true">★ </span>
+          ABOUT
         </h1>
         <p
           className="mt-3 font-pixel-body text-sm sm:text-base"
