@@ -1,10 +1,10 @@
-<!-- Generated: 2026-02-17 | Updated: 2026-02-17 (CI/CD docs added) -->
+<!-- Generated: 2026-02-17 | Updated: 2026-02-19 (route status wording sync) -->
 
 # ai-screams.github.io
 
 ## Purpose
 
-Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 4-scheme pastel color system and a pixel-art travel prototype.
+Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 4-scheme pastel color system, an implemented `/about` page, and a pixel-art UI prototype page (`/test-css-pixel`) while `/projects` and `/travel` remain placeholders.
 
 ## Key Files
 
@@ -20,24 +20,24 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 
 ## Subdirectories
 
-| Directory            | Purpose                                                                                       |
-| -------------------- | --------------------------------------------------------------------------------------------- |
-| `src/`               | Application source code (see `src/AGENTS.md`)                                                 |
-| `public/`            | Static assets (`404.html` SPA fallback, `vite.svg` icon)                                      |
-| `.github/workflows/` | CI (`ci.yml`: lint, typecheck, build, format, security) + Deploy (`deploy.yml`: GitHub Pages) |
-| `.github/`           | `dependabot.yml` — automated npm weekly + GitHub Actions monthly updates                      |
-| `.husky/`            | Git hooks (pre-commit runs lint-staged)                                                       |
-| `.docs/ideas/`       | Brainstorming and planning documents                                                          |
+| Directory            | Purpose                                                                                             |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| `src/`               | Application source code (see `src/AGENTS.md`)                                                       |
+| `public/`            | Static assets (`404.html` SPA fallback, `vite.svg` icon)                                            |
+| `.github/workflows/` | CI (`ci.yml`: lint, typecheck, build, format-check, security) + Deploy (`deploy.yml`: GitHub Pages) |
+| `.github/`           | `dependabot.yml` — automated npm weekly + GitHub Actions monthly updates                            |
+| `.husky/`            | Git hooks (pre-commit runs lint-staged)                                                             |
+| `.docs/ideas/`       | Brainstorming and planning documents                                                                |
 
 ## For AI Agents
 
 ### Working In This Directory
 
 - Run `npm run lint` and `npm run build` to verify changes
-- All colors must use design tokens via `var()` — never hardcode oklch/hex values
+- Production UI should use design tokens via `var()`; `TestCssPixel.tsx` is a legacy prototype with some hardcoded fallback values
 - Imports must be sorted alphabetically with no blank lines between groups (perfectionist)
 - JSX props and object keys must be sorted alphabetically
-- Korean language for UI text; `<html lang="ko">`
+- Korean-first UI text with `<html lang="ko">` (current copy is partially mixed KR/EN)
 - Brand name is "AI Scream" (singular), repo is "AI Screams" (plural)
 
 ### Testing Requirements
@@ -49,7 +49,7 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 ### Common Patterns
 
 - White-first pixel design (no dark mode)
-- Route-level code splitting with `React.lazy()` + `Suspense`
+- Route-level code splitting with `React.lazy()`; route `Suspense` fallback is handled in `Layout.tsx`
 - Shared state via Context Provider (React 19 `use()` API)
 - 4-layer token architecture: Primitives → Schemes → Semantics → Pixel System
 - Font tokens: `--font-pixel` (headings) and `--font-pixel-body` (body text)
@@ -58,27 +58,27 @@ Personal developer portfolio and travel blog for AI Scream, deployed as a static
 
 ### External
 
-- React 19.0.0 — UI framework (with React 19 APIs: `use()`)
-- Vite 6.1.0 — Build tool with SWC (`@vitejs/plugin-react-swc` v4.0.0)
-- Tailwind CSS v4.0.0 — Utility-first CSS (`@theme` directive, `@tailwindcss/vite` v4.0.0)
-- Motion v12.4.0 — Page transition animations
-- React Router v7.2.0 — Client-side routing
-- TypeScript 5.7.0 — Static type checking
+- React / React DOM ^19.2.4 — UI framework (with React 19 APIs: `use()`)
+- Vite ^7.3.1 — Build tool with SWC (`@vitejs/plugin-react-swc` ^4.2.3)
+- Tailwind CSS / `@tailwindcss/vite` ^4.1.18 — Utility-first CSS (`@theme` directive)
+- Motion ^12.34.2 — UI animation library
+- React Router ^7.13.0 — Client-side routing
+- TypeScript ^5.9.3 — Static type checking
 
 ### Dev Dependencies (Key)
 
 | Package                       | Version | Purpose                                                |
 | ----------------------------- | ------- | ------------------------------------------------------ |
-| `eslint`                      | 9.20.0  | Linter (flat config, v9+)                              |
-| `@eslint/js`                  | 9.20.0  | ESLint recommended config for JS                       |
-| `typescript-eslint`           | 8.24.0  | TypeScript support for ESLint                          |
-| `eslint-plugin-react-hooks`   | 7.0.1   | Rules for React Hooks (memoization, dependencies)      |
-| `eslint-plugin-react-refresh` | 0.5.0   | ESM named export: `import { reactRefresh } from "..."` |
-| `eslint-plugin-perfectionist` | 5.5.0   | Import/prop/object sorting (natural, case-insensitive) |
-| `eslint-config-prettier`      | 10.0.0  | Disables ESLint rules that conflict with Prettier      |
-| `prettier`                    | 3.5.0   | Code formatter with tailwindcss plugin                 |
-| `husky`                       | 9.0.0   | Git hooks (pre-commit)                                 |
-| `lint-staged`                 | 16.2.7  | Run linters on staged files                            |
+| `eslint`                      | ^9.39.2 | Linter (flat config, v9+)                              |
+| `@eslint/js`                  | ^9.39.2 | ESLint recommended config for JS                       |
+| `typescript-eslint`           | ^8.56.0 | TypeScript support for ESLint                          |
+| `eslint-plugin-react-hooks`   | ^7.0.1  | Rules for React Hooks (memoization, dependencies)      |
+| `eslint-plugin-react-refresh` | ^0.5.0  | ESM named export: `import { reactRefresh } from "..."` |
+| `eslint-plugin-perfectionist` | ^5.6.0  | Import/prop/object sorting (natural, case-insensitive) |
+| `eslint-config-prettier`      | ^10.1.8 | Disables ESLint rules that conflict with Prettier      |
+| `prettier`                    | ^3.8.1  | Code formatter with tailwindcss plugin                 |
+| `husky`                       | ^9.1.7  | Git hooks (pre-commit)                                 |
+| `lint-staged`                 | ^16.2.7 | Run linters on staged files                            |
 
 ### ESLint Config (v9 Flat Config)
 
@@ -97,25 +97,29 @@ plugins: {
 - sort-imports: natural asc, newlinesBetween: 0 (no blank lines between groups)
 - sort-jsx-props: natural asc, case-insensitive
 - sort-objects: natural asc, case-insensitive
-- react-refresh/only-export-components: warn + allowExportNames: ["useScheme"]
-- @typescript-eslint/no-unused-vars: error (ignorePattern: ^_)
+- react-refresh/only-export-components: warn + allowConstantExport: true + allowExportNames: ["useScheme"]
+- @typescript-eslint/no-unused-vars: error (argsIgnorePattern: "^_")
 ```
 
 ### GitHub Actions (CI/CD)
 
-| Workflow | Trigger      | Jobs                                           |
-| -------- | ------------ | ---------------------------------------------- |
-| `ci.yml` | Pull request | lint, typecheck, build, format-check, security |
-| `deploy` | Push to main | build + GitHub Pages deploy                    |
+| Workflow     | Trigger                          | Jobs                                           |
+| ------------ | -------------------------------- | ---------------------------------------------- |
+| `ci.yml`     | Pull request (to `main`)         | lint, typecheck, build, format-check, security |
+| `deploy.yml` | Push to `main` + manual dispatch | build + GitHub Pages deploy                    |
+
+CI uses Node.js 22 across all jobs.
 
 All actions SHA-pinned:
 
-- `actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683` (v4.2.2)
-- `actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af` (v4.1.0)
+- `actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd` (v6.0.2)
+- `actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238` (v6.2.0)
+- `actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b` (v4.0.0)
+- `actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e` (v4.0.5)
 
 Security checks:
 
-- `npm audit --audit-level=high`
+- `npm audit --omit=dev --audit-level=high`
 - `gitleaks` v8.30.0 (CLI, installed via curl from releases)
 
 <!-- MANUAL: -->

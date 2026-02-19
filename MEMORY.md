@@ -1,0 +1,24 @@
+# MEMORY
+
+Last updated: 2026-02-19
+
+## Git Facts
+
+- Active branch: `feat/phase2-home`
+- Local HEAD: `f59ed8f7a86a869bbd8e8c13be8569b6b744aae4` (`f59ed8f feat(about): implement RPG character sheet page with responsive Job Tree`)
+- `main` reference: `c44aed5d7a5e4c76b2a8eef81c4a34dd35873592` (`c44aed5 Merge pull request #11 from ai-screams/chore/update-dependencies`)
+
+## Route + Architecture Snapshot
+
+- Router (`src/App.tsx`): `SchemeProvider -> BrowserRouter -> Routes -> Route(Layout)` with all pages loaded via `React.lazy()`
+- Route shell (`src/components/layout/Layout.tsx`): shared `Navbar/Footer`, route `Suspense` fallback, keyed `motion.div` transition by `pathname`
+- Route status: implemented `/, /about, /colors, /test-css-pixel, *`; placeholders `/projects, /travel`
+- Theme state (`src/contexts/SchemeContext.tsx`): React 19 `use()` context hook, `data-scheme` + `localStorage` persistence
+- Token architecture (`src/styles/tokens.css` + `src/styles/tokens.ts`): Primitives -> Schemes -> Semantics -> Pixel System (4 schemes: `aurora`, `cotton`, `matcha`, `peach`)
+
+## CI / Deploy Security Baseline
+
+- CI workflow (`.github/workflows/ci.yml`): `lint`, `typecheck`, `build`, `format-check`, `security` on PRs to `main`
+- Security job baseline: `npm audit --omit=dev --audit-level=high` and `gitleaks detect --source . --verbose` (full git history via `fetch-depth: 0`)
+- Deploy workflow (`.github/workflows/deploy.yml`): GitHub Pages deploy on push to `main` or `workflow_dispatch`
+- Workflow runtime baseline: Node.js `22`; actions are SHA-pinned (`checkout`, `setup-node`, `upload-pages-artifact`, `deploy-pages`)

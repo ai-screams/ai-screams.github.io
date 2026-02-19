@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Layout from "./components/layout/Layout";
 import { SchemeProvider } from "./contexts/SchemeContext";
@@ -15,19 +15,17 @@ export default function App() {
   return (
     <SchemeProvider>
       <BrowserRouter>
-        <Suspense>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route element={<Home />} index />
-              <Route element={<About />} path="about" />
-              <Route element={<Projects />} path="projects" />
-              <Route element={<Travel />} path="travel" />
-              <Route element={<Colors />} path="colors" />
-              <Route element={<TestCssPixel />} path="test-css-pixel" />
-              <Route element={<NotFound />} path="*" />
-            </Route>
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route element={<Home />} index />
+            <Route element={<About />} path="about" />
+            <Route element={<Projects />} path="projects" />
+            <Route element={<Travel />} path="travel" />
+            <Route element={<Colors />} path="colors" />
+            <Route element={<TestCssPixel />} path="test-css-pixel" />
+            <Route element={<NotFound />} path="*" />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </SchemeProvider>
   );
