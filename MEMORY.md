@@ -19,6 +19,6 @@ Last updated: 2026-02-19
 ## CI / Deploy Security Baseline
 
 - CI workflow (`.github/workflows/ci.yml`): `lint`, `typecheck`, `build`, `format-check`, `security` on PRs to `main`
-- Security job baseline: `npm audit --audit-level=high` and `gitleaks detect --source . --verbose` (full git history via `fetch-depth: 0`)
+- Security job baseline: `npm audit --omit=dev --audit-level=high` and `gitleaks detect --source . --verbose` (full git history via `fetch-depth: 0`)
 - Deploy workflow (`.github/workflows/deploy.yml`): GitHub Pages deploy on push to `main` or `workflow_dispatch`
 - Workflow runtime baseline: Node.js `22`; actions are SHA-pinned (`checkout`, `setup-node`, `upload-pages-artifact`, `deploy-pages`)

@@ -119,7 +119,7 @@ All actions SHA-pinned:
 
 Security checks:
 
-- `npm audit --audit-level=high`
+- `npm audit --omit=dev --audit-level=high`
 - `gitleaks` v8.30.0 (CLI, installed via curl from releases)
 
 <!-- MANUAL: -->
