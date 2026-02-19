@@ -33,7 +33,7 @@ App shell components that wrap every page. Provides the persistent Navbar, route
 - Active nav link detection: `isActivePath(path, pathname)` from `utils/routing` — exact match for `/`, prefix match for others
 - Scheme dots: `Object.keys(schemeConfig) as ColorScheme[]` renders in alphabetical order (aurora, cotton, matcha, peach)
 - Token imports: `duration` and `easing` from `styles/tokens.ts` for animation config
-- Touch targets: all interactive elements have `minHeight: "44px"` / `minWidth: "44px"`
+- Touch targets: hamburger/close controls and footer links enforce 44px minimums; scheme dots are currently 16x16
 
 ## Dependencies
 

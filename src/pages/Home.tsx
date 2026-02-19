@@ -1,323 +1,116 @@
-import { AnimatePresence, motion } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import type { JSX } from "react";
+import { motion, type Variants, useReducedMotion } from "motion/react";
+import SparkDivider from "../components/ui/SparkDivider";
 import { duration, easing } from "../styles/tokens";
+import HomeMenu from "./home/components/HomeMenu";
+import IntroDialog from "./home/components/IntroDialog";
+import { HOME_INTRO_TEXT, HOME_MENU_ITEMS } from "./home/constants";
+import { useIntroDialog } from "./home/useIntroDialog";
+import { useMenuNavigation } from "./home/useMenuNavigation";
 
-interface MenuItem {
-  desc: string;
-  label: string;
-  path: string;
+function createLiftInVariants(
+  yOffset: number,
+  prefersReducedMotion: boolean,
+  delay: number = 0,
+): Variants {
+  if (prefersReducedMotion) {
+    return {
+      hidden: { y: 0 },
+      visible: {
+        transition: { delay: 0, duration: 0 },
+        y: 0,
+      },
+    };
+  }
+
+  return {
+    hidden: { y: yOffset },
+    visible: {
+      transition: { delay, duration: duration.slow, ease: easing.snappy },
+      y: 0,
+    },
+  };
 }
 
-const MENU_ITEMS: MenuItem[] = [
-  { desc: "모험가 소개", label: "NEW GAME", path: "/about" },
-  { desc: "프로젝트 목록", label: "QUEST LOG", path: "/projects" },
-  { desc: "여행 지도", label: "WORLD MAP", path: "/travel" },
-];
-
-const INTRO_TEXT =
-  "안녕하세요! AI Scream의 픽셀 세계에 오신 것을 환영합니다.\n이곳은 개발자이자 여행자의 디지털 공간입니다.\n프로젝트와 여행 기록, 그리고 다양한 이야기들이\n여러분을 기다리고 있습니다. ★";
-
-const menuVariants = {
-  hidden: {},
-  visible: { transition: { delayChildren: 0.15, staggerChildren: 0.1 } },
-};
-
-const menuItemVariants = {
-  hidden: { y: 8 },
-  visible: {
-    transition: { duration: duration.normal, ease: easing.snappy },
-    y: 0,
-  },
-};
-
-export default function Home() {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [displayedText, setDisplayedText] = useState<string>("");
-  const hasKeyNavigated = useRef<boolean>(false);
-  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const typingDone: boolean = displayedText.length >= INTRO_TEXT.length;
-
-  const toggleDialog = useCallback(() => {
-    setDialogOpen((prev) => {
-      if (!prev) {
-        setDisplayedText("");
-      }
-      return !prev;
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!dialogOpen) return;
-    let index = 0;
-    const interval = setInterval(() => {
-      index += 1;
-      setDisplayedText(INTRO_TEXT.slice(0, index));
-      if (index >= INTRO_TEXT.length) {
-        clearInterval(interval);
-      }
-    }, 50);
-    return () => clearInterval(interval);
-  }, [dialogOpen]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        hasKeyNavigated.current = true;
-        setSelectedIndex((prev) => (prev + 1) % MENU_ITEMS.length);
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        hasKeyNavigated.current = true;
-        setSelectedIndex(
-          (prev) => (prev - 1 + MENU_ITEMS.length) % MENU_ITEMS.length,
-        );
-      } else if (
-        e.key === " " &&
-        document.activeElement === dialogRef.current
-      ) {
-        e.preventDefault();
-        toggleDialog();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [toggleDialog]);
-
-  useEffect(() => {
-    if (hasKeyNavigated.current) {
-      linkRefs.current[selectedIndex]?.focus();
-    }
-  }, [selectedIndex]);
+export default function Home(): JSX.Element {
+  const prefersReducedMotion = useReducedMotion() ?? false;
+  const { registerLinkRef, selectedIndex, setSelectedIndex } =
+    useMenuNavigation(HOME_MENU_ITEMS.length);
+  const { dialogOpen, displayedText, toggleDialog, typingDone } =
+    useIntroDialog(HOME_INTRO_TEXT);
+  const titleMotionVariants: Variants = createLiftInVariants(
+    -12,
+    prefersReducedMotion,
+  );
+  const subtitleMotionVariants: Variants = createLiftInVariants(
+    -8,
+    prefersReducedMotion,
+    0.1,
+  );
+  const dividerMotionVariants: Variants = createLiftInVariants(
+    4,
+    prefersReducedMotion,
+    0.3,
+  );
+  const dialogMotionVariants: Variants = createLiftInVariants(
+    8,
+    prefersReducedMotion,
+    0.4,
+  );
 
   return (
     <section className="flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center gap-8 pixel-dot-bg px-6 py-12">
       {/* ★ Title with glow pulse */}
       <motion.h1
-        animate={{ y: 0 }}
+        animate="visible"
         className="pixel-glow-pulse font-pixel text-lg leading-tight tracking-tight sm:text-2xl md:text-4xl"
-        initial={{ y: -12 }}
+        initial="hidden"
         style={{ color: "var(--text-brand)" }}
-        transition={{ duration: duration.slow, ease: easing.snappy }}
+        variants={titleMotionVariants}
       >
         ★ AI SCREAM ★
       </motion.h1>
 
       <motion.p
-        animate={{ y: 0 }}
+        animate="visible"
         className="font-pixel-body text-base sm:text-lg"
-        initial={{ y: -8 }}
+        initial="hidden"
         style={{ color: "var(--text-secondary)" }}
-        transition={{
-          delay: 0.1,
-          duration: duration.slow,
-          ease: easing.snappy,
-        }}
+        variants={subtitleMotionVariants}
       >
         Developer. Traveler. Creator.
       </motion.p>
 
-      {/* ★ RPG-style menu with selection highlight */}
-      <motion.ul
-        animate="visible"
-        className="flex flex-col items-center gap-2"
-        initial="hidden"
-        role="menu"
-        variants={menuVariants}
-      >
-        {MENU_ITEMS.map((item, i) => {
-          const isSelected = selectedIndex === i;
-          return (
-            <motion.li
-              key={item.path}
-              role="menuitem"
-              variants={menuItemVariants}
-            >
-              <Link
-                aria-label={`${item.label} — ${item.desc}`}
-                className="group flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-sm px-4 py-2 transition-all duration-150 focus:outline-none"
-                onClick={() => setSelectedIndex(i)}
-                ref={(el) => {
-                  linkRefs.current[i] = el;
-                }}
-                style={{
-                  backgroundColor: isSelected
-                    ? "var(--color-brand-50)"
-                    : "transparent",
-                  boxShadow: isSelected
-                    ? "inset 0 0 0 2px var(--color-brand-200)"
-                    : "none",
-                }}
-                to={item.path}
-              >
-                <span
-                  className="flex items-center gap-2 font-pixel text-xs transition-colors duration-150 sm:text-sm"
-                  style={{
-                    color: isSelected
-                      ? "var(--text-brand)"
-                      : "var(--text-primary)",
-                  }}
-                >
-                  <span
-                    className={isSelected ? "pixel-arrow-bounce" : ""}
-                    style={{
-                      opacity: isSelected ? 1 : 0,
-                      transition: "opacity 0.15s",
-                    }}
-                  >
-                    ▸
-                  </span>
-                  {item.label}
-                </span>
-                <span
-                  className="font-pixel-body text-xs"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  {item.desc}
-                </span>
-              </Link>
-            </motion.li>
-          );
-        })}
-      </motion.ul>
+      <HomeMenu
+        items={HOME_MENU_ITEMS}
+        onSelect={setSelectedIndex}
+        registerLinkRef={registerLinkRef}
+        selectedIndex={selectedIndex}
+      />
 
       {/* ★ Decorative RPG divider */}
       <motion.div
-        animate={{ y: 0 }}
-        className="flex w-full max-w-xs items-center gap-3"
-        initial={{ y: 4 }}
-        transition={{
-          delay: 0.3,
-          duration: duration.slow,
-          ease: easing.snappy,
-        }}
+        animate="visible"
+        className="w-full max-w-xs"
+        initial="hidden"
+        variants={dividerMotionVariants}
       >
-        <hr className="flex-1 pixel-divider" />
-        <span
-          className="font-pixel text-xs"
-          style={{ color: "var(--color-brand-300)" }}
-        >
-          ✦
-        </span>
-        <hr className="flex-1 pixel-divider" />
+        <SparkDivider />
       </motion.div>
 
       {/* ★ Dialog box with speaker badge */}
       <motion.div
-        animate={{ y: 0 }}
+        animate="visible"
         className="w-full max-w-lg"
-        initial={{ y: 8 }}
-        transition={{
-          delay: 0.4,
-          duration: duration.slow,
-          ease: easing.snappy,
-        }}
+        initial="hidden"
+        variants={dialogMotionVariants}
       >
-        <div
-          aria-expanded={dialogOpen}
-          aria-label="소개 대화창"
-          className="cursor-pointer pixel-dialog"
-          onClick={toggleDialog}
-          onKeyDown={(e) => {
-            if (e.key === " " || e.key === "Enter") {
-              e.preventDefault();
-              toggleDialog();
-            }
-          }}
-          ref={dialogRef}
-          role="button"
-          tabIndex={0}
-        >
-          <div className="mb-3 flex items-center gap-2">
-            <span
-              className="inline-flex h-6 w-6 items-center justify-center font-pixel text-[10px]"
-              style={{
-                backgroundColor: "var(--color-brand-500)",
-                borderRadius: "var(--pixel-border-radius)",
-                color: "white",
-              }}
-            >
-              ♦
-            </span>
-            <span
-              className="font-pixel text-xs"
-              style={{ color: "var(--text-brand)" }}
-            >
-              AI Scream
-            </span>
-          </div>
-
-          <AnimatePresence mode="wait">
-            {dialogOpen ? (
-              <motion.div
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                initial={{ height: 0, opacity: 0 }}
-                key="open"
-                style={{ overflow: "hidden" }}
-                transition={{ duration: duration.normal, ease: easing.smooth }}
-              >
-                <p
-                  className="font-pixel-body text-sm leading-relaxed whitespace-pre-line"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  {displayedText}
-                  {!typingDone && (
-                    <motion.span
-                      animate={{ opacity: [1, 0] }}
-                      transition={{
-                        duration: 0.5,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                    >
-                      ▌
-                    </motion.span>
-                  )}
-                </p>
-              </motion.div>
-            ) : (
-              <motion.p
-                animate={{ opacity: 1 }}
-                className="font-pixel-body text-sm"
-                initial={{ opacity: 0 }}
-                key="closed"
-                style={{ color: "var(--text-secondary)" }}
-                transition={{ duration: duration.fast }}
-              >
-                ▶ 대화를 시작하려면 클릭하세요
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{
-                    duration: 0.7,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                >
-                  ...
-                </motion.span>
-              </motion.p>
-            )}
-          </AnimatePresence>
-
-          {dialogOpen && typingDone && (
-            <div className="mt-4 flex justify-end">
-              <button
-                className="pixel-btn font-pixel-body text-xs hover:pixel-btn-hover active:pixel-btn-active"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleDialog();
-                }}
-                style={{ color: "var(--text-primary)" }}
-                type="button"
-              >
-                ▶ 시작
-              </button>
-            </div>
-          )}
-        </div>
+        <IntroDialog
+          dialogOpen={dialogOpen}
+          displayedText={displayedText}
+          onToggle={toggleDialog}
+          typingDone={typingDone}
+        />
       </motion.div>
     </section>
   );

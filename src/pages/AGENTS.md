@@ -12,7 +12,7 @@ Route-level page components. Each file corresponds to a URL path, lazy-loaded in
 | File               | Description                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------------------- |
 | `Home.tsx`         | `/` — Interactive RPG-style landing page (animated menu, keyboard navigation, dialog typing effect) |
-| `About.tsx`        | `/about` — About page placeholder (`Coming soon.`)                                                  |
+| `About.tsx`        | `/about` — RPG-style profile page (`Character`, `Equipment`, `Quest Log`)                           |
 | `Projects.tsx`     | `/projects` — Projects page placeholder (`Coming soon.`)                                            |
 | `Travel.tsx`       | `/travel` — Travel page placeholder (`Pixel world map coming soon.`)                                |
 | `Colors.tsx`       | `/colors` — Design token visual showcase with all scales, buttons, cards                            |
@@ -33,8 +33,8 @@ Route-level page components. Each file corresponds to a URL path, lazy-loaded in
 
 ### Common Patterns
 
-- Placeholder pages use simple `<section className="mx-auto ... px-6 py-24">` containers (current widths vary by page)
-- Placeholder page headings use `font-pixel text-4xl font-bold tracking-tight`
+- Placeholder pages (`/projects`, `/travel`) use simple `<section className="mx-auto ... px-6 py-24">` containers
+- Placeholder headings use `font-pixel text-4xl font-bold tracking-tight`
 - Home uses a full-viewport RPG layout (`min-h-[calc(100svh-4rem)]`, `pixel-dot-bg`) with Motion animations
 
 <!-- MANUAL: -->

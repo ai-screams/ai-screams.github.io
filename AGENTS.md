@@ -1,10 +1,10 @@
-<!-- Generated: 2026-02-17 | Updated: 2026-02-19 (deps/routes/workflows sync) -->
+<!-- Generated: 2026-02-17 | Updated: 2026-02-19 (route status wording sync) -->
 
 # ai-screams.github.io
 
 ## Purpose
 
-Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 4-scheme pastel color system and a pixel-art UI prototype page (`/test-css-pixel`) while `/travel` is still placeholder.
+Personal developer portfolio and travel blog for AI Scream, deployed as a static SPA on GitHub Pages. Features a white-first pixel design with a switchable 4-scheme pastel color system, an implemented `/about` page, and a pixel-art UI prototype page (`/test-css-pixel`) while `/projects` and `/travel` remain placeholders.
 
 ## Key Files
 
