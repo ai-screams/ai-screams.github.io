@@ -4,15 +4,15 @@ Last updated: 2026-02-19
 
 ## Git Facts
 
-- Active branch: `feat/phase2-home`
-- Local HEAD: `f59ed8f7a86a869bbd8e8c13be8569b6b744aae4` (`f59ed8f feat(about): implement RPG character sheet page with responsive Job Tree`)
-- `main` reference: `c44aed5d7a5e4c76b2a8eef81c4a34dd35873592` (`c44aed5 Merge pull request #11 from ai-screams/chore/update-dependencies`)
+- Active branch: `feat/phase3-projects`
+- Local HEAD: `eec989412a3be55a455de8b64aab3be38a19c175` (`eec9894 Merge pull request #12 from ai-screams/feat/phase2-home`)
+- `main` reference: `eec989412a3be55a455de8b64aab3be38a19c175` (`eec9894 Merge pull request #12 from ai-screams/feat/phase2-home`)
 
 ## Route + Architecture Snapshot
 
 - Router (`src/App.tsx`): `SchemeProvider -> BrowserRouter -> Routes -> Route(Layout)` with all pages loaded via `React.lazy()`
 - Route shell (`src/components/layout/Layout.tsx`): shared `Navbar/Footer`, route `Suspense` fallback, keyed `motion.div` transition by `pathname`
-- Route status: implemented `/, /about, /colors, /test-css-pixel, *`; placeholders `/projects, /travel`
+- Route status: implemented `/, /about, /projects, /projects/:slug, /colors, /test-css-pixel, *`; placeholder `/travel`
 - Theme state (`src/contexts/SchemeContext.tsx`): React 19 `use()` context hook, `data-scheme` + `localStorage` persistence
 - Token architecture (`src/styles/tokens.css` + `src/styles/tokens.ts`): Primitives -> Schemes -> Semantics -> Pixel System (4 schemes: `aurora`, `cotton`, `matcha`, `peach`)
 
