@@ -48,6 +48,9 @@ jobs:
       - name: Run type checking
         run: npx tsc -b
 
+      - name: Run unit tests
+        run: npm run test
+
   build:
     runs-on: ubuntu-latest
     steps:
