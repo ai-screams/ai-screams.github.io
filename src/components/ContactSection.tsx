@@ -11,6 +11,7 @@ export default function ContactSection() {
       id="contact"
       ref={ref}
     >
+      <h2 className="sr-only">Contact</h2>
       <a
         className="fade font-display text-[clamp(40px,7.5vw,96px)] font-bold tracking-[-0.02em] uppercase transition-colors hover:text-scream"
         href={SITE.github}

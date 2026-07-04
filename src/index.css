@@ -20,6 +20,9 @@ body {
   outline: 2px solid var(--color-scream);
   outline-offset: 2px;
 }
+[id] {
+  scroll-margin-top: 3.5rem;
+}
 
 /* ── 2. Grid backgrounds ───────────────── */
 .bg-hero-grid {
