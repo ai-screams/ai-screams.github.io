@@ -29,7 +29,7 @@ export default function ProjectRow({
       >
         <span
           aria-hidden
-          className={`pointer-events-none absolute -top-4 font-display text-[clamp(120px,24vw,320px)] leading-none font-bold text-ink/[0.05] select-none ${flip ? "right-2 left-auto" : "left-2"}`}
+          className={`pointer-events-none absolute -top-4 -z-10 font-display text-[clamp(120px,24vw,320px)] leading-none font-bold text-ink/[0.05] select-none ${flip ? "right-2 left-auto" : "left-2"}`}
         >
           {num}
         </span>

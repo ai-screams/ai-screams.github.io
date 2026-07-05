@@ -18,7 +18,7 @@ export const COPY: Record<Locale, Copy> = {
     hero: {
       subBold: "The good kind of scream.",
       subRest:
-        "We're Ai-Scream, a developer collective building useful things with AI. Great software? You know it at first bite.",
+        "We’re Ai-Scream, a developer collective building useful things with AI. Great software? You know it at first bite.",
     },
     meta: {
       description:
