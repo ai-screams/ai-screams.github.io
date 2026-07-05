@@ -11,18 +11,19 @@ const NAV_ITEMS = [
 export default function SiteHeader() {
   const locale = useLocale();
   return (
-    <header className="fixed inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b border-ink bg-paper px-6">
+    <header className="fixed inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b border-ink bg-paper px-4 sm:px-6">
       <a
-        className="font-display text-lg font-bold"
+        className="font-display text-base font-bold sm:text-lg"
         href={locale === "ko" ? "/ko/" : "/"}
+        translate="no"
       >
         AI-SCREAM<span className="text-scream">.</span>
       </a>
-      <div className="flex items-center gap-7">
-        <nav className="hidden gap-6 lg:flex">
+      <div className="flex items-center gap-3 sm:gap-7">
+        <nav className="flex gap-3 sm:gap-6">
           {NAV_ITEMS.map((item) => (
             <a
-              className="relative py-2 font-display text-xs font-semibold tracking-[0.12em] after:absolute after:bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-scream after:transition-[width] hover:after:w-full"
+              className="relative py-2 font-display text-xs font-semibold tracking-[0.08em] after:absolute after:bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-scream after:transition-transform hover:after:scale-x-100 sm:tracking-[0.12em]"
               href={item.href}
               key={item.href}
             >
@@ -30,16 +31,16 @@ export default function SiteHeader() {
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-1 border border-ink px-2 font-display text-xs font-semibold">
+        <div className="flex items-center gap-1 border border-ink px-1 font-display text-xs font-semibold sm:px-2">
           <a
-            className={`p-2 ${locale === "en" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
+            className={`px-1.5 py-2 sm:p-2 ${locale === "en" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
             href="/"
           >
             EN
           </a>
           <span className="text-ink/20">/</span>
           <a
-            className={`p-2 ${locale === "ko" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
+            className={`px-1.5 py-2 sm:p-2 ${locale === "ko" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
             href="/ko/"
           >
             KO
@@ -56,19 +57,32 @@ function ProgressLine() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let rafId = 0;
+    let ticking = false;
     const update = () => {
+      ticking = false;
       const max = document.documentElement.scrollHeight - innerHeight;
-      el.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+      const p = max > 0 ? scrollY / max : 0;
+      el.style.transform = `scaleX(${p})`;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      rafId = requestAnimationFrame(update);
     };
     update();
-    addEventListener("scroll", update, { passive: true });
-    addEventListener("resize", update, { passive: true });
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll, { passive: true });
     return () => {
-      removeEventListener("scroll", update);
-      removeEventListener("resize", update);
+      removeEventListener("scroll", onScroll);
+      removeEventListener("resize", onScroll);
+      cancelAnimationFrame(rafId);
     };
   }, []);
   return (
-    <div className="absolute top-full left-0 h-0.5 w-0 bg-scream" ref={ref} />
+    <div
+      className="absolute top-full left-0 h-0.5 w-full origin-left scale-x-0 bg-scream"
+      ref={ref}
+    />
   );
 }

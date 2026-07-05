@@ -1,7 +1,30 @@
+import { useEffect, useRef, useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 import { useCopy } from "@/i18n/LocaleContext";
 
 const HERO_IMMEDIATE = { immediate: true };
+
+function ScreamButton() {
+  const [screaming, setScreaming] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
+  return (
+    <button
+      aria-label="scream"
+      className={`scream-btn inline-block bg-scream px-[0.08em] text-paper uppercase ${screaming ? "screaming" : ""}`}
+      onClick={() => {
+        setScreaming(true);
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => setScreaming(false), 450);
+      }}
+      type="button"
+    >
+      {screaming ? "aaaa!" : "scream"}
+    </button>
+  );
+}
 
 export default function Hero() {
   const copy = useCopy();
@@ -20,10 +43,7 @@ export default function Hero() {
         </span>
         <span className="rl">
           <span className="rl-inner">
-            make you{" "}
-            <span className="inline-block bg-scream px-[0.08em] text-paper">
-              scream
-            </span>
+            make you <ScreamButton />
           </span>
         </span>
       </h1>
@@ -32,6 +52,12 @@ export default function Hero() {
         {copy.hero.subRest}
       </p>
       <SpinBadge />
+      <div
+        aria-hidden
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-2xl motion-safe:animate-bounce md:hidden"
+      >
+        ↓
+      </div>
     </section>
   );
 }

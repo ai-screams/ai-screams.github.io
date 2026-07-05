@@ -23,6 +23,11 @@ body {
 [id] {
   scroll-margin-top: 3.5rem;
 }
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 
 /* ── 2. Grid backgrounds ───────────────── */
 .bg-hero-grid {
@@ -111,6 +116,9 @@ body {
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
+.marquee-track-reverse {
+  animation-direction: reverse;
+}
 
 /* ── 6. Spin badge ─────────────────────── */
 @keyframes spin-slow {
@@ -120,6 +128,34 @@ body {
 }
 .spin-slow {
   animation: spin-slow 14s linear infinite;
+}
+
+/* ── 6b. Scream easter egg ─────────────── */
+@keyframes scream-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  20% {
+    transform: translateX(-3px) rotate(-1.5deg);
+  }
+  40% {
+    transform: translateX(3px) rotate(1.2deg);
+  }
+  60% {
+    transform: translateX(-2px) rotate(-0.8deg);
+  }
+  80% {
+    transform: translateX(2px) rotate(0.5deg);
+  }
+}
+.scream-btn {
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+}
+.scream-btn.screaming {
+  animation: scream-shake 0.4s ease-in-out;
 }
 
 /* ── 7. Custom cursor ──────────────────── */
@@ -169,5 +205,8 @@ body.cursor-active [data-cursor="view"] a {
   }
   .cursor-view {
     display: none !important;
+  }
+  .scream-btn.screaming {
+    animation: none !important;
   }
 }

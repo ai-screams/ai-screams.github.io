@@ -1,6 +1,7 @@
 export type Locale = "en" | "ko";
 
 export interface Copy {
+  a11y: { skip: string };
   contact: { line: string };
   hero: { subBold: string; subRest: string };
   meta: { description: string; title: string };
@@ -10,6 +11,7 @@ export interface Copy {
 
 export const COPY: Record<Locale, Copy> = {
   en: {
+    a11y: { skip: "Skip to content" },
     contact: {
       line: "A new project, a collaboration, or just ice cream talk.",
     },
@@ -27,6 +29,7 @@ export const COPY: Record<Locale, Copy> = {
     work: { note: "selected projects" },
   },
   ko: {
+    a11y: { skip: "본문으로 건너뛰기" },
     contact: { line: "새 프로젝트, 협업, 혹은 그냥 아이스크림 얘기라도." },
     hero: {
       subBold: "기분 좋은 비명입니다.",

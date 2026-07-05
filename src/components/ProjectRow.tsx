@@ -23,10 +23,16 @@ export default function ProjectRow({
       ref={ref}
     >
       <div
-        className={`bg-cell-grid relative flex min-h-60 items-center justify-center overflow-hidden border-b border-ink md:border-b-0 ${
+        className={`bg-cell-grid relative flex min-h-60 items-center justify-center overflow-hidden border-b border-ink transition-colors group-hover:bg-scream/5 md:border-b-0 ${
           flip ? "border-ink md:order-2 md:border-l" : "border-ink md:border-r"
         }`}
       >
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute -top-4 font-display text-[clamp(120px,24vw,320px)] leading-none font-bold text-ink/[0.05] select-none ${flip ? "right-2 left-auto" : "left-2"}`}
+        >
+          {num}
+        </span>
         {project.visual?.type === "image" ? (
           <img
             alt={project.visual.alt}
@@ -54,7 +60,7 @@ export default function ProjectRow({
             {project.name}
           </h3>
         </div>
-        <p className="fade max-w-md leading-relaxed text-mist">
+        <p className="fade max-w-md leading-relaxed text-pretty text-mist">
           {project.description[locale]}
         </p>
         <div className="fade flex flex-wrap gap-2">
