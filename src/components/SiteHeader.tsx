@@ -23,7 +23,7 @@ export default function SiteHeader() {
         <nav className="flex gap-3 sm:gap-6">
           {NAV_ITEMS.map((item) => (
             <a
-              className="relative py-4 font-display text-xs font-semibold tracking-[0.08em] after:absolute after:bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-scream after:transition-transform hover:after:scale-x-100 sm:tracking-[0.12em]"
+              className="relative py-4 font-display text-xs font-semibold tracking-[0.08em] after:absolute after:bottom-3 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-scream after:transition-transform hover:after:scale-x-100 sm:tracking-[0.12em]"
               href={item.href}
               key={item.href}
             >
