@@ -1,10 +1,18 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
+const { version } = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url), "utf8"),
+);
+
 export default defineConfig({
   base: "/",
+  define: {
+    __APP_VERSION__: JSON.stringify(version),
+  },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
