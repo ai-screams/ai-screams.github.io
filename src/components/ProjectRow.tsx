@@ -35,7 +35,7 @@ export default function ProjectRow({
         {project.visual?.type === "image" ? (
           <img
             alt={project.visual.alt}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="relative z-[1] max-h-[70%] max-w-[64%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-[1.04]"
             loading="lazy"
             src={project.visual.src}
           />

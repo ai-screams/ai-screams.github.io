@@ -26,6 +26,11 @@ export const PROJECTS: Project[] = [
     },
     name: "scoop-uv",
     tags: ["RUST", "CLI", "PYTHON"],
+    visual: {
+      alt: "scoop-uv mascot — a smiling ice cream cone",
+      src: "/projects/scoop-uv.png",
+      type: "image",
+    },
   },
   {
     category: "DEVELOPER TOOL",
@@ -51,6 +56,11 @@ export const PROJECTS: Project[] = [
     },
     name: "Azimuth",
     tags: ["SWIFT", "MACOS"],
+    visual: {
+      alt: "Azimuth app icon — a compass needle over a window grid",
+      src: "/projects/azimuth.png",
+      type: "image",
+    },
   },
   {
     category: "LIBRARY / MCP",
@@ -65,5 +75,10 @@ export const PROJECTS: Project[] = [
     },
     name: "HwpForge",
     tags: ["RUST", "MCP", "HWPX"],
+    visual: {
+      alt: "HwpForge mascot — a blacksmith duck wizard",
+      src: "/projects/hwpforge.png",
+      type: "image",
+    },
   },
 ];
