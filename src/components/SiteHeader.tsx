@@ -17,7 +17,7 @@ export default function SiteHeader() {
         href={locale === "ko" ? "/ko/" : "/"}
         translate="no"
       >
-        AI-SCREAM<span className="text-scream">.</span>
+        AI-SCREAM<span className="text-scream">.ai</span>
       </a>
       <div className="flex items-center gap-3 sm:gap-7">
         <nav className="flex gap-1 sm:gap-6">
