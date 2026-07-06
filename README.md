@@ -24,7 +24,7 @@ scripts/prerender.mjs → renders EN → dist/index.html, KO → dist/ko/index.h
 scripts/verify-prerender.mjs → asserts real content/SEO tags in the output (build gate)
 ```
 
-The deployed HTML is complete before JavaScript runs — full content, `<title>`, meta description, canonical, `hreflang`, Open Graph, and JSON-LD baked in. The client then hydrates for interactions (scroll reveals, custom cursor, one small easter egg — try clicking the headline).
+The deployed HTML is complete before JavaScript runs — full content, `<title>`, meta description, canonical, `hreflang`, Open Graph, and JSON-LD baked in. The client then hydrates for interactions (scroll reveals, one small easter egg — try clicking the headline).
 
 ### Key directories
 

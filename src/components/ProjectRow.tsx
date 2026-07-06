@@ -19,7 +19,6 @@ export default function ProjectRow({
       className={`group grid border-b border-ink md:min-h-[420px] ${
         flip ? "md:grid-cols-[1fr_1.15fr]" : "md:grid-cols-[1.15fr_1fr]"
       }`}
-      data-cursor="view"
       ref={ref}
     >
       <div

@@ -159,37 +159,7 @@ button {
   animation: scream-shake 0.4s ease-in-out;
 }
 
-/* ── 7. Custom cursor ──────────────────── */
-.cursor-view {
-  align-items: center;
-  background: var(--color-scream);
-  border-radius: 9999px;
-  color: var(--color-paper);
-  display: flex;
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 600;
-  height: 88px;
-  justify-content: center;
-  left: 0;
-  letter-spacing: 0.1em;
-  pointer-events: none;
-  position: fixed;
-  scale: 0;
-  top: 0;
-  transition: scale 0.25s cubic-bezier(0.3, 1.4, 0.5, 1);
-  width: 88px;
-  z-index: 50;
-}
-.cursor-view.on {
-  scale: 1;
-}
-body.cursor-active [data-cursor="view"],
-body.cursor-active [data-cursor="view"] a {
-  cursor: none;
-}
-
-/* ── 8. Reduced motion ─────────────────── */
+/* ── 7. Reduced motion ─────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -203,9 +173,6 @@ body.cursor-active [data-cursor="view"] a {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
-  }
-  .cursor-view {
-    display: none !important;
   }
   .scream-btn.screaming {
     animation: none !important;

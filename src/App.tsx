@@ -1,6 +1,5 @@
 import type { Locale } from "@/i18n/copy";
 import ContactSection from "@/components/ContactSection";
-import CustomCursor from "@/components/CustomCursor";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import SiteFooter from "@/components/SiteFooter";
@@ -35,7 +34,6 @@ export default function App({ locale }: { locale: Locale }) {
         <Marquee reverse tone="ink" />
       </main>
       <SiteFooter />
-      <CustomCursor />
     </LocaleProvider>
   );
 }
