@@ -14,13 +14,13 @@ describe("escapeHtml", () => {
 describe("buildHead", () => {
   it("uses site root as canonical for en", () => {
     expect(buildHead("en")).toContain(
-      '<link href="https://ai-screams.github.io/" rel="canonical" />',
+      '<link href="https://ai-scream.ai/" rel="canonical" />',
     );
   });
 
   it("uses /ko/ as canonical for ko", () => {
     expect(buildHead("ko")).toContain(
-      '<link href="https://ai-screams.github.io/ko/" rel="canonical" />',
+      '<link href="https://ai-scream.ai/ko/" rel="canonical" />',
     );
   });
 

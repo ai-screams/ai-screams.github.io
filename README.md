@@ -4,7 +4,7 @@
 
 Brand homepage for **Ai-Scream**, a developer collective building useful things with AI.
 
-**Live**: [ai-screams.github.io](https://ai-screams.github.io) · [한국어](https://ai-screams.github.io/ko/)
+**Live**: [ai-scream.ai](https://ai-scream.ai) · [한국어](https://ai-scream.ai/ko/)
 
 ## Stack
 

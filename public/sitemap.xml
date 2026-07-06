@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ai-screams.github.io/</loc>
-    <xhtml:link href="https://ai-screams.github.io/" hreflang="en" rel="alternate" />
-    <xhtml:link href="https://ai-screams.github.io/ko/" hreflang="ko" rel="alternate" />
+    <loc>https://ai-scream.ai/</loc>
+    <xhtml:link href="https://ai-scream.ai/" hreflang="en" rel="alternate" />
+    <xhtml:link href="https://ai-scream.ai/ko/" hreflang="ko" rel="alternate" />
   </url>
   <url>
-    <loc>https://ai-screams.github.io/ko/</loc>
-    <xhtml:link href="https://ai-screams.github.io/" hreflang="en" rel="alternate" />
-    <xhtml:link href="https://ai-screams.github.io/ko/" hreflang="ko" rel="alternate" />
+    <loc>https://ai-scream.ai/ko/</loc>
+    <xhtml:link href="https://ai-scream.ai/" hreflang="en" rel="alternate" />
+    <xhtml:link href="https://ai-scream.ai/ko/" hreflang="ko" rel="alternate" />
   </url>
 </urlset>

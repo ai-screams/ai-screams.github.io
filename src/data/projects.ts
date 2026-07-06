@@ -22,7 +22,7 @@ export const PROJECTS: Project[] = [
     id: "scoop-uv",
     links: {
       github: "https://github.com/ai-screams/scoop-uv",
-      homepage: "https://ai-screams.github.io/scoop-uv/",
+      homepage: "https://ai-scream.ai/scoop-uv/",
     },
     name: "scoop-uv",
     tags: ["RUST", "CLI", "PYTHON"],
@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
     id: "azimuth",
     links: {
       github: "https://github.com/ai-screams/Azimuth",
-      homepage: "https://ai-screams.github.io/Azimuth/",
+      homepage: "https://ai-scream.ai/Azimuth/",
     },
     name: "Azimuth",
     tags: ["SWIFT", "MACOS"],
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     id: "hwpforge",
     links: {
       github: "https://github.com/ai-screams/HwpForge",
-      homepage: "https://ai-screams.github.io/HwpForge/",
+      homepage: "https://ai-scream.ai/HwpForge/",
     },
     name: "HwpForge",
     tags: ["RUST", "MCP", "HWPX"],

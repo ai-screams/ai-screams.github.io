@@ -11,7 +11,7 @@ const checks = [
   ["dist/ko/index.html", "기분 좋은 비명입니다."],
   [
     "dist/ko/index.html",
-    'href="https://ai-screams.github.io/ko/" rel="canonical"',
+    'href="https://ai-scream.ai/ko/" rel="canonical"',
   ],
 ];
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ai-screams.github.io/sitemap.xml
+Sitemap: https://ai-scream.ai/sitemap.xml
