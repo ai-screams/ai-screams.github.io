@@ -1,34 +1,41 @@
-import { lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router";
-import Layout from "./components/layout/Layout";
-import { SchemeProvider } from "./contexts/SchemeContext";
+import type { Locale } from "@/i18n/copy";
+import ContactSection from "@/components/ContactSection";
+import CustomCursor from "@/components/CustomCursor";
+import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
+import TeamSection from "@/components/TeamSection";
+import WorkSection from "@/components/WorkSection";
+import { LocaleProvider, useCopy } from "@/i18n/LocaleContext";
 
-const About = lazy(() => import("./pages/About"));
-const Colors = lazy(() => import("./pages/Colors"));
-const Home = lazy(() => import("./pages/Home"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
-const Projects = lazy(() => import("./pages/Projects"));
-const TestCssPixel = lazy(() => import("./pages/TestCssPixel"));
-const Travel = lazy(() => import("./pages/Travel"));
-
-export default function App() {
+function SkipLink() {
+  const copy = useCopy();
   return (
-    <SchemeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route element={<Home />} index />
-            <Route element={<About />} path="about" />
-            <Route element={<Projects />} path="projects" />
-            <Route element={<ProjectDetail />} path="projects/:slug" />
-            <Route element={<Travel />} path="travel" />
-            <Route element={<Colors />} path="colors" />
-            <Route element={<TestCssPixel />} path="test-css-pixel" />
-            <Route element={<NotFound />} path="*" />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </SchemeProvider>
+    <a
+      className="sr-only focus:not-sr-only focus:fixed focus:top-16 focus:left-4 focus:z-20 focus:bg-paper focus:px-4 focus:py-2"
+      href="#work"
+    >
+      {copy.a11y.skip}
+    </a>
+  );
+}
+
+export default function App({ locale }: { locale: Locale }) {
+  return (
+    <LocaleProvider locale={locale}>
+      <SkipLink />
+      <SiteHeader />
+      <main>
+        <Hero />
+        <Marquee />
+        <WorkSection />
+        <TeamSection />
+        <ContactSection />
+        <Marquee reverse tone="ink" />
+      </main>
+      <SiteFooter />
+      <CustomCursor />
+    </LocaleProvider>
   );
 }

@@ -1,43 +1,27 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Screams</title>
-    <!-- Pixel fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="#fafafa" name="theme-color" />
+    <!--app-head-->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link href="https://api.fontshare.com" rel="preconnect" />
+    <link crossorigin href="https://cdn.jsdelivr.net" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@latest/neodgm/style.css"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
       rel="stylesheet"
     />
-    <!-- Color scheme init (prevents flash on reload) -->
-    <script>
-      (function () {
-        var s = localStorage.getItem("ai-scream-scheme");
-        if (s && /^(aurora|peach|cotton|matcha)$/.test(s)) {
-          document.documentElement.setAttribute("data-scheme", s);
-        }
-      })();
-    </script>
-    <!-- GitHub Pages SPA redirect handler -->
-    <script>
-      (function () {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
-    </script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root"><!--app-html--></div>
+    <script src="/src/main.tsx" type="module"></script>
   </body>
 </html>

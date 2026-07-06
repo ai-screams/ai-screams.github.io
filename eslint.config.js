@@ -8,7 +8,13 @@ import prettierConfig from "eslint-config-prettier";
 import globals from "globals";
 
 export default defineConfig([
-  globalIgnores(["dist/", "node_modules/", ".github/", "*.config.js"]),
+  globalIgnores([
+    "dist/",
+    "dist-ssr/",
+    "node_modules/",
+    ".github/",
+    "*.config.js",
+  ]),
 
   {
     files: ["**/*.{ts,tsx}"],
@@ -35,7 +41,7 @@ export default defineConfig([
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true, allowExportNames: ["useScheme"] },
+        { allowConstantExport: true, allowExportNames: ["useCopy", "useLocale"] },
       ],
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [

@@ -1,14 +1,75 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>AI Screams</title>
-    <script>
-      // GitHub Pages SPA fallback
-      // Saves the current path and redirects to index.html
-      sessionStorage.redirect = location.href;
-      location.replace("/");
-    </script>
+    <meta charset="UTF-8" />
+    <title>404 — Ai-Scream</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="noindex" name="robots" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        color-scheme: light;
+      }
+      body {
+        align-items: center;
+        background: oklch(98.5% 0 0);
+        color: oklch(17.8% 0 0);
+        display: flex;
+        flex-direction: column;
+        font-family:
+          Helvetica,
+          Arial,
+          "Pretendard Variable",
+          sans-serif;
+        justify-content: center;
+        min-height: 100svh;
+        padding: 24px;
+        text-align: center;
+      }
+      h1 {
+        font-size: clamp(96px, 22vw, 260px);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+      }
+      .highlight {
+        background: oklch(68.6% 0.2 4);
+        color: oklch(98.5% 0 0);
+        padding: 0 0.08em;
+      }
+      p {
+        font-size: clamp(16px, 2.4vw, 22px);
+        margin: 4px 0;
+      }
+      .ko {
+        color: oklch(54.5% 0.005 60);
+      }
+      a {
+        border-bottom: 2px solid oklch(68.6% 0.2 4);
+        color: oklch(17.8% 0 0);
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        margin-top: 32px;
+        padding-bottom: 2px;
+        text-decoration: none;
+      }
+      a:hover {
+        color: oklch(68.6% 0.2 4);
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <h1><span class="highlight">404</span></h1>
+    <p>This page melted away.</p>
+    <p class="ko">이 페이지는 녹아 없어졌어요.</p>
+    <a href="/">← ai-screams.github.io</a>
+  </body>
 </html>

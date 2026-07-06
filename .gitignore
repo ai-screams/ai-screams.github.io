@@ -454,6 +454,13 @@ $RECYCLE.BIN/
 ### Vite / React ###
 node_modules/
 dist/
+dist-ssr/
 *.local
 *.tsbuildinfo
 
+
+# Superpowers brainstorm sessions
+.superpowers/
+
+# Internal docs — never commit (global rule)
+.docs/
