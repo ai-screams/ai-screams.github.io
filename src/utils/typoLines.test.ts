@@ -25,4 +25,29 @@ describe("typoLines", () => {
   it("joins 3+ tokens into two lines", () => {
     expect(typoLines("my-cool-tool")).toEqual(["MY", "COOL TOOL"]);
   });
+
+  it("keeps non-Latin script tokens instead of discarding them", () => {
+    expect(typoLines("abc-스쿱-def")).toEqual(["ABC", "스쿱 DEF"]);
+  });
+
+  it("mid-splits a long single-token Korean name by codepoint, not byte", () => {
+    expect(typoLines("아이스크림스쿱유브이")).toEqual([
+      "아이스크림",
+      "스쿱유브이",
+    ]);
+  });
+
+  it("treats non-letter symbols (e.g. emoji) as separators without corrupting surrogates", () => {
+    const lines = typoLines("가나다라😀마바사");
+    expect(lines).toEqual(["가나다라", "마바사"]);
+    for (const line of lines) {
+      expect(/[\uD800-\uDFFF]/.test(line)).toBe(false);
+    }
+  });
+
+  it("keeps a supplementary-plane surrogate pair intact when mid-splitting", () => {
+    // U+1D54F (𝕏, mathematical double-struck capital X) is \p{L} and encodes
+    // as a surrogate pair — a naive UTF-16-unit midpoint slice would sever it.
+    expect(typoLines("Azimuth𝕏Compass")).toEqual(["AZIMUTH𝕏", "COMPASS"]);
+  });
 });

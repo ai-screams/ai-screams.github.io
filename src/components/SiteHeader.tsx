@@ -20,7 +20,7 @@ export default function SiteHeader() {
         AI-SCREAM<span className="text-scream">.</span>
       </a>
       <div className="flex items-center gap-3 sm:gap-7">
-        <nav className="flex gap-3 sm:gap-6">
+        <nav className="flex gap-1 sm:gap-6">
           {NAV_ITEMS.map((item) => (
             <a
               className="relative py-4 font-display text-xs font-semibold tracking-[0.08em] after:absolute after:bottom-3 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-scream after:transition-transform hover:after:scale-x-100 sm:tracking-[0.12em]"
@@ -33,18 +33,26 @@ export default function SiteHeader() {
         </nav>
         <div className="flex items-center gap-1 border border-ink px-1 font-display text-xs font-semibold sm:px-2">
           <a
-            className={`px-1.5 py-4 sm:px-2 ${locale === "en" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
-            href="/"
+            className="px-1.5 py-4 sm:hidden"
+            href={locale === "en" ? "/ko/" : "/"}
           >
-            EN
+            {locale === "en" ? "KO" : "EN"}
           </a>
-          <span className="text-ink/20">/</span>
-          <a
-            className={`px-1.5 py-4 sm:px-2 ${locale === "ko" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
-            href="/ko/"
-          >
-            KO
-          </a>
+          <div className="hidden items-center gap-1 sm:flex">
+            <a
+              className={`px-1.5 py-4 sm:px-2 ${locale === "en" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
+              href="/"
+            >
+              EN
+            </a>
+            <span className="text-ink/20">/</span>
+            <a
+              className={`px-1.5 py-4 sm:px-2 ${locale === "ko" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
+              href="/ko/"
+            >
+              KO
+            </a>
+          </div>
         </div>
       </div>
       <ProgressLine />

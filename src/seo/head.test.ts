@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { buildHead } from "@/seo/head";
+import { buildHead, escapeHtml } from "@/seo/head";
+
+describe("escapeHtml", () => {
+  it('escapes &, <, >, and " with & escaped first', () => {
+    expect(escapeHtml('a"b<c&d')).toBe("a&quot;b&lt;c&amp;d");
+  });
+
+  it("does not double-escape ampersands introduced by other replacements", () => {
+    expect(escapeHtml("<>")).toBe("&lt;&gt;");
+  });
+});
 
 describe("buildHead", () => {
   it("uses site root as canonical for en", () => {

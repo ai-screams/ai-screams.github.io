@@ -3,6 +3,7 @@
 
 /* ── 1. Base ───────────────────────────── */
 html {
+  color-scheme: light;
   scroll-behavior: smooth;
 }
 body {
