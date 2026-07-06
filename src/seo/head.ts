@@ -19,6 +19,7 @@ export function buildHead(locale: Locale): string {
   const jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
+    email: SITE.email,
     name: SITE.name,
     sameAs: [SITE.github],
     url: `${SITE.url}/`,
