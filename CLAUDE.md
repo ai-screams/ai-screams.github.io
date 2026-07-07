@@ -1,90 +1,52 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Ai-Scream 브랜드 홈페이지 — Swiss-editorial 원페이지, GitHub Pages 배포, 커스텀 도메인 https://ai-scream.ai (EN 기본 `/`, 한글 `/ko/`).
+(2026-07 구 픽셀 포트폴리오에서 전면 재구축됨.)
 
 ## Commands
 
 ```bash
-npm run dev          # Start Vite dev server (default port 5173)
-npm run build        # TypeScript check + Vite production build (tsc -b && vite build)
-npm run lint         # ESLint check
-npm run lint:fix     # ESLint auto-fix
-npm run format       # Prettier format all src files
-npm run format:check # Prettier check (CI)
+npm run dev          # Vite dev 서버 (?lang=ko 로 한글 미리보기)
+npm run build        # tsc -b → client build → SSR build → prerender → verify (자체 게이트)
+npm run test         # Vitest (순수 로직 유닛 테스트)
+npm run preview      # 빌드 결과 서빙 (/ 와 /ko/ 육안 QA)
+npm run lint         # ESLint  ·  npm run format:check  # Prettier
 ```
 
-Pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write` on staged files automatically.
+Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸은 **zsh** (`mapfile` 없음).
 
 ## Architecture
 
-**AI Scream** — personal developer portfolio + travel blog, deployed to GitHub Pages as a static SPA.
+- **React 19 + TS + Vite 6 + Tailwind v4** (`@theme` in `src/styles/tokens.css`, no config). **라우터·Motion·PixiJS 없음** (제거됨).
+- **빌드 타임 프리렌더**: `src/entry-server.tsx`의 `render(locale)` → `scripts/prerender.mjs`가 `<!--app-head-->`/`<!--app-html-->` 치환 → `dist/index.html`(en) + `dist/ko/index.html`(ko) + `dist/sitemap.xml`(lastmod 자동). 클라이언트는 `main.tsx`에서 hydrate.
+- **`scripts/verify-prerender.mjs`가 빌드 게이트** — 산출 HTML을 **정확한 문자열로 grep**. 카피·도메인·메타 변경 시 이 스크립트와 `src/seo/head.test.ts`도 함께 고쳐야 빌드 통과.
+- **SSR 안전 필수**: 브라우저 API(matchMedia/IntersectionObserver/document)는 전부 `useEffect` 내부. 렌더 본문·모듈 스코프에서 금지 (renderToString이 Node에서 실행). `Date.now()`/`Math.random()` 렌더 중 금지.
 
-### Tech Stack
+## Key Patterns
 
-- React 19 + TypeScript 5.7+ + Vite 6 (SWC plugin)
-- Tailwind CSS v4 (`@theme` directive, no tailwind.config — configured in `src/styles/tokens.css`)
-- Motion v12 (page transitions in Layout)
-- React Router v7 (BrowserRouter, route-level lazy loading)
+- **데이터 주도 콘텐츠**: `src/data/{projects,members,site}.ts` + `src/i18n/copy.ts`. 프로젝트/멤버 추가 = 데이터 한 줄, 컴포넌트 수정 없음. 단일 `ProjectRow`가 모든 프로젝트 렌더. 프로젝트별 전용 컴포넌트 없음.
+- **i18n**: `Copy` 타입이 EN/KO 패리티 강제. `useCopy()`/`useLocale()` (React 19 `use()` + `<LocaleContext value>`). 멤버 0명이면 Team 섹션+내비 자동 숨김.
+- **SEO**: `src/seo/head.ts`의 `buildHead(locale)`이 canonical/hreflang/OG(이미지 포함)/twitter/JSON-LD 전부 생성. `SITE.url` = `https://ai-scream.ai` (단일 출처).
+- **버전**: `__APP_VERSION__` (vite `define`가 package.json에서 주입) → 푸터 표시. 눈에 보이는 배포마다 `npm version` 범프 + 태그 (푸터 버전 = 배포 태그 유지).
 
-### Key Patterns
+## Conventions
 
-**Design Token System** (`src/styles/tokens.css` + `src/styles/tokens.ts`):
+- **oklch만** (CSS hex/rgb 금지). 토큰: paper/ink/scream(핑크)/mist. **하드 엣지, 라운드 코너 없음** (아바타 예외). 단일 라이트 테마(다크모드 없음).
+- 브랜드명 **"Ai-Scream"** (로고 워드마크 `AI-SCREAM.ai`). EN 헤드라인 + 한글 본문. Path alias `@/*` → `./src/*`.
+- 폰트: **Clash Display 셀프호스팅**(`public/fonts/`, LCP preload), Pretendard는 jsdelivr CDN.
+- ⚠️ `SiteFooter.tsx`의 `ai-screams.github.io`는 **GitHub 저장소 이름**(도메인 아님) — 도메인 일괄치환 시 제외.
 
-- 4-layer architecture: Primitives (`@theme`) → Schemes (`[data-scheme]`) → Semantics (`:root`) → Pixel System (`:root`)
-- oklch color space throughout
-- 4 switchable color schemes: Aurora Dream (default, lavender+mint), Cotton Sky (rose+skyblue), Matcha Garden (green+yellow-green), Peach Blossom (peach+gold)
-- CSS variables consumed via `var(--token-name)` — never hardcode color values
-- `tokens.ts` exports JS-accessible values for PixiJS/Motion (must stay in sync with CSS)
+## Domain & Deploy
 
-**Color Scheme Context** (`src/contexts/SchemeContext.tsx`):
-
-- `SchemeProvider` wraps the app, manages `data-scheme` attribute + localStorage persistence
-- Consume via `useScheme()` hook (React 19 `use()` API)
-- `index.html` has inline script to prevent scheme flash on load
-
-**Routing** (`src/App.tsx`):
-
-- All pages lazy-loaded with `React.lazy()` + `Suspense`
-- GitHub Pages SPA fallback via `public/404.html` → sessionStorage redirect
-
-**Layout** (`src/components/layout/`):
-
-- `Layout.tsx` — Navbar + AnimatePresence page transition + Footer
-- `Navbar.tsx` — pixel-style fixed header with hard-edge border, nav links, 4-dot scheme switcher, and mobile hamburger menu
-- `routing.ts` — shared `NavItem` type and `isActivePath()` helper used by Navbar and Footer
-
-### Conventions
-
-- **White-first**: Single light theme only — no dark mode
-- **Korean**: UI text and comments may be in Korean; `<html lang="ko">`
-- **Brand name**: "AI Scream" (singular), repo name is "AI Screams" (plural)
-- **Path alias**: `@/*` maps to `./src/*`
-
-## CI/CD
-
-**CI Pipeline** (`.github/workflows/ci.yml`) — runs on pull requests to main:
-
-- 5 parallel jobs: lint (`npm run lint`), typecheck (`npx tsc -b`), build (`npm run build`), format-check (`npm run format:check`), security (npm audit + gitleaks)
-- All GitHub Actions pinned to commit SHAs for supply chain security
-- Least-privilege permissions (`contents: read` only)
-
-**Deploy Pipeline** (`.github/workflows/deploy.yml`) — runs on push to main:
-
-- Builds dist artifact and deploys to GitHub Pages
-- Triggered on push to `main` or manual `workflow_dispatch`
-
-**Dependabot** (`.github/dependabot.yml`):
-
-- npm: weekly updates (Mondays), minor/patch grouped into single PR
-- GitHub Actions: monthly updates
-- Commit prefixes: `chore(deps):` / `chore(ci):`
+- 커스텀 도메인 `ai-scream.ai` (`public/CNAME`, HTTPS 강제). `SITE.github`는 `github.com/ai-screams` (org, 불변).
+- `deploy.yml`(main push → Pages). ⚠️ **deploy 스텝이 "Deployment failed, try again later"로 자주 실패** — GitHub 측 일시 오류(빌드는 항상 성공). `gh run rerun <id> --failed` 또는 `gh workflow run deploy.yml`로 재시도.
+- 사이트맵: robots.txt로 passive 등록(자동 발견) + IndexNow 능동 제출(Bing/Yandex/Naver). Google 능동 제출은 Search Console 필요.
 
 ## Lint Rules
 
-ESLint v9 flat config with `eslint-plugin-perfectionist`:
+ESLint v9 flat + `eslint-plugin-perfectionist`: sort-imports(natural asc, `newlinesBetween: 0`), sort-jsx-props(alpha), sort-objects(alpha). `eslint-config-prettier` 마지막. Prettier + `prettier-plugin-tailwindcss`. Context 훅은 `allowExportNames`에 추가 (현재 `useCopy`, `useLocale`).
 
-- **sort-imports**: natural ascending, no blank lines between import groups (`newlinesBetween: 0`)
-- **sort-jsx-props**: alphabetical, case-insensitive
-- **sort-objects**: alphabetical, case-insensitive
+## CI/CD
 
-`eslint-config-prettier` is applied last to avoid conflicts. Prettier uses `prettier-plugin-tailwindcss` for class sorting.
+- `ci.yml` (PR): lint, typecheck(+`npm run test`), build, format-check, security 병렬. GitHub Actions SHA 고정.
+- Dependabot: npm 주간(월, minor/patch 그룹), Actions 월간. 커밋 prefix `chore(deps):`/`chore(ci):`.
