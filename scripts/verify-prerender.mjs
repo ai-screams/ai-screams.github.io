@@ -16,6 +16,8 @@ const checks = [
     "dist/ko/index.html",
     'href="https://ai-scream.ai/ko/" rel="canonical"',
   ],
+  ["dist/sitemap.xml", "https://ai-scream.ai/ko/"],
+  ["dist/sitemap.xml", "<lastmod>"],
 ];
 
 let failed = 0;

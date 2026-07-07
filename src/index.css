@@ -1,6 +1,29 @@
 @import "tailwindcss";
 @import "./styles/tokens.css";
 
+/* ── Self-hosted display font (Clash Display, Latin) ── */
+@font-face {
+  font-display: swap;
+  font-family: "Clash Display";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/clash-display-500.woff2") format("woff2");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Clash Display";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/fonts/clash-display-600.woff2") format("woff2");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Clash Display";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/clash-display-700.woff2") format("woff2");
+}
+
 /* ── 1. Base ───────────────────────────── */
 html {
   color-scheme: light;
