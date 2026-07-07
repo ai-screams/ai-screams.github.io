@@ -50,4 +50,36 @@ describe("buildHead", () => {
       "<title>Ai-Scream — AI 개발자 콜렉티브</title>",
     );
   });
+
+  it("includes an absolute og:image with dimensions and a large twitter card", () => {
+    const head = buildHead("en");
+    expect(head).toContain(
+      '<meta content="https://ai-scream.ai/og.png" property="og:image" />',
+    );
+    expect(head).toContain('content="1200" property="og:image:width"');
+    expect(head).toContain('content="630" property="og:image:height"');
+    expect(head).toContain('property="og:image:alt"');
+    expect(head).toContain('content="summary_large_image" name="twitter:card"');
+    expect(head).toContain(
+      '<meta content="https://ai-scream.ai/og.png" name="twitter:image" />',
+    );
+  });
+
+  it("declares the alternate og:locale per page", () => {
+    expect(buildHead("en")).toContain(
+      '<meta content="ko_KR" property="og:locale:alternate" />',
+    );
+    expect(buildHead("ko")).toContain(
+      '<meta content="en_US" property="og:locale:alternate" />',
+    );
+  });
+
+  it("adds logo and description to the Organization JSON-LD", () => {
+    const match = /<script type="application\/ld\+json">(.+?)<\/script>/s.exec(
+      buildHead("en"),
+    );
+    const data = JSON.parse(match![1]) as { description: string; logo: string };
+    expect(data.logo).toBe("https://ai-scream.ai/icon-512.png");
+    expect(data.description.length).toBeGreaterThan(0);
+  });
 });

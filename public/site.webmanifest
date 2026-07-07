@@ -1,0 +1,13 @@
+{
+  "name": "Ai-Scream",
+  "short_name": "Ai-Scream",
+  "description": "AI developer collective — developer tools, macOS apps, and libraries that make you scream (the good kind).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#fafafa",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

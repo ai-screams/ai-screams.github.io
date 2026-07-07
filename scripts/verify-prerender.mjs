@@ -7,6 +7,9 @@ const checks = [
   ["dist/index.html", 'hreflang="ko"'],
   ["dist/index.html", '"@type":"Organization"'],
   ["dist/index.html", "The good kind of scream."],
+  ["dist/index.html", 'content="https://ai-scream.ai/og.png" property="og:image"'],
+  ["dist/index.html", 'content="summary_large_image"'],
+  ["dist/index.html", 'rel="manifest"'],
   ["dist/ko/index.html", '<html lang="ko">'],
   ["dist/ko/index.html", "기분 좋은 비명입니다."],
   [
