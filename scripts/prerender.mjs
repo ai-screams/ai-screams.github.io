@@ -6,12 +6,19 @@ const { render, SITE } = await import(
 );
 const template = readFileSync("dist/index.html", "utf8");
 
+// Cloudflare Web Analytics beacon — prod build only (not vite dev), so local
+// traffic isn't counted. Token is public/safe to expose in the static HTML.
+const beacon = SITE.cfBeaconToken
+  ? `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${SITE.cfBeaconToken}"}'></script>`
+  : "";
+
 for (const locale of ["en", "ko"]) {
   const { head, html } = render(locale);
   const page = template
     .replace('<html lang="en">', `<html lang="${locale}">`)
     .replace("<!--app-head-->", head)
-    .replace("<!--app-html-->", html);
+    .replace("<!--app-html-->", html)
+    .replace("</body>", `  ${beacon}\n  </body>`);
   if (locale === "en") {
     writeFileSync("dist/index.html", page);
   } else {
