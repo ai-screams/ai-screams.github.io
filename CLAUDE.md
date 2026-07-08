@@ -13,7 +13,7 @@ npm run preview      # 빌드 결과 서빙 (/ 와 /ko/ 육안 QA)
 npm run lint         # ESLint  ·  npm run format:check  # Prettier
 ```
 
-Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸은 **zsh** (`mapfile` 없음).
+Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸은 **zsh** (`mapfile` 없음). 커밋이 `.git/index.lock: File exists`로 막히면 `rm -f .git/index.lock` 후 재시도.
 
 ## Architecture
 
@@ -39,8 +39,9 @@ Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸�
 ## Domain & Deploy
 
 - 커스텀 도메인 `ai-scream.ai` (`public/CNAME`, HTTPS 강제). `SITE.github`는 `github.com/ai-screams` (org, 불변).
-- `deploy.yml`(main push → Pages). ⚠️ **deploy 스텝이 "Deployment failed, try again later"로 자주 실패** — GitHub 측 일시 오류(빌드는 항상 성공). `gh run rerun <id> --failed` 또는 `gh workflow run deploy.yml`로 재시도.
+- `deploy.yml`(main push → Pages). deploy 스텝은 실패 시 20초 후 **1회 자동 재시도**(GitHub의 "Deployment failed, try again later" 일시 오류 대응; 빌드는 항상 성공). 그래도 실패면 `gh run rerun <id> --failed`.
 - 사이트맵: robots.txt로 passive 등록(자동 발견) + IndexNow 능동 제출(Bing/Yandex/Naver). Google 능동 제출은 Search Console 필요.
+- Cloudflare Web Analytics beacon은 `scripts/prerender.mjs`가 **prod 빌드에만** 주입(`SITE.cfBeaconToken`, 공개 토큰) — dev/preview 미포함.
 
 ## Lint Rules
 
@@ -48,5 +49,5 @@ ESLint v9 flat + `eslint-plugin-perfectionist`: sort-imports(natural asc, `newli
 
 ## CI/CD
 
-- `ci.yml` (PR): lint, typecheck(+`npm run test`), build, format-check, security 병렬. GitHub Actions SHA 고정.
+- `ci.yml` (PR): lint, typecheck(+`npm run test`), build, format-check, security, **lighthouse**(`/`·`/ko/` 예산: SEO·a11y ≥0.9 error / 성능·best-practices warn, `lighthouserc.json`) 병렬. SHA 고정. 워크플로 변경은 **PR로 검증**(ci.yml은 PR에서만 실행).
 - Dependabot: npm 주간(월, minor/patch 그룹), Actions 월간. 커밋 prefix `chore(deps):`/`chore(ci):`.
