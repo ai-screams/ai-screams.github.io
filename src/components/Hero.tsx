@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
-import { useCopy } from "@/i18n/LocaleContext";
+import { useCopy, useLocale } from "@/i18n/LocaleContext";
 
 const HERO_IMMEDIATE = { immediate: true };
 
 function ScreamButton() {
+  const locale = useLocale();
   const [screaming, setScreaming] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => {
@@ -21,7 +22,7 @@ function ScreamButton() {
       }}
       type="button"
     >
-      {screaming ? "aaaa!" : "scream"}
+      {screaming ? (locale === "ko" ? "아아아아" : "aaaa!") : "scream"}
     </button>
   );
 }

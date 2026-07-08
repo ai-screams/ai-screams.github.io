@@ -35,6 +35,9 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   min-height: 100svh;
+  /* 한글은 어절(띄어쓰기) 단위로만 줄바꿈 — "콜렉티브" 같은 단어 중간 분리 방지.
+     비CJK(영어)는 normal처럼 동작하므로 안전. */
+  word-break: keep-all;
 }
 ::selection {
   background: var(--color-scream);
