@@ -81,4 +81,23 @@ export const PROJECTS: Project[] = [
       type: "image",
     },
   },
+  {
+    category: "MACOS APP",
+    description: {
+      en: "In folklore, a mara sits on a sleeper's chest and steals their rest. This one keeps watch over your Mac — timers, automatic triggers, and zero permission prompts.",
+      ko: "설화 속 마라는 잠든 이의 가슴에 앉아 잠을 앗아갑니다. 이 마라는 당신의 Mac을 지켜봅니다 — 타이머와 자동 트리거, 그리고 권한 요청 0건.",
+    },
+    id: "mara",
+    links: {
+      github: "https://github.com/ai-screams/mara",
+      homepage: "https://ai-scream.ai/mara/",
+    },
+    name: "Mara",
+    tags: ["SWIFT", "MACOS", "MENU BAR"],
+    visual: {
+      alt: "Mara app icon — an orange eye on a dark rounded square",
+      src: "/projects/mara.png",
+      type: "image",
+    },
+  },
 ];
