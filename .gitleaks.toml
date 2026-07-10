@@ -1,0 +1,14 @@
+# gitleaks configuration — see https://github.com/gitleaks/gitleaks
+#
+# CI runs `gitleaks detect --source .` over the full history, so allowlisting
+# must happen here: an inline `gitleaks:allow` comment would only cover the
+# current blob, not the commits that already contain the value.
+
+[extend]
+  useDefault = true
+
+[[allowlists]]
+  description = "Cloudflare Web Analytics beacon token — a public identifier, shipped verbatim in the client HTML by scripts/prerender.mjs"
+  condition = "AND"
+  paths = ['''src/data/site\.ts''']
+  regexes = ['''3ff9e61264a24770a278cd719c3bd87f''']
