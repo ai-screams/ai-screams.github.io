@@ -89,8 +89,8 @@ export const PROJECTS: Project[] = [
     },
     id: "mara",
     links: {
-      github: "https://github.com/ai-screams/mara",
-      homepage: "https://ai-scream.ai/mara/",
+      github: "https://github.com/ai-screams/Mara",
+      homepage: "https://ai-scream.ai/Mara/",
     },
     name: "Mara",
     tags: ["SWIFT", "MACOS", "MENU BAR"],
