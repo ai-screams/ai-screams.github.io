@@ -84,8 +84,8 @@ export const PROJECTS: Project[] = [
   {
     category: "MACOS APP",
     description: {
-      en: "In folklore, a mara sits on a sleeper's chest and steals their rest. This one keeps watch over your Mac — timers, automatic triggers, and zero permission prompts.",
-      ko: "설화 속 마라는 잠든 이의 가슴에 앉아 잠을 앗아갑니다. 이 마라는 당신의 Mac을 지켜봅니다 — 타이머와 자동 트리거, 그리고 권한 요청 0건.",
+      en: "In folklore, a mara sits on a sleeper's chest and steals their rest. This one keeps your Mac from ever drifting off — timers, automatic triggers, and zero permission prompts.",
+      ko: "설화 속 마라는 잠든 이의 가슴에 앉아 잠을 앗아갑니다. 이 마라는 당신의 Mac이 잠들지 못하게 지킵니다 — 타이머와 자동 트리거, 그리고 권한 요청 0건.",
     },
     id: "mara",
     links: {
