@@ -11,10 +11,12 @@ function ScreamButton() {
   useEffect(() => {
     return () => clearTimeout(timeoutRef.current);
   }, []);
+  // block (own line) at every width: inline, it joined "MAKE YOU" from 1488px
+  // up, and that long line ran under the lg badge (up to 111px overlap).
   return (
     <button
       aria-label="scream"
-      className={`scream-btn inline-block bg-scream px-[0.08em] text-paper uppercase ${screaming ? "screaming" : ""}`}
+      className={`scream-btn block w-fit bg-scream px-[0.08em] text-paper uppercase ${screaming ? "screaming" : ""}`}
       onClick={() => {
         setScreaming(true);
         clearTimeout(timeoutRef.current);
