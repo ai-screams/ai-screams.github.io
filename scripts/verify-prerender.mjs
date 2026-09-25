@@ -19,6 +19,8 @@ const checks = [
   ],
   ["dist/sitemap.xml", "https://ai-scream.ai/ko/"],
   ["dist/sitemap.xml", "<lastmod>"],
+  ["dist/404.html", 'location.replace'],
+  ["dist/404.html", '"Mara"'],
 ];
 
 let failed = 0;
@@ -29,5 +31,39 @@ for (const [file, needle] of checks) {
     failed += 1;
   }
 }
+// Run the case-redirect script exactly as shipped in dist/404.html (not the
+// source the unit tests import), with a fake location.
+const notFound = readFileSync("dist/404.html", "utf8");
+const script = /<script>(\(function\(\)\{var t=[\s\S]*?)<\/script>/.exec(notFound);
+const redirectFor = (pathname) => {
+  let replaced = null;
+  const location = {
+    hash: "#top",
+    pathname,
+    replace: (url) => (replaced = url),
+    search: "?q=1",
+  };
+  new Function("location", script[1])(location);
+  return replaced;
+};
+const redirectCases = [
+  ["/mara/docs", "/Mara/docs?q=1#top"],
+  ["/Mara/x", null],
+];
+for (const [pathname, expected] of redirectCases) {
+  let actual;
+  try {
+    actual = script ? redirectFor(pathname) : "no script";
+  } catch (error) {
+    actual = `threw ${error.message}`;
+  }
+  if (actual !== expected) {
+    console.error(`FAIL: 404 redirect ${pathname} -> ${actual}, expected ${expected}`);
+    failed += 1;
+  }
+}
+
 if (failed > 0) process.exit(1);
-console.log(`prerender verified: ${checks.length} checks passed`);
+console.log(
+  `prerender verified: ${checks.length + redirectCases.length} checks passed`,
+);

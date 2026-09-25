@@ -20,6 +20,7 @@ Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸�
 - **React 19 + TS 5 + Vite 8 + Tailwind v4** (`@theme` in `src/styles/tokens.css`, no config). **라우터·Motion·PixiJS 없음** (제거됨).
 - **빌드 타임 프리렌더**: `src/entry-server.tsx`의 `render(locale)` → `scripts/prerender.mjs`가 `<!--app-head-->`/`<!--app-html-->` 치환 → `dist/index.html`(en) + `dist/ko/index.html`(ko) + `dist/sitemap.xml`(lastmod 자동). 클라이언트는 `main.tsx`에서 hydrate.
 - **`scripts/verify-prerender.mjs`가 빌드 게이트** — 산출 HTML을 **정확한 문자열로 grep**. 카피·도메인·메타 변경 시 이 스크립트와 `src/seo/head.test.ts`도 함께 고쳐야 빌드 통과.
+- **대소문자 무시 redirect**: Pages 경로는 대소문자를 구분하므로 `/mara/`는 이 저장소의 `404.html`로 떨어진다. `prerender.mjs`가 `public/404.html`의 `<!--case-redirect-->` 마커에 `src/seo/caseRedirect.ts` 스크립트를 주입(대상 = `projects.ts` homepage + `ko`)해 첫 경로 조각을 올바른 표기로 `location.replace`. 마커를 지우면 빌드 실패. `resolveCaseRedirect`는 `toString`으로 직렬화되므로 import·외부 helper 금지(verify가 산출 스크립트를 실제 실행해 검사). `projects.ts` 링크는 여전히 정확한 표기로 쓴다 — redirect는 손으로 친 주소용 fallback.
 - **SSR 안전 필수**: 브라우저 API(matchMedia/IntersectionObserver/document)는 전부 `useEffect` 내부. 렌더 본문·모듈 스코프에서 금지 (renderToString이 Node에서 실행). `Date.now()`/`Math.random()` 렌더 중 금지.
 
 ## Key Patterns

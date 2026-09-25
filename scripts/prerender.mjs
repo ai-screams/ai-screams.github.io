@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
-const { render, SITE } = await import(
+const { notFoundScript, render, SITE } = await import(
   pathToFileURL("dist-ssr/entry-server.js").href
 );
 const template = readFileSync("dist/index.html", "utf8");
@@ -27,6 +27,18 @@ for (const locale of ["en", "ko"]) {
   }
   console.log(`prerendered: ${locale}`);
 }
+
+// 404.html: GitHub Pages paths are case-sensitive, so /mara/ lands here.
+// Inject the redirect that sends it to /Mara/ (see src/seo/caseRedirect.ts).
+const notFound = readFileSync("dist/404.html", "utf8");
+if (!notFound.includes("<!--case-redirect-->")) {
+  throw new Error("dist/404.html is missing the <!--case-redirect--> marker");
+}
+writeFileSync(
+  "dist/404.html",
+  notFound.replace("<!--case-redirect-->", notFoundScript),
+);
+console.log("404.html: case redirect injected");
 
 // Generate sitemap.xml from the single source of truth (SITE.url + locales)
 // with a fresh lastmod on every build.
