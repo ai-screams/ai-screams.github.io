@@ -10,11 +10,21 @@ export function caseRedirectRoots(
   siteUrl: string,
 ): string[] {
   const roots = new Set(["ko"]);
+  const origin = new URL(siteUrl).origin;
   for (const { links } of projects) {
-    const prefix = `${siteUrl}/`;
-    if (!links.homepage?.startsWith(prefix)) continue;
-    const segment = links.homepage.slice(prefix.length).split("/")[0];
+    if (!links.homepage) continue;
+    const url = new URL(links.homepage);
+    if (url.origin !== origin) continue;
+    const segment = url.pathname.split("/")[1];
     if (segment) roots.add(segment);
+  }
+  // Two roots that differ only by case would redirect into each other.
+  const seen = new Map<string, string>();
+  for (const root of roots) {
+    const clash = seen.get(root.toLowerCase());
+    if (clash)
+      throw new Error(`case-insensitive duplicate roots: ${clash}, ${root}`);
+    seen.set(root.toLowerCase(), root);
   }
   return [...roots];
 }
@@ -31,8 +41,10 @@ export function resolveCaseRedirect(
   const match = /^\/([^/]+)(.*)$/.exec(pathname);
   if (!match) return null;
   const segment = match[1];
+  // An exact root means the page itself is missing: show the 404, don't loop.
+  if (roots.indexOf(segment) !== -1) return null;
   for (const root of roots) {
-    if (root !== segment && root.toLowerCase() === segment.toLowerCase()) {
+    if (root.toLowerCase() === segment.toLowerCase()) {
       return `/${root}${match[2]}`;
     }
   }

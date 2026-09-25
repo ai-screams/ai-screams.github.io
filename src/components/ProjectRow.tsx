@@ -78,19 +78,25 @@ export default function ProjectRow({
         <p className="fade max-w-md leading-relaxed text-pretty text-mist">
           {project.description[locale]}
         </p>
-        <ul className="fade flex flex-wrap gap-x-3 gap-y-1 font-display text-[11px] font-medium tracking-wider text-ink/70">
+        {/* role=list: Safari/VoiceOver drops list semantics once preflight
+            removes list-style. Separator trails each tag so a wrapped line
+            never starts with "/". */}
+        <ul
+          className="fade flex flex-wrap gap-x-3 gap-y-1 font-display text-[11px] font-medium tracking-wider text-ink/70"
+          role="list"
+        >
           {project.tags.map((tag, i) => (
             <li className="flex items-center gap-3" key={tag}>
-              {i > 0 && (
+              {tag}
+              {i < project.tags.length - 1 && (
                 <span aria-hidden className="text-scream">
                   /
                 </span>
               )}
-              {tag}
             </li>
           ))}
         </ul>
-        <div className="fade mt-1 flex flex-wrap gap-x-6 gap-y-4">
+        <div className="fade mt-1 flex flex-wrap gap-x-6 gap-y-6">
           {project.links.homepage && (
             <a
               className="relative inline-flex items-center gap-2 border-b-2 border-scream pb-1 font-display text-[13px] font-semibold tracking-[0.14em] transition-colors before:absolute before:-inset-x-1 before:-inset-y-3 before:content-[''] hover:text-scream-deep"

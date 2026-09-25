@@ -17,7 +17,7 @@ export default function Marquee({
       aria-hidden
       className={`marquee overflow-hidden py-2.5 whitespace-nowrap ${
         tone === "ink"
-          ? "border-t border-paper/15 bg-ink text-paper/40"
+          ? "border-t border-paper/15 bg-ink text-paper/60"
           : "border-b border-ink"
       }`}
     >

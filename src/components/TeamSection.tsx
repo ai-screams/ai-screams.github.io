@@ -36,7 +36,7 @@ function MemberCard({ member }: { member: Member }) {
         {member.role}
       </div>
       <a
-        className="inline-flex min-h-11 items-center font-display text-xs transition-colors hover:text-scream"
+        className="inline-flex min-h-11 items-center font-display text-xs transition-colors hover:text-scream-deep"
         href={`https://github.com/${member.github}`}
         rel="noreferrer"
         target="_blank"

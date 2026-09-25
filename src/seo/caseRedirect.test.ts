@@ -16,6 +16,19 @@ describe("caseRedirectRoots", () => {
     );
   });
 
+  it("reads the path segment of a homepage with a query or hash", () => {
+    const homepage = `${SITE.url}/Foo?ref=x#top`;
+    const withQuery = [{ ...PROJECTS[0], links: { github: "", homepage } }];
+    expect(caseRedirectRoots(withQuery, SITE.url)).toEqual(["ko", "Foo"]);
+  });
+
+  it("fails the build on roots that differ only by case", () => {
+    // They would redirect into each other: /Ko/ -> /ko/ -> ... never settles.
+    const homepage = `${SITE.url}/Ko/`;
+    const clash = [{ ...PROJECTS[0], links: { github: "", homepage } }];
+    expect(() => caseRedirectRoots(clash, SITE.url)).toThrow(/duplicate/);
+  });
+
   it("adds no empty root for a homepage at the site root", () => {
     const homepage = `${SITE.url}/`;
     const atRoot = [{ ...PROJECTS[0], links: { github: "", homepage } }];
@@ -51,6 +64,11 @@ describe("resolveCaseRedirect", () => {
     "//mara/", // never emit a protocol-relative URL
   ])("leaves %s alone", (path) => {
     expect(resolveCaseRedirect(path, roots)).toBeNull();
+  });
+
+  it("never bounces an exact root to a case twin", () => {
+    // Defense in depth behind the build-time duplicate check.
+    expect(resolveCaseRedirect("/Mara/x", ["mara", "Mara"])).toBeNull();
   });
 });
 
