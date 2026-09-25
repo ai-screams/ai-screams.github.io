@@ -41,7 +41,7 @@ export default defineConfig([
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true, allowExportNames: ["useCopy", "useLocale"] },
+        { allowConstantExport: true, allowExportNames: ["useCopy", "useLocale", "useLocaleSwitch"] },
       ],
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [

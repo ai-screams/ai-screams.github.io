@@ -1,5 +1,6 @@
 import { SITE } from "@/data/site";
 import { COPY, type Locale } from "@/i18n/copy";
+import { pathForLocale } from "@/i18n/localePath";
 
 /** HTML 텍스트/속성 컨텍스트 이스케이프 — & 를 가장 먼저 치환해 이중 이스케이프 방지 */
 export function escapeHtml(s: string): string {
@@ -10,16 +11,31 @@ export function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** locale별 SEO head 마크업 생성 — 프리렌더 시 index.html의 <!--app-head-->에 주입 */
-export function buildHead(locale: Locale): string {
+/** Locale-dependent head values (raw, unescaped). buildHead renders them at
+ *  prerender time; the client locale switch writes the same values into the
+ *  live <head>, so the two can't drift. */
+export function headFields(locale: Locale): {
+  description: string;
+  ogAltLocale: string;
+  ogLocale: string;
+  title: string;
+  url: string;
+} {
   const meta = COPY[locale].meta;
-  const title = escapeHtml(meta.title);
-  const description = escapeHtml(meta.description);
-  const url = locale === "en" ? `${SITE.url}/` : `${SITE.url}/ko/`;
-  const ogImage = `${SITE.url}/og.png`;
-  const ogLocale = locale === "en" ? "en_US" : "ko_KR";
-  const ogAltLocale = locale === "en" ? "ko_KR" : "en_US";
-  const jsonLd = JSON.stringify({
+  return {
+    description: meta.description,
+    ogAltLocale: locale === "en" ? "ko_KR" : "en_US",
+    ogLocale: locale === "en" ? "en_US" : "ko_KR",
+    title: meta.title,
+    url: `${SITE.url}${pathForLocale(locale)}`,
+  };
+}
+
+/** Organization JSON-LD for a locale (its description is localized). Safe to
+ *  embed in <script>: "<" is escaped. */
+export function organizationJsonLd(locale: Locale): string {
+  const meta = COPY[locale].meta;
+  return JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
     description: meta.description,
@@ -29,6 +45,16 @@ export function buildHead(locale: Locale): string {
     sameAs: [SITE.github],
     url: `${SITE.url}/`,
   }).replace(/</g, "\\u003c");
+}
+
+/** locale별 SEO head 마크업 생성 — 프리렌더 시 index.html의 <!--app-head-->에 주입 */
+export function buildHead(locale: Locale): string {
+  const fields = headFields(locale);
+  const title = escapeHtml(fields.title);
+  const description = escapeHtml(fields.description);
+  const { ogAltLocale, ogLocale, url } = fields;
+  const ogImage = `${SITE.url}/og.png`;
+  const jsonLd = organizationJsonLd(locale);
   return [
     `<title>${title}</title>`,
     `<meta content="${description}" name="description" />`,

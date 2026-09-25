@@ -22,6 +22,10 @@ const checks = [
   ["dist/index.html", 'href="mailto:commander@ai-scream.ai"'],
   ["dist/index.html", '"email":"commander@ai-scream.ai"'],
   ["dist/ko/index.html", 'href="mailto:commander@ai-scream.ai"'],
+  // Locale links stay real anchors: no-JS visitors, new tabs and crawlers
+  // navigate to the other prerendered page.
+  ["dist/index.html", 'href="/ko/" lang="ko"'],
+  ["dist/ko/index.html", 'href="/" lang="en"'],
   ["dist/404.html", "location.replace"],
   ["dist/404.html", '"Mara"'],
 ];
