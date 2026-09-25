@@ -45,8 +45,8 @@ export const PROJECTS: Project[] = [
   {
     category: "DEVELOPER TOOL",
     description: {
-      en: "A blazing-fast statusline HUD for Claude Code. 13 metrics, adaptive layouts, zero dependencies — your session vitals at a glance.",
-      ko: "Claude Code를 위한 초고속 상태줄 HUD. 13가지 메트릭, 적응형 레이아웃, 무의존성 — 세션의 활력징후를 한눈에.",
+      en: "A statusline HUD for Claude Code, written in Go. Context, quota, cache and cost on every refresh, with no dependencies — your session vitals at a glance.",
+      ko: "Claude Code를 위한 Go 상태줄 HUD. 컨텍스트·쿼터·캐시·비용을 매 갱신마다, 의존성 없이 — 세션의 활력징후를 한눈에.",
     },
     id: "howl",
     links: {
