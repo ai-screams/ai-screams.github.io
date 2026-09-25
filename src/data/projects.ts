@@ -8,7 +8,15 @@ export interface Project {
   name: string;
   tags: string[];
   visual?:
-    | { alt: string; height: number; src: string; type: "image"; width: number }
+    | {
+        alt: string;
+        height: number;
+        /** Pixel art: scale with nearest-neighbour so edges stay crisp. */
+        pixelated?: boolean;
+        src: string;
+        type: "image";
+        width: number;
+      }
     | { lines: string[]; type: "text" };
 }
 
@@ -41,9 +49,20 @@ export const PROJECTS: Project[] = [
       ko: "Claude Code를 위한 초고속 상태줄 HUD. 13가지 메트릭, 적응형 레이아웃, 무의존성 — 세션의 활력징후를 한눈에.",
     },
     id: "howl",
-    links: { github: "https://github.com/ai-screams/howl" },
-    name: "howl",
+    links: {
+      github: "https://github.com/ai-screams/Howl",
+      homepage: "https://ai-scream.ai/Howl/",
+    },
+    name: "Howl",
     tags: ["GO", "CLI", "CLAUDE CODE"],
+    visual: {
+      alt: "Howl mascot — a pixel-art ghost wearing headphones",
+      height: 352,
+      pixelated: true,
+      src: "/projects/howl.webp",
+      type: "image",
+      width: 416,
+    },
   },
   {
     category: "MACOS APP",
