@@ -65,13 +65,16 @@ export default function Hero() {
 }
 
 function SpinBadge({ label }: { label: string }) {
+  // The spinning ring text is decorative and sits outside the link, so the
+  // link's visible content is only the arrow: its accessible name (label)
+  // then satisfies WCAG 2.5.3 Label in Name. The link still covers the badge.
   return (
-    <a
-      aria-label={label}
-      className="absolute right-10 bottom-10 hidden size-28 transition-colors hover:text-scream-deep md:block lg:top-1/2 lg:right-[5vw] lg:bottom-auto lg:size-[min(20vw,320px)] lg:-translate-y-1/2"
-      href="#work"
-    >
-      <svg aria-hidden className="spin-slow size-full" viewBox="0 0 110 110">
+    <div className="group/badge absolute right-10 bottom-10 hidden size-28 md:block lg:top-1/2 lg:right-[5vw] lg:bottom-auto lg:size-[min(20vw,320px)] lg:-translate-y-1/2">
+      <svg
+        aria-hidden
+        className="spin-slow size-full transition-colors group-hover/badge:text-scream-deep"
+        viewBox="0 0 110 110"
+      >
         <defs>
           <path
             d="M 55,55 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
@@ -89,10 +92,24 @@ function SpinBadge({ label }: { label: string }) {
             SINCE 2025 · SEOUL · AI-SCREAM ·
           </textPath>
         </text>
-        <text fontSize="22" textAnchor="middle" x="55" y="62">
-          ↓
-        </text>
       </svg>
-    </a>
+      <a
+        aria-label={label}
+        className="absolute inset-0 transition-colors group-hover/badge:text-scream-deep"
+        href="#work"
+      >
+        <svg aria-hidden className="size-full" viewBox="0 0 110 110">
+          <text
+            fill="currentColor"
+            fontSize="22"
+            textAnchor="middle"
+            x="55"
+            y="62"
+          >
+            ↓
+          </text>
+        </svg>
+      </a>
+    </div>
   );
 }

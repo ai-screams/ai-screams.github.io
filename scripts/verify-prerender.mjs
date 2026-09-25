@@ -7,19 +7,19 @@ const checks = [
   ["dist/index.html", 'hreflang="ko"'],
   ["dist/index.html", '"@type":"Organization"'],
   ["dist/index.html", "The good kind of scream."],
-  ["dist/index.html", 'content="https://ai-scream.ai/og.png" property="og:image"'],
+  [
+    "dist/index.html",
+    'content="https://ai-scream.ai/og.png" property="og:image"',
+  ],
   ["dist/index.html", 'content="summary_large_image"'],
   ["dist/index.html", 'rel="manifest"'],
   ["dist/index.html", "static.cloudflareinsights.com/beacon.min.js"],
   ["dist/ko/index.html", '<html lang="ko">'],
   ["dist/ko/index.html", "기분 좋은 비명입니다."],
-  [
-    "dist/ko/index.html",
-    'href="https://ai-scream.ai/ko/" rel="canonical"',
-  ],
+  ["dist/ko/index.html", 'href="https://ai-scream.ai/ko/" rel="canonical"'],
   ["dist/sitemap.xml", "https://ai-scream.ai/ko/"],
   ["dist/sitemap.xml", "<lastmod>"],
-  ["dist/404.html", 'location.replace'],
+  ["dist/404.html", "location.replace"],
   ["dist/404.html", '"Mara"'],
 ];
 
@@ -34,7 +34,9 @@ for (const [file, needle] of checks) {
 // Run the case-redirect script exactly as shipped in dist/404.html (not the
 // source the unit tests import), with a fake location.
 const notFound = readFileSync("dist/404.html", "utf8");
-const script = /<script>(\(function\(\)\{var t=[\s\S]*?)<\/script>/.exec(notFound);
+const script = /<script>(\(function\(\)\{var t=[\s\S]*?)<\/script>/.exec(
+  notFound,
+);
 const redirectFor = (pathname) => {
   let replaced = null;
   const location = {
@@ -48,7 +50,10 @@ const redirectFor = (pathname) => {
 };
 const redirectCases = [
   ["/mara/docs", "/Mara/docs?q=1#top"],
+  ["/MARA", "/Mara?q=1#top"],
+  ["/KO/", "/ko/?q=1#top"],
   ["/Mara/x", null],
+  ["//mara/", null],
 ];
 for (const [pathname, expected] of redirectCases) {
   let actual;
@@ -58,7 +63,9 @@ for (const [pathname, expected] of redirectCases) {
     actual = `threw ${error.message}`;
   }
   if (actual !== expected) {
-    console.error(`FAIL: 404 redirect ${pathname} -> ${actual}, expected ${expected}`);
+    console.error(
+      `FAIL: 404 redirect ${pathname} -> ${actual}, expected ${expected}`,
+    );
     failed += 1;
   }
 }
