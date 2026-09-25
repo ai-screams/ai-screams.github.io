@@ -68,7 +68,7 @@ function SpinBadge({ label }: { label: string }) {
   return (
     <a
       aria-label={label}
-      className="absolute right-10 bottom-10 hidden size-28 transition-colors hover:text-scream-deep md:block"
+      className="absolute right-10 bottom-10 hidden size-28 transition-colors hover:text-scream-deep md:block lg:top-1/2 lg:right-[5vw] lg:bottom-auto lg:size-[min(20vw,320px)] lg:-translate-y-1/2"
       href="#work"
     >
       <svg aria-hidden className="spin-slow size-full" viewBox="0 0 110 110">
