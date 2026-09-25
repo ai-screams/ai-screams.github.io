@@ -12,3 +12,9 @@
   condition = "AND"
   paths = ['''src/data/site\.ts''']
   regexes = ['''3ff9e61264a24770a278cd719c3bd87f''']
+
+[[allowlists]]
+  description = "IndexNow payload test fixture — a placeholder key (0-f in order), not a credential"
+  condition = "AND"
+  paths = ['''scripts/indexnow-payload\.test\.mjs''']
+  regexes = ['''0123456789abcdef0123456789abcdef''']
