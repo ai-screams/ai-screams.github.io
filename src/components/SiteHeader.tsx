@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
+import type { Locale } from "@/i18n/copy";
 import { MEMBERS } from "@/data/members";
-import { useLocale } from "@/i18n/LocaleContext";
+import { useLocale, useLocaleSwitch } from "@/i18n/LocaleContext";
+import { isPlainPrimaryClick, pathForLocale } from "@/i18n/localePath";
 
 const NAV_ITEMS = [
   { href: "#work", label: "WORK" },
@@ -10,6 +12,16 @@ const NAV_ITEMS = [
 
 export default function SiteHeader() {
   const locale = useLocale();
+  const switchLocale = useLocaleSwitch();
+  const other: Locale = locale === "en" ? "ko" : "en";
+  // Real links (new tab, no-JS and crawlers get the prerendered page); a plain
+  // click switches in place instead of reloading.
+  const onLocaleClick =
+    (target: Locale) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isPlainPrimaryClick(e)) return;
+      e.preventDefault();
+      switchLocale(target, { push: true });
+    };
   return (
     <header className="fixed inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b border-ink bg-paper px-4 sm:px-6">
       <a
@@ -34,21 +46,29 @@ export default function SiteHeader() {
         <div className="flex h-8 items-center gap-1 border border-ink px-1 font-display text-xs font-semibold sm:px-2">
           <a
             className="relative flex h-full min-w-11 items-center justify-center before:absolute before:inset-x-0 before:-inset-y-2 before:content-[''] sm:hidden"
-            href={locale === "en" ? "/ko/" : "/"}
+            href={pathForLocale(other)}
+            lang={other}
+            onClick={onLocaleClick(other)}
           >
-            {locale === "en" ? "KO" : "EN"}
+            {other.toUpperCase()}
           </a>
           <div className="hidden h-full items-center gap-1 sm:flex">
             <a
+              aria-current={locale === "en" ? "page" : undefined}
               className={`relative flex h-full min-w-11 items-center justify-center px-2 before:absolute before:inset-x-0 before:-inset-y-2 before:content-[''] ${locale === "en" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
               href="/"
+              lang="en"
+              onClick={onLocaleClick("en")}
             >
               EN
             </a>
             <span className="text-ink/20">/</span>
             <a
+              aria-current={locale === "ko" ? "page" : undefined}
               className={`relative flex h-full min-w-11 items-center justify-center px-2 before:absolute before:inset-x-0 before:-inset-y-2 before:content-[''] ${locale === "ko" ? "border-b-2 border-scream text-ink" : "text-mist"}`}
               href="/ko/"
+              lang="ko"
+              onClick={onLocaleClick("ko")}
             >
               KO
             </a>
