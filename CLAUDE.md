@@ -43,7 +43,8 @@ Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸�
 
 - 커스텀 도메인 `ai-scream.ai` (`public/CNAME`, HTTPS 강제). `SITE.github`는 `github.com/ai-screams` (org, 불변).
 - `deploy.yml`(main push → Pages). deploy 스텝은 실패 시 20초 후 **1회 자동 재시도**(GitHub의 "Deployment failed, try again later" 일시 오류 대응; 빌드는 항상 성공). 그래도 실패면 `gh run rerun <id> --failed`.
-- 사이트맵: robots.txt로 passive 등록(자동 발견) + IndexNow 능동 제출(Bing/Yandex/Naver). Google 능동 제출은 Search Console 필요.
+- 사이트맵: robots.txt로 passive 등록(자동 발견). 검색엔진 등록: Google Search Console(도메인 속성, Cloudflare DNS TXT)·Naver 서치어드바이저(`index.html`의 `naver-site-verification` meta)·Bing(GSC에서 가져옴).
+- IndexNow: `deploy.yml`의 `indexnow` job이 배포 성공 후 `scripts/indexnow-payload.mjs`로 sitemap에서 `lastmod` 있는 URL(=이 저장소 소유 `/`·`/ko/`)만 제출. 그 커밋이 `src`·`public`·`index.html`을 바꿨을 때만(의존성 업데이트마다 반복 제출하면 429 스팸 판정 위험). 키 파일 `public/3572d6….txt`. 실패해도 배포는 성공, 경고만.
 - Cloudflare Web Analytics beacon은 `scripts/prerender.mjs`가 **prod 빌드에만** 주입(`SITE.cfBeaconToken`, 공개 토큰) — dev/preview 미포함.
 
 ## Lint Rules
