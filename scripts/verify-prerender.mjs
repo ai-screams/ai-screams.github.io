@@ -19,6 +19,9 @@ const checks = [
   ["dist/ko/index.html", 'href="https://ai-scream.ai/ko/" rel="canonical"'],
   ["dist/sitemap.xml", "https://ai-scream.ai/ko/"],
   ["dist/sitemap.xml", "<lastmod>"],
+  ["dist/index.html", 'href="mailto:commander@ai-scream.ai"'],
+  ["dist/index.html", '"email":"commander@ai-scream.ai"'],
+  ["dist/ko/index.html", 'href="mailto:commander@ai-scream.ai"'],
   ["dist/404.html", "location.replace"],
   ["dist/404.html", '"Mara"'],
 ];
