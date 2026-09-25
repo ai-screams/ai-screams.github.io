@@ -14,6 +14,7 @@ export default function ProjectRow({
   const ref = useReveal<HTMLElement>();
   const flip = index % 2 === 1;
   const num = String(index + 1).padStart(2, "0");
+  const primaryHref = project.links.homepage ?? project.links.github;
   return (
     <article
       className={`group grid border-b border-ink md:min-h-[420px] ${
@@ -32,12 +33,24 @@ export default function ProjectRow({
         >
           {num}
         </span>
+        {/* Whole visual cell is a pointer target. The text links below are
+            the accessible ones, so this duplicate is hidden from AT/tab order. */}
+        <a
+          aria-hidden
+          className="absolute inset-0 z-[2]"
+          href={primaryHref}
+          rel="noreferrer"
+          tabIndex={-1}
+          target="_blank"
+        />
         {project.visual?.type === "image" ? (
           <img
             alt={project.visual.alt}
             className="relative z-[1] max-h-[70%] max-w-[64%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-[1.04]"
+            height={project.visual.height}
             loading="lazy"
             src={project.visual.src}
+            width={project.visual.width}
           />
         ) : (
           <TypoGraphic
@@ -52,30 +65,35 @@ export default function ProjectRow({
         className={`flex flex-col justify-center gap-4 px-6 py-8 md:px-10 md:py-12 ${flip ? "md:order-1" : ""}`}
       >
         <div className="fade">
-          <div className="font-display text-[13px] font-semibold tracking-[0.2em] text-scream">
+          <div className="font-display text-[13px] font-semibold tracking-[0.2em] text-scream-deep">
             {num} — {project.category}
           </div>
-          <h3 className="mt-1 font-display text-3xl font-bold uppercase md:text-4xl">
+          <h3
+            className="mt-1 font-display text-3xl font-bold uppercase md:text-4xl"
+            translate="no"
+          >
             {project.name}
           </h3>
         </div>
         <p className="fade max-w-md leading-relaxed text-pretty text-mist">
           {project.description[locale]}
         </p>
-        <div className="fade flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              className="border border-ink px-2.5 py-1 font-display text-[11px] font-medium tracking-wider"
-              key={tag}
-            >
+        <ul className="fade flex flex-wrap gap-x-3 gap-y-1 font-display text-[11px] font-medium tracking-wider text-ink/70">
+          {project.tags.map((tag, i) => (
+            <li className="flex items-center gap-3" key={tag}>
+              {i > 0 && (
+                <span aria-hidden className="text-scream">
+                  /
+                </span>
+              )}
               {tag}
-            </span>
+            </li>
           ))}
-        </div>
-        <div className="fade mt-1 flex gap-6">
+        </ul>
+        <div className="fade mt-1 flex flex-wrap gap-x-6 gap-y-4">
           {project.links.homepage && (
             <a
-              className="inline-flex items-center gap-2 border-b-2 border-scream pb-1 font-display text-[13px] font-semibold tracking-[0.14em] transition-colors hover:text-scream"
+              className="relative inline-flex items-center gap-2 border-b-2 border-scream pb-1 font-display text-[13px] font-semibold tracking-[0.14em] transition-colors before:absolute before:-inset-x-1 before:-inset-y-3 before:content-[''] hover:text-scream-deep"
               href={project.links.homepage}
               rel="noreferrer"
               target="_blank"
@@ -84,7 +102,7 @@ export default function ProjectRow({
             </a>
           )}
           <a
-            className="inline-flex items-center gap-2 border-b-2 border-scream pb-1 font-display text-[13px] font-semibold tracking-[0.14em] transition-colors hover:text-scream"
+            className="relative inline-flex items-center gap-2 border-b-2 border-scream pb-1 font-display text-[13px] font-semibold tracking-[0.14em] transition-colors before:absolute before:-inset-x-1 before:-inset-y-3 before:content-[''] hover:text-scream-deep"
             href={project.links.github}
             rel="noreferrer"
             target="_blank"

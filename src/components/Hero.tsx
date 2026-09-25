@@ -52,24 +52,26 @@ export default function Hero() {
         — <b className="font-bold text-ink">{copy.hero.subBold}</b>{" "}
         {copy.hero.subRest}
       </p>
-      <SpinBadge />
-      <div
-        aria-hidden
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-2xl motion-safe:animate-bounce md:hidden"
+      <SpinBadge label={copy.a11y.toWork} />
+      <a
+        aria-label={copy.a11y.toWork}
+        className="absolute bottom-4 left-1/2 flex size-11 -translate-x-1/2 items-center justify-center text-2xl motion-safe:animate-bounce md:hidden"
+        href="#work"
       >
-        ↓
-      </div>
+        <span aria-hidden>↓</span>
+      </a>
     </section>
   );
 }
 
-function SpinBadge() {
+function SpinBadge({ label }: { label: string }) {
   return (
-    <div
-      aria-hidden
-      className="spin-slow absolute right-10 bottom-10 hidden size-28 md:block"
+    <a
+      aria-label={label}
+      className="absolute right-10 bottom-10 hidden size-28 transition-colors hover:text-scream-deep md:block"
+      href="#work"
     >
-      <svg className="size-full" viewBox="0 0 110 110">
+      <svg aria-hidden className="spin-slow size-full" viewBox="0 0 110 110">
         <defs>
           <path
             d="M 55,55 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
@@ -91,6 +93,6 @@ function SpinBadge() {
           ↓
         </text>
       </svg>
-    </div>
+    </a>
   );
 }

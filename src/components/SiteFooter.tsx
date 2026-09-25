@@ -2,7 +2,7 @@ import { SITE } from "@/data/site";
 
 export default function SiteFooter() {
   return (
-    <footer className="flex justify-between border-t border-paper/15 bg-ink px-6 py-4 font-display text-[11px] tracking-wider text-paper/40">
+    <footer className="flex justify-between border-t border-paper/15 bg-ink px-6 py-4 font-display text-[11px] tracking-wider text-paper/60">
       <span translate="no">
         © 2026 AI-SCREAM{" · "}
         <a

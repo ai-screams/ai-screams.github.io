@@ -8,7 +8,7 @@ export interface Project {
   name: string;
   tags: string[];
   visual?:
-    | { alt: string; src: string; type: "image" }
+    | { alt: string; height: number; src: string; type: "image"; width: number }
     | { lines: string[]; type: "text" };
 }
 
@@ -28,8 +28,10 @@ export const PROJECTS: Project[] = [
     tags: ["RUST", "CLI", "PYTHON"],
     visual: {
       alt: "scoop-uv mascot — a smiling ice cream cone",
-      src: "/projects/scoop-uv.png",
+      height: 640,
+      src: "/projects/scoop-uv.webp",
       type: "image",
+      width: 640,
     },
   },
   {
@@ -58,8 +60,10 @@ export const PROJECTS: Project[] = [
     tags: ["SWIFT", "MACOS"],
     visual: {
       alt: "Azimuth app icon — a compass needle over a window grid",
-      src: "/projects/azimuth.png",
+      height: 512,
+      src: "/projects/azimuth.webp",
       type: "image",
+      width: 512,
     },
   },
   {
@@ -77,8 +81,10 @@ export const PROJECTS: Project[] = [
     tags: ["RUST", "MCP", "HWPX"],
     visual: {
       alt: "HwpForge mascot — a blacksmith duck wizard",
-      src: "/projects/hwpforge.png",
+      height: 640,
+      src: "/projects/hwpforge.webp",
       type: "image",
+      width: 640,
     },
   },
   {
@@ -96,8 +102,10 @@ export const PROJECTS: Project[] = [
     tags: ["SWIFT", "MACOS", "MENU BAR"],
     visual: {
       alt: "Mara app icon — an orange eye on a dark rounded square",
-      src: "/projects/mara.png",
+      height: 512,
+      src: "/projects/mara.webp",
       type: "image",
+      width: 512,
     },
   },
 ];

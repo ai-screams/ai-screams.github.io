@@ -7,7 +7,10 @@
   --color-ink: oklch(17.8% 0 0);
   --color-mist: oklch(54.5% 0.005 60);
   --color-paper: oklch(98.5% 0 0);
-  --color-scream: oklch(68.6% 0.2 4);
+  /* scream: large surfaces & large text (3.1:1 on paper, WCAG AA large).
+     scream-deep: small text & focus ring (4.7:1 on paper, 3.9:1 on ink). */
+  --color-scream: oklch(67.5% 0.2 4);
+  --color-scream-deep: oklch(57.5% 0.2 4);
 
   /* Fonts */
   --font-body: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
