@@ -17,7 +17,7 @@ Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸�
 
 ## Architecture
 
-- **React 19 + TS + Vite 6 + Tailwind v4** (`@theme` in `src/styles/tokens.css`, no config). **라우터·Motion·PixiJS 없음** (제거됨).
+- **React 19 + TS 5 + Vite 8 + Tailwind v4** (`@theme` in `src/styles/tokens.css`, no config). **라우터·Motion·PixiJS 없음** (제거됨).
 - **빌드 타임 프리렌더**: `src/entry-server.tsx`의 `render(locale)` → `scripts/prerender.mjs`가 `<!--app-head-->`/`<!--app-html-->` 치환 → `dist/index.html`(en) + `dist/ko/index.html`(ko) + `dist/sitemap.xml`(lastmod 자동). 클라이언트는 `main.tsx`에서 hydrate.
 - **`scripts/verify-prerender.mjs`가 빌드 게이트** — 산출 HTML을 **정확한 문자열로 grep**. 카피·도메인·메타 변경 시 이 스크립트와 `src/seo/head.test.ts`도 함께 고쳐야 빌드 통과.
 - **SSR 안전 필수**: 브라우저 API(matchMedia/IntersectionObserver/document)는 전부 `useEffect` 내부. 렌더 본문·모듈 스코프에서 금지 (renderToString이 Node에서 실행). `Date.now()`/`Math.random()` 렌더 중 금지.
@@ -45,9 +45,10 @@ Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸�
 
 ## Lint Rules
 
-ESLint v9 flat + `eslint-plugin-perfectionist`: sort-imports(natural asc, `newlinesBetween: 0`), sort-jsx-props(alpha), sort-objects(alpha). `eslint-config-prettier` 마지막. Prettier + `prettier-plugin-tailwindcss`. Context 훅은 `allowExportNames`에 추가 (현재 `useCopy`, `useLocale`).
+ESLint v10 flat + `eslint-plugin-perfectionist`: sort-imports(natural asc, `newlinesBetween: 0`), sort-jsx-props(alpha), sort-objects(alpha). `eslint-config-prettier` 마지막. Prettier + `prettier-plugin-tailwindcss`. Context 훅은 `allowExportNames`에 추가 (현재 `useCopy`, `useLocale`). `src/entry-server.tsx`는 SSR 전용이라 `react-refresh/only-export-components` off.
 
 ## CI/CD
 
 - `ci.yml` (PR): lint, typecheck(+`npm run test`), build, format-check, security, **lighthouse**(`/`·`/ko/` 예산: SEO·a11y ≥0.9 error / 성능·best-practices warn, `lighthouserc.json`) 병렬. SHA 고정. 워크플로 변경은 **PR로 검증**(ci.yml은 PR에서만 실행).
-- Dependabot: npm 주간(월, minor/patch 그룹), Actions 월간. 커밋 prefix `chore(deps):`/`chore(ci):`.
+- Dependabot: npm 주간(월, minor/patch 그룹), Actions 월간(전부 한 PR로 그룹). 커밋 prefix `chore(deps):`/`chore(ci):`, 라벨 `dependencies`/`ci`.
+- TypeScript는 5.x 유지: typescript-eslint peer가 `typescript <6.1.0`. lint-staged 17은 로컬 Node ≥22.22.1 필요(CI는 lint-staged 미사용).
