@@ -1,5 +1,5 @@
 import type { Locale } from "@/i18n/copy";
-import { headFields, organizationJsonLd } from "@/seo/head";
+import { headFields, pageJsonLd } from "@/seo/head";
 
 // Browser-only helpers for the in-page locale switch. Called from event
 // handlers, never during render, so they are SSR-safe.
@@ -67,5 +67,5 @@ export function syncHead(locale: Locale): void {
   setAttr('meta[name="twitter:title"]', "content", f.title);
   setAttr('meta[name="twitter:description"]', "content", f.description);
   const ld = document.querySelector('script[type="application/ld+json"]');
-  if (ld) ld.textContent = organizationJsonLd(locale);
+  if (ld) ld.textContent = pageJsonLd(locale);
 }

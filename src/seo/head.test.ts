@@ -1,6 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { buildHead, escapeHtml } from "@/seo/head";
 
+interface Org {
+  "@type": string;
+  description: string;
+  logo: string;
+  name: string;
+}
+
+/** The Organization node of the head's JSON-LD @graph. */
+function organization(json: string): Org {
+  const graph = (JSON.parse(json) as { "@graph": Org[] })["@graph"];
+  const org = graph.find((n) => n["@type"] === "Organization");
+  if (!org) throw new Error("no Organization in JSON-LD @graph");
+  return org;
+}
+
 describe("escapeHtml", () => {
   it('escapes &, <, >, and " with & escaped first', () => {
     expect(escapeHtml('a"b<c&d')).toBe("a&quot;b&lt;c&amp;d");
@@ -37,9 +52,8 @@ describe("buildHead", () => {
       head,
     );
     expect(match).not.toBeNull();
-    const data = JSON.parse(match![1]) as { "@type": string; name: string };
-    expect(data["@type"]).toBe("Organization");
-    expect(data.name).toBe("Ai-Scream");
+    const org = organization(match![1]);
+    expect(org.name).toBe("Ai-Scream");
   });
 
   it("localizes title", () => {
@@ -78,8 +92,8 @@ describe("buildHead", () => {
     const match = /<script type="application\/ld\+json">(.+?)<\/script>/s.exec(
       buildHead("en"),
     );
-    const data = JSON.parse(match![1]) as { description: string; logo: string };
-    expect(data.logo).toBe("https://ai-scream.ai/icon-512.png");
-    expect(data.description.length).toBeGreaterThan(0);
+    const org = organization(match![1]);
+    expect(org.logo).toBe("https://ai-scream.ai/icon-512.png");
+    expect(org.description.length).toBeGreaterThan(0);
   });
 });

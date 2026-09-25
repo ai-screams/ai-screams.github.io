@@ -29,6 +29,7 @@ Husky + lint-staged pre-commit: `eslint --fix` + `prettier --write` 자동. 셸�
 - **i18n**: `Copy` 타입이 EN/KO 패리티 강제. `useCopy()`/`useLocale()` (React 19 `use()` + `<LocaleContext value>`). 멤버 0명이면 Team 섹션+내비 자동 숨김.
 - **언어 전환은 새로 고침 없이**: 헤더 EN/KO는 진짜 `<a href="/ko/">`(no-JS·새 탭·크롤러는 prerender 페이지로 이동, verify가 고정)이고, 일반 클릭만 `LocaleProvider`의 `switchLocale`이 가로채 `flushSync`로 다시 그린 뒤 `pushState`·head(`headFields`/`organizationJsonLd`, `buildHead`와 같은 출처)·스크롤 anchor를 맞춘다. SEO 구조(`/`·`/ko/` prerender, hreflang)는 그대로. 새 Context 훅은 `allowExportNames`에 추가(`useLocaleSwitch`).
 - **SEO**: `src/seo/head.ts`의 `buildHead(locale)`이 canonical/hreflang/OG(이미지 포함)/twitter/JSON-LD 전부 생성. `SITE.url` = `https://ai-scream.ai` (단일 출처).
+- **검색·AI 노출 산출물**: `src/seo/discovery.ts`가 데이터에서 `sitemap.xml`(두 locale + 같은 도메인의 프로젝트 homepage), JSON-LD `@graph`(Organization·WebSite·프로젝트 ItemList), `llms.txt`를 만든다. sitemap `lastmod`는 콘텐츠(`src`·`public`·`index.html`)를 건드린 마지막 커밋 날짜 — 그래서 `deploy.yml` checkout은 `fetch-depth: 0`. git 기록이 없으면 lastmod를 생략(추측 금지).
 - **버전**: `__APP_VERSION__` (vite `define`가 package.json에서 주입) → 푸터 표시. 눈에 보이는 배포마다 `npm version` 범프 + 태그 (푸터 버전 = 배포 태그 유지).
 
 ## Conventions
