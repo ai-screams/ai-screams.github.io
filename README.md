@@ -8,7 +8,7 @@ Brand homepage for **Ai-Scream**, a developer collective building useful things 
 
 ## Stack
 
-- **React 19** + **TypeScript** + **Vite 6** — with build-time prerendering (no runtime server)
+- **React 19** + **TypeScript** + **Vite 8** — with build-time prerendering (no runtime server)
 - **Tailwind CSS v4** — design tokens via `@theme`, oklch colors only
 - **Vitest** — unit tests for pure logic (typo graphics, SEO head builder)
 - **GitHub Pages** — deployed automatically on merge to `main`
