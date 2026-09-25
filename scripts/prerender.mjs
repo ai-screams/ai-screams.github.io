@@ -1,7 +1,8 @@
+import { execSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
-const { notFoundScript, render, SITE } = await import(
+const { llmsTxt, notFoundScript, render, SITE, sitemapXml } = await import(
   pathToFileURL("dist-ssr/entry-server.js").href
 );
 const template = readFileSync("dist/index.html", "utf8");
@@ -40,26 +41,21 @@ writeFileSync(
 );
 console.log("404.html: case redirect injected");
 
-// Generate sitemap.xml from the single source of truth (SITE.url + locales)
-// with a fresh lastmod on every build.
-const lastmod = new Date().toISOString().slice(0, 10);
-const alternates = `    <xhtml:link href="${SITE.url}/" hreflang="en" rel="alternate" />
-    <xhtml:link href="${SITE.url}/ko/" hreflang="ko" rel="alternate" />`;
-const entries = ["", "ko/"]
-  .map(
-    (path) => `  <url>
-    <loc>${SITE.url}/${path}</loc>
-    <lastmod>${lastmod}</lastmod>
-${alternates}
-  </url>`,
-  )
-  .join("\n");
-writeFileSync(
-  "dist/sitemap.xml",
-  `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${entries}
-</urlset>
-`,
-);
-console.log(`sitemap generated (lastmod ${lastmod})`);
+// sitemap.xml: lastmod = date of the last commit touching site content, so it
+// changes only when the pages do (Google ignores lastmod that isn't accurate).
+// No git history (e.g. a tarball build) -> omit lastmod rather than guess.
+let lastmod = null;
+try {
+  lastmod =
+    execSync("git log -1 --format=%cs -- src public index.html", {
+      encoding: "utf8",
+    }).trim() || null;
+} catch {
+  lastmod = null;
+}
+writeFileSync("dist/sitemap.xml", sitemapXml(lastmod));
+console.log(`sitemap generated (lastmod ${lastmod ?? "omitted"})`);
+
+// llms.txt: plain-text site map for AI assistants (llmstxt.org).
+writeFileSync("dist/llms.txt", llmsTxt);
+console.log("llms.txt generated");

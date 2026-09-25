@@ -1,6 +1,8 @@
+import { PROJECTS } from "@/data/projects";
 import { SITE } from "@/data/site";
 import { COPY, type Locale } from "@/i18n/copy";
 import { pathForLocale } from "@/i18n/localePath";
+import { structuredData } from "@/seo/discovery";
 
 /** HTML 텍스트/속성 컨텍스트 이스케이프 — & 를 가장 먼저 치환해 이중 이스케이프 방지 */
 export function escapeHtml(s: string): string {
@@ -31,20 +33,10 @@ export function headFields(locale: Locale): {
   };
 }
 
-/** Organization JSON-LD for a locale (its description is localized). Safe to
+/** JSON-LD for a locale page (Organization, WebSite, project list). Safe to
  *  embed in <script>: "<" is escaped. */
-export function organizationJsonLd(locale: Locale): string {
-  const meta = COPY[locale].meta;
-  return JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    description: meta.description,
-    email: SITE.email,
-    logo: `${SITE.url}/icon-512.png`,
-    name: SITE.name,
-    sameAs: [SITE.github],
-    url: `${SITE.url}/`,
-  }).replace(/</g, "\\u003c");
+export function pageJsonLd(locale: Locale): string {
+  return structuredData(locale, PROJECTS);
 }
 
 /** locale별 SEO head 마크업 생성 — 프리렌더 시 index.html의 <!--app-head-->에 주입 */
@@ -54,7 +46,7 @@ export function buildHead(locale: Locale): string {
   const description = escapeHtml(fields.description);
   const { ogAltLocale, ogLocale, url } = fields;
   const ogImage = `${SITE.url}/og.png`;
-  const jsonLd = organizationJsonLd(locale);
+  const jsonLd = pageJsonLd(locale);
   return [
     `<title>${title}</title>`,
     `<meta content="${description}" name="description" />`,
