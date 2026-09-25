@@ -13,6 +13,8 @@ const checks = [
   ],
   ["dist/index.html", 'content="summary_large_image"'],
   ["dist/index.html", 'rel="manifest"'],
+  // Naver Search Advisor ownership (HTML tag method)
+  ["dist/index.html", 'naver-site-verification'],
   ["dist/index.html", "static.cloudflareinsights.com/beacon.min.js"],
   ["dist/ko/index.html", '<html lang="ko">'],
   ["dist/ko/index.html", "기분 좋은 비명입니다."],
