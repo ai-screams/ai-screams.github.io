@@ -33,3 +33,8 @@ updates:
       prefix: "chore(ci):"
     labels:
       - "ci"
+    groups:
+      # One monthly PR for all actions, so the PR limit can't block newer bumps
+      github-actions:
+        patterns:
+          - "*"
