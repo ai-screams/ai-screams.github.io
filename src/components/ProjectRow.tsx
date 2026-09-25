@@ -46,7 +46,7 @@ export default function ProjectRow({
         {project.visual?.type === "image" ? (
           <img
             alt={project.visual.alt}
-            className="relative z-[1] max-h-[70%] max-w-[64%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-[1.04]"
+            className={`relative z-[1] max-h-[70%] max-w-[64%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-[1.04] ${project.visual.pixelated ? "[image-rendering:pixelated]" : ""}`}
             height={project.visual.height}
             loading="lazy"
             src={project.visual.src}

@@ -56,12 +56,13 @@ npm run lint         # ESLint
 
 ## Projects
 
-| #   | Project                                            | What it is                                                     |
-| --- | -------------------------------------------------- | -------------------------------------------------------------- |
-| 01  | [scoop-uv](https://github.com/ai-screams/scoop-uv) | 🍨 Centralized Python venv manager — pyenv comfort at uv speed |
-| 02  | [howl](https://github.com/ai-screams/howl)         | ⚡ Blazing-fast Go statusline HUD for Claude Code              |
-| 03  | [Azimuth](https://github.com/ai-screams/Azimuth)   | 🧭 Keyboard-driven macOS window manager                        |
-| 04  | [HwpForge](https://github.com/ai-screams/HwpForge) | 🔥 Rust library for Korean HWPX documents, with an MCP server  |
+| #   | Project                                    | What it is                                                     |
+| --- | ------------------------------------------ | -------------------------------------------------------------- |
+| 01  | [scoop-uv](https://ai-scream.ai/scoop-uv/) | 🍨 Centralized Python venv manager — pyenv comfort at uv speed |
+| 02  | [Howl](https://ai-scream.ai/Howl/)         | ⚡ Blazing-fast Go statusline HUD for Claude Code              |
+| 03  | [Azimuth](https://ai-scream.ai/Azimuth/)   | 🧭 Keyboard-driven macOS window manager                        |
+| 04  | [HwpForge](https://ai-scream.ai/HwpForge/) | 🔥 Rust library for Korean HWPX documents, with an MCP server  |
+| 05  | [Mara](https://ai-scream.ai/Mara/)         | 👁️ Keep-awake menu bar app for macOS                           |
 
 ---
 
