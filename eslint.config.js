@@ -86,4 +86,10 @@ export default defineConfig([
       ],
     },
   },
+
+  // SSR entry is only loaded by scripts/prerender.mjs, never hot-reloaded
+  {
+    files: ["src/entry-server.tsx"],
+    rules: { "react-refresh/only-export-components": "off" },
+  },
 ]);
