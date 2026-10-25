@@ -78,7 +78,7 @@ export const PROJECTS: Project[] = [
     name: "Azimuth",
     tags: ["SWIFT", "MACOS"],
     visual: {
-      alt: "Azimuth app icon — a compass needle over a window grid",
+      alt: "Azimuth app icon — a window inside a compass dial with an orange north mark",
       height: 512,
       src: "/projects/azimuth.webp",
       type: "image",
